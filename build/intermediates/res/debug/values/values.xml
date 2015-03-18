@@ -47,7 +47,7 @@
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="app_name">Suiuu</string>
-    <string name="area">地区</string>
+    <string name="areas">地区</string>
     <string name="attention">关注</string>
     <string name="blankArea">暂无地区</string>
     <string name="blankNickName">暂无称呼</string>
@@ -62,7 +62,7 @@
     <string name="sendMsg">M</string>
     <string name="sendNewPost">发布新帖子</string>
     <string name="signature">个性签名</string>
-    <string name="theme">主题</string>
+    <string name="themes">主题</string>
     <string name="thirdParty">绑定的第三方账号</string>
     <string name="title1">主页</string>
     <string name="title2">圈子</string>

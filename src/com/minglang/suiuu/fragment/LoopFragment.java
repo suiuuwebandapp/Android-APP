@@ -1,26 +1,51 @@
 package com.minglang.suiuu.fragment;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.LoopFragmentPagerAdapter;
+
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class LoopFragment extends Fragment {
 
-    private Button themeBtn, areaBtn;
+    private TextView title1, title2;
+
+    private ImageView sliderView;
+
+    private ViewPager loopViewPager;
 
     private FragmentManager fm;
 
     private ThemeFragment themeFragment;
 
     private AreaFragment areaFragment;
+
+    private ArrayList<Fragment> fragments;
+
+    private LoopFragmentPagerAdapter lfpAdapter;
+
+    private int currIndex = 1;// 当前页卡编号
+
+    private int sliderViewWidth;//图片宽度
+
+    private int tabWidth;// 每个tab头的宽度
+
+    private int offsetX;//偏移量
 
     @SuppressLint("InflateParams")
     @Override
@@ -35,82 +60,95 @@ public class LoopFragment extends Fragment {
         return rootView;
     }
 
+
     private void ViewAction() {
-        themeBtn.setOnClickListener(new MyClick());
-        areaBtn.setOnClickListener(new MyClick());
+
+        title1.setOnClickListener(new TitleOnClick(0));
+        title2.setOnClickListener(new TitleOnClick(1));
+
+        loopViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i2) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+                if (sliderView.getVisibility() == View.INVISIBLE) {
+                    sliderView.setVisibility(View.VISIBLE);
+                }
+
+                Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
+                currIndex = i;
+                anim.setFillAfter(true);
+                anim.setDuration(200);
+                sliderView.startAnimation(anim);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     private void initView(View rootView) {
 
-        themeBtn = (Button) rootView.findViewById(R.id.themeButton);
-        areaBtn = (Button) rootView.findViewById(R.id.areaButton);
+        title1 = (TextView) rootView.findViewById(R.id.theme_title);
+        title2 = (TextView) rootView.findViewById(R.id.area_title);
 
-        fm = getFragmentManager();
+        sliderView = (ImageView) rootView.findViewById(R.id.slideerView);
+        sliderView.setVisibility(View.INVISIBLE);
+
+        loopViewPager = (ViewPager) rootView.findViewById(R.id.loopViewPager);
 
         themeFragment = new ThemeFragment();
         areaFragment = new AreaFragment();
 
-        LoadDefaultFragment();
+        fm = getFragmentManager();
+
+        fragments = new ArrayList<Fragment>();
+        fragments.add(themeFragment);
+        fragments.add(areaFragment);
+
+        lfpAdapter = new LoopFragmentPagerAdapter(fm, fragments);
+
+        loopViewPager.setAdapter(lfpAdapter);
+
+        initImageView();
     }
 
-    private void LoadDefaultFragment() {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.loadLayout, themeFragment);
-        ft.commit();
+    private void initImageView() {
+
+        sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();//获取图片宽度
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenW = dm.widthPixels;// 获取分辨率宽度
+
+        tabWidth = screenW / 2;
+        if (sliderViewWidth > tabWidth) {
+            sliderView.getLayoutParams().width = tabWidth;
+            sliderViewWidth = tabWidth;
+        }
+
+        offsetX = (tabWidth - sliderViewWidth) / 2;
+
     }
 
 
-    class MyClick implements View.OnClickListener {
+    class TitleOnClick implements View.OnClickListener {
+
+        private int index;
+
+        public TitleOnClick(int index) {
+            this.index = index;
+        }
+
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.themeButton:
-
-                    FragmentTransaction ft1 = fm.beginTransaction();
-
-                    if (areaFragment != null) {
-                        if (areaFragment.isAdded()) {
-                            ft1.hide(areaFragment);
-                        }
-                    }
-
-                    if (themeFragment == null) {
-                        themeFragment = new ThemeFragment();
-                    }
-
-                    if (themeFragment.isAdded()) {
-                        ft1.show(themeFragment);
-                    } else {
-                        ft1.add(R.id.loadLayout, themeFragment);
-                    }
-
-                    ft1.commit();
-
-                    break;
-                case R.id.areaButton:
-
-                    FragmentTransaction ft2 = fm.beginTransaction();
-
-                    if (themeFragment != null) {
-                        if (themeFragment.isAdded()) {
-                            ft2.hide(themeFragment);
-                        }
-                    }
-
-                    if (areaFragment == null) {
-                        areaFragment = AreaFragment.newInstance("a", "b");
-                    }
-
-                    if (areaFragment.isAdded()) {
-                        ft2.show(areaFragment);
-                    } else {
-                        ft2.add(R.id.loadLayout, areaFragment);
-                    }
-
-                    ft2.commit();
-
-                    break;
-            }
+            loopViewPager.setCurrentItem(index);
         }
     }
+
 }

@@ -56,13 +56,14 @@ public final class R {
     public static final class drawable {
         public static final int ic_drawer=0x7f020000;
         public static final int ic_launcher=0x7f020001;
+        public static final int slider=0x7f020002;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f09002c;
         public static final int action_settings=0x7f090038;
-        public static final int areaButton=0x7f090030;
         public static final int areaInfo=0x7f09001d;
         public static final int areaList=0x7f09002a;
+        public static final int area_title=0x7f09002f;
         public static final int drawerLayout=0x7f090000;
         public static final int drawerList=0x7f090017;
         public static final int drawerSwitch=0x7f090002;
@@ -72,8 +73,7 @@ public final class R {
         public static final int img2=0x7f09000a;
         public static final int img3=0x7f09000e;
         public static final int img4=0x7f090011;
-        public static final int linearLayout=0x7f09002e;
-        public static final int loadLayout=0x7f090031;
+        public static final int loopViewPager=0x7f090031;
         public static final int mainPageListView=0x7f090033;
         public static final int nickName=0x7f090016;
         public static final int nickNameInfo=0x7f09001b;
@@ -85,6 +85,7 @@ public final class R {
         public static final int showLayout=0x7f090004;
         public static final int signtureInfo=0x7f09001f;
         public static final int slideLayout=0x7f090013;
+        public static final int slideerView=0x7f090030;
         public static final int tab1=0x7f090006;
         public static final int tab2=0x7f090009;
         public static final int tab3=0x7f09000d;
@@ -107,8 +108,8 @@ public final class R {
         public static final int textView7=0x7f09001a;
         public static final int textView8=0x7f09001e;
         public static final int textView9=0x7f09001c;
-        public static final int themeButton=0x7f09002f;
         public static final int themeList=0x7f090036;
+        public static final int theme_title=0x7f09002e;
         public static final int title1=0x7f090008;
         public static final int title2=0x7f09000b;
         public static final int title3=0x7f09000f;
@@ -135,7 +136,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060000;
         public static final int app_name=0x7f060001;
-        public static final int area=0x7f060002;
+        public static final int areas=0x7f060002;
         public static final int attention=0x7f060003;
         public static final int blankArea=0x7f060004;
         public static final int blankNickName=0x7f060005;
@@ -150,7 +151,7 @@ public final class R {
         public static final int sendMsg=0x7f06000e;
         public static final int sendNewPost=0x7f06000f;
         public static final int signature=0x7f060010;
-        public static final int theme=0x7f060011;
+        public static final int themes=0x7f060011;
         public static final int thirdParty=0x7f060012;
         public static final int title1=0x7f060013;
         public static final int title2=0x7f060014;

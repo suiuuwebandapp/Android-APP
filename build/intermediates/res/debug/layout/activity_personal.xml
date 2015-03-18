@@ -61,7 +61,7 @@
                         <TextView
                             android:id="@+id/textView9"
                             style="@style/personalInfoStyle"
-                            android:text="@string/area" />
+                            android:text="@string/areas" />
 
                         <TextView
                             android:id="@+id/areaInfo"

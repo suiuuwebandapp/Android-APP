@@ -1,9 +1,9 @@
 package com.minglang.suiuu.activity;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -26,7 +26,7 @@ import com.minglang.suiuu.fragment.LoopFragment;
 import com.minglang.suiuu.fragment.MainFragment;
 import com.minglang.suiuu.fragment.RouteFragment;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     private static final String[] TITLE = {"收藏", "关注", "新提醒", "粉丝", "设置", "退出"};
 
@@ -343,7 +343,7 @@ public class MainActivity extends Activity {
         mListView = (ListView) findViewById(R.id.drawerList);
         mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TITLE));
 
-        fm = getFragmentManager();
+        fm = getSupportFragmentManager();
 
         mainFragment = new MainFragment();
 

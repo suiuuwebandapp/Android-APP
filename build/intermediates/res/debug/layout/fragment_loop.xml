@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/themeButton"
+        <TextView
+            android:id="@+id/theme_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_weight="0.2"
-            android:text="@string/theme" />
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/themes"
+            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/areaButton"
+        <TextView
+            android:id="@+id/area_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="100dp"
-            android:layout_weight="0.2"
-            android:text="@string/area" />
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/areas"
+            android:textSize="18sp" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/loadLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"></FrameLayout>
-
-    <TextView
+    <ImageView
+        android:id="@+id/slideerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="LoopFragment"
+        android:scaleType="matrix"
+        android:src="@drawable/slider" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/loopViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+    <TextView
         android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/loadLayout" />
-</RelativeLayout>
+        android:text="LoopFragment"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+</LinearLayout>
 <!-- From: file:/D:/Android/Project2/Suiuu/res/layout/fragment_loop.xml -->
