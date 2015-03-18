@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Android\Project2\Suiuu\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
+        <dex dex="D:\Android\Project2\Suiuu\build\intermediates\pre-dexed\debug\android-support-v4-7880722bc7181062ec4f2c8a3e55c6f4aa766349.jar" />
+    </item>
+
+</items>
