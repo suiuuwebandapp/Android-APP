@@ -8,11 +8,11 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
-    <android:uses-permission
+    <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
@@ -23,7 +23,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.minglang.suiuu.activity.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,11 +33,33 @@
         </activity>
         <activity
             android:name="com.minglang.suiuu.activity.SendPostActivity_One"
-            android:label="@string/title_activity_send_post_activity__one" >
-        </activity>
+            android:label="@string/title_activity_send_post_activity__one"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name="com.minglang.suiuu.activity.PersonalActivity"
-            android:label="@string/title_activity_personal" >
+            android:label="@string/title_activity_personal"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name="com.minglang.suiuu.activity.AttentionActivity"
+            android:label="@string/title_activity_attention"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name="com.minglang.suiuu.activity.CollectionActivity"
+            android:label="@string/title_activity_collection"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name="com.minglang.suiuu.activity.FansActivity"
+            android:label="@string/title_activity_fans"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name="com.minglang.suiuu.activity.SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.minglang.suiuu.activity.PersonSettingActivity"
+            android:label="@string/title_activity_person_setting"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
     </application>
 

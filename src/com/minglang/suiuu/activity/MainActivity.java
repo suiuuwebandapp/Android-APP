@@ -26,11 +26,12 @@ import com.minglang.suiuu.fragment.LoopFragment;
 import com.minglang.suiuu.fragment.MainFragment;
 import com.minglang.suiuu.fragment.RouteFragment;
 
+/**
+ * 应用程序主界面
+ */
 public class MainActivity extends FragmentActivity {
 
     private static final String[] TITLE = {"收藏", "关注", "新提醒", "粉丝", "设置", "退出"};
-
-    private ActionBar actionBar;
 
     private DrawerLayout mDrawerLayout;
 
@@ -116,6 +117,7 @@ public class MainActivity extends FragmentActivity {
                     case R.id.nickName:
                         Intent nickIntent = new Intent(MainActivity.this, PersonalActivity.class);
                         startActivity(nickIntent);
+                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
 
                     case R.id.tab1:
@@ -160,16 +162,33 @@ public class MainActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mDrawerLayout.closeDrawer(slideLayout);
                 switch (position) {
+                    //收藏
                     case 0:
+                        Intent intent0 = new Intent(MainActivity.this, CollectionActivity.class);
+                        startActivity(intent0);
+                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
+                    //关注
                     case 1:
+                        Intent intent1 = new Intent(MainActivity.this, AttentionActivity.class);
+                        startActivity(intent1);
+                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
+                    //新提醒
                     case 2:
                         break;
+                    //粉丝
                     case 3:
+                        Intent intent3 = new Intent(MainActivity.this, FansActivity.class);
+                        startActivity(intent3);
+                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
+                    //设置
                     case 4:
+                        Intent intent4 = new Intent(MainActivity.this,SettingActivity.class);
+                        startActivity(intent4);
                         break;
+                    //退出
                     case 5:
                         break;
 
@@ -319,8 +338,6 @@ public class MainActivity extends FragmentActivity {
      * 初始化方法
      */
     private void initView() {
-        actionBar = getActionBar();
-        actionBar.hide();
 
         titleInfo = (TextView) findViewById(R.id.titleInfo);
 
