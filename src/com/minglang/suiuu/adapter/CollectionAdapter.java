@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LZY on 2015/3/19 0019.
@@ -13,9 +14,9 @@ public class CollectionAdapter extends FragmentPagerAdapter {
 
     private FragmentManager fm;
 
-    private ArrayList<Fragment> list;
+    private List<Fragment> list;
 
-    public CollectionAdapter(FragmentManager fm, ArrayList<Fragment> list) {
+    public CollectionAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
         this.list = list;
     }

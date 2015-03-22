@@ -21,6 +21,7 @@ import com.minglang.suiuu.fragment.CollectionLoopFragment;
 import com.minglang.suiuu.fragment.CollectionRouteFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 收藏页面
@@ -54,7 +55,7 @@ public class CollectionActivity extends FragmentActivity {
 
     private ViewPager collectionPager;
 
-    private ArrayList<Fragment> collectionList;
+    private List<Fragment> collectionList;
 
     private CollectionLoopFragment collectionLoopFragment;
 
@@ -144,7 +145,7 @@ public class CollectionActivity extends FragmentActivity {
 
         collectionPager = (ViewPager) findViewById(R.id.collectionPager);
 
-        collectionList = new ArrayList<Fragment>();
+        collectionList = new ArrayList<>();
 
         collectionLoopFragment = CollectionLoopFragment.newInstance("a", "b");
         collectionRouteFragment = CollectionRouteFragment.newInstance("c", "d");
@@ -172,28 +173,6 @@ public class CollectionActivity extends FragmentActivity {
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_collection, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     class CollectionClick implements View.OnClickListener {

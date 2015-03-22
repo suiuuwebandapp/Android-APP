@@ -5,15 +5,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LZY on 2015/3/18 0018.
  */
 public class AttentionPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<Fragment> list;
+    private List<Fragment> list;
 
-    public AttentionPagerAdapter(FragmentManager fm, ArrayList<Fragment> list) {
+    public AttentionPagerAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
         this.list = list;
     }

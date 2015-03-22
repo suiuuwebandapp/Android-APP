@@ -31,6 +31,7 @@
     <string name="route">路线</string>
 
     <string name="attention">关注</string>
+	<string name="MyAttention">我的关注</string>
 
     <string name="fans">粉丝</string>
     <string name="thirdParty">绑定的第三方账号</string>
@@ -40,6 +41,8 @@
     <string name="personalSetting">个人设置</string>
 
     <string name="clickHead">点击修改头像</string>
+
+    <string name="personalInfo">个人信息</string>
 
     <string name="nickname_hint">请输入您的昵称</string>
     <string name="Location_hint">请输入您的所在地</string>
@@ -57,5 +60,7 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_person_setting">PersonSettingActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_my_attention">MyAttentionActivity</string>
+    <string name="title_activity_head_image">HeadImageActivity</string>
 
 </resources>

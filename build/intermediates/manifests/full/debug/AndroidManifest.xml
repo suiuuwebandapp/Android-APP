@@ -22,8 +22,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.minglang.suiuu.activity.MainActivity"
-            android:label="@string/app_name"
+            android:name="com.minglang.suiuu.activity.LoginActivity"
+            android:label="@string/title_activity_login"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.minglang.suiuu.activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name="com.minglang.suiuu.activity.SendPostActivity_One"
             android:label="@string/title_activity_send_post_activity__one"
@@ -54,12 +58,14 @@
         <activity
             android:name="com.minglang.suiuu.activity.SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
-        </activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name="com.minglang.suiuu.activity.PersonSettingActivity"
             android:label="@string/title_activity_person_setting"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name="com.minglang.suiuu.activity.MyAttentionActivity"
+            android:label="@string/title_activity_my_attention" >
         </activity>
     </application>
 

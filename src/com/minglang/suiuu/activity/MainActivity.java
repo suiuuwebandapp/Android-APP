@@ -1,6 +1,5 @@
 package com.minglang.suiuu.activity;
 
-import android.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -44,7 +43,15 @@ public class MainActivity extends FragmentActivity {
 
     private ImageView drawerSwitch;
 
+    /**
+     * 点击修改昵称
+     */
     private TextView nickNameView;
+
+    /**
+     * 点击修改头像
+     */
+    private ImageView headImage;
 
     /**
      * 各个Tab页
@@ -114,6 +121,9 @@ public class MainActivity extends FragmentActivity {
                         }
                         break;
 
+                    case R.id.headImage:
+                        break;
+
                     case R.id.nickName:
                         Intent nickIntent = new Intent(MainActivity.this, PersonalActivity.class);
                         startActivity(nickIntent);
@@ -150,6 +160,8 @@ public class MainActivity extends FragmentActivity {
 
         nickNameView.setOnClickListener(click);
 
+        headImage.setOnClickListener(click);
+
         tab1.setOnClickListener(click);
         tab2.setOnClickListener(click);
         tab3.setOnClickListener(click);
@@ -185,7 +197,7 @@ public class MainActivity extends FragmentActivity {
                         break;
                     //设置
                     case 4:
-                        Intent intent4 = new Intent(MainActivity.this,SettingActivity.class);
+                        Intent intent4 = new Intent(MainActivity.this, SettingActivity.class);
                         startActivity(intent4);
                         break;
                     //退出
@@ -345,6 +357,8 @@ public class MainActivity extends FragmentActivity {
 
         nickNameView = (TextView) findViewById(R.id.nickName);
 
+        headImage = (ImageView) findViewById(R.id.headImage);
+        
         tab1 = (LinearLayout) findViewById(R.id.tab1);
         tab2 = (LinearLayout) findViewById(R.id.tab2);
         tab3 = (LinearLayout) findViewById(R.id.tab3);
@@ -377,22 +391,4 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

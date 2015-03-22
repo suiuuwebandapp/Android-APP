@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoopFragment extends Fragment {
 
@@ -35,7 +36,7 @@ public class LoopFragment extends Fragment {
 
     private AreaFragment areaFragment;
 
-    private ArrayList<Fragment> fragments;
+    private List<Fragment> fragments;
 
     private LoopFragmentPagerAdapter lfpAdapter;
 
@@ -108,7 +109,7 @@ public class LoopFragment extends Fragment {
 
         fm = getFragmentManager();
 
-        fragments = new ArrayList<Fragment>();
+        fragments = new ArrayList<>();
         fragments.add(themeFragment);
         fragments.add(areaFragment);
 

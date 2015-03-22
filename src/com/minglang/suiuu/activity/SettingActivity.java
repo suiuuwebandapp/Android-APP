@@ -3,8 +3,6 @@ package com.minglang.suiuu.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,9 +13,9 @@ import com.minglang.suiuu.R;
 
 public class SettingActivity extends Activity {
 
-    private static final String[] SETTINGARRAY = {"个人设置", "通用设置", "检查更新", "反馈", "关于"};
+    private static final String[] SETTINGS = {"个人设置", "通用设置", "检查更新", "反馈", "关于"};
 
-    private ImageView setttingBack;
+    private ImageView settingBack;
 
     private ListView settingList;
 
@@ -34,7 +32,7 @@ public class SettingActivity extends Activity {
 
     private void ViewAction() {
 
-        setttingBack.setOnClickListener(new View.OnClickListener() {
+        settingBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -68,32 +66,11 @@ public class SettingActivity extends Activity {
      */
     private void initView() {
 
-        setttingBack = (ImageView) findViewById(R.id.settingBack);
+        settingBack = (ImageView) findViewById(R.id.settingBack);
         settingList = (ListView) findViewById(R.id.settingList);
 
-        settingList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SETTINGARRAY));
+        settingList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, SETTINGS));
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_setting, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

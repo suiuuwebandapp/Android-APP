@@ -1,15 +1,12 @@
 package com.minglang.suiuu.activity;
 
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -22,6 +19,7 @@ import com.minglang.suiuu.fragment.AttentionThemeFragment;
 import com.minglang.suiuu.fragment.AttentionUserFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 关注页面
@@ -34,7 +32,7 @@ public class AttentionActivity extends FragmentActivity {
 
     private TextView attentionThemeTitle, attentionUserTitle;
 
-    private ArrayList<Fragment> fragmentList;
+    private List<Fragment> fragmentList;
 
     private FragmentManager fm;
 
@@ -99,8 +97,8 @@ public class AttentionActivity extends FragmentActivity {
             }
         });
 
-        attentionThemeTitle.setOnClickListener(new AttenClick(0));
-        attentionUserTitle.setOnClickListener(new AttenClick(1));
+        attentionThemeTitle.setOnClickListener(new AttentionClick(0));
+        attentionUserTitle.setOnClickListener(new AttentionClick(1));
 
     }
 
@@ -119,7 +117,7 @@ public class AttentionActivity extends FragmentActivity {
         attentionThemeTitle = (TextView) findViewById(R.id.attention_theme_title);
         attentionUserTitle = (TextView) findViewById(R.id.attention_user_title);
 
-        fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<>();
 
         fm = getSupportFragmentManager();
 
@@ -151,33 +149,11 @@ public class AttentionActivity extends FragmentActivity {
         offsetX = (tabWidth - sliderViewWidth) / 2;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_attention, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    class AttenClick implements View.OnClickListener {
+    class AttentionClick implements View.OnClickListener {
 
         private int index;
 
-        public AttenClick(int index) {
+        public AttentionClick(int index) {
             this.index = index;
         }
 
