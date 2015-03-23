@@ -22,6 +22,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 圈子页面
+ */
 public class LoopFragment extends Fragment {
 
     private TextView title1, title2;
@@ -109,7 +112,7 @@ public class LoopFragment extends Fragment {
 
         fm = getFragmentManager();
 
-        fragments = new ArrayList<>();
+        fragments = new ArrayList<Fragment>();
         fragments.add(themeFragment);
         fragments.add(areaFragment);
 

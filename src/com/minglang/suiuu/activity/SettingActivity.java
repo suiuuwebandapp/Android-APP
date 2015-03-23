@@ -11,6 +11,9 @@ import android.widget.ListView;
 
 import com.minglang.suiuu.R;
 
+/**
+ * 设置页面
+ */
 public class SettingActivity extends Activity {
 
     private static final String[] SETTINGS = {"个人设置", "通用设置", "检查更新", "反馈", "关于"};
@@ -69,7 +72,7 @@ public class SettingActivity extends Activity {
         settingBack = (ImageView) findViewById(R.id.settingBack);
         settingList = (ListView) findViewById(R.id.settingList);
 
-        settingList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, SETTINGS));
+        settingList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SETTINGS));
 
     }
 

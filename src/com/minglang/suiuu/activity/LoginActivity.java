@@ -7,8 +7,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,6 +17,9 @@ import android.widget.Toast;
 
 import com.minglang.suiuu.R;
 
+/**
+ * 登录页面
+ */
 public class LoginActivity extends Activity {
 
     private Button loginBtn;

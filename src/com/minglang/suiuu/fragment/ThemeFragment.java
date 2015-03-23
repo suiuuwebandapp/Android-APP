@@ -10,6 +10,9 @@ import android.widget.ListView;
 import com.minglang.suiuu.R;
 
 /**
+ *
+ * 主题页面
+ *
  * Created by LZY on 2015/3/17 0017.
  */
 public class ThemeFragment extends Fragment {

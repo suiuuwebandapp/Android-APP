@@ -8,13 +8,9 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -65,8 +61,10 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name="com.minglang.suiuu.activity.MyAttentionActivity"
-            android:label="@string/title_activity_my_attention" >
-        </activity>
+            android:label="@string/title_activity_my_attention" />
+        <activity
+            android:name="com.minglang.suiuu.activity.HeadImageActivity"
+            android:label="@string/title_activity_head_image" />
     </application>
 
 </manifest>

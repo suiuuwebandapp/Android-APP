@@ -11,6 +11,9 @@ import android.widget.ListView;
 import com.minglang.suiuu.R;
 
 /**
+ *
+ * 地区页面
+ *
  * A simple {@link Fragment} subclass.
  * Use the {@link AreaFragment#newInstance} factory method to
  * create an instance of this fragment.

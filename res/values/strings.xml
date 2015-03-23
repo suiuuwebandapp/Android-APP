@@ -49,6 +49,12 @@
     <string name="trade_hint">请输入您的职业</string>
     <string name="signtext_hint">请输入您的个性签名</string>
 
+    <string name="NewRemind">新提醒</string>
+    <string name="newAt">新@我的</string>
+    <string name="newComment">新评论</string>
+    <string name="newReply">新回复</string>
+    <string name="newAttention">新关注</string>
+
     <string name="title_activity_send_post_activity__one">SendPostActivity_One</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -62,5 +68,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_my_attention">MyAttentionActivity</string>
     <string name="title_activity_head_image">HeadImageActivity</string>
+    <string name="title_activity_other_user">OtherUserActivity</string>
+    <string name="title_activity_new_remind">NewRemindActivity</string>
 
 </resources>

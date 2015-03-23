@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.minglang.suiuu.R;
 
-
+/**
+ * 关注用户
+ */
 public class AttentionUserFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

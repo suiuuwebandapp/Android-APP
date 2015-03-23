@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * 谈话
+ */
+
 public class ConversationFragment extends Fragment {
 
 	@SuppressLint("InflateParams")

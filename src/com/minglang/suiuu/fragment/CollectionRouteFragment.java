@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import com.minglang.suiuu.R;
 
 /**
+ *
+ * 收藏的路线
+ *
  * A simple {@link Fragment} subclass.
  * Use the {@link CollectionRouteFragment#newInstance} factory method to
  * create an instance of this fragment.

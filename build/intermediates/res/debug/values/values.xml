@@ -64,6 +64,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="nickname">昵称</string>
     <string name="nickname_hint">请输入您的昵称</string>
+    <string name="personalInfo">个人信息</string>
     <string name="personalSetting">个人设置</string>
     <string name="route">路线</string>
     <string name="sendMsg">M</string>
@@ -80,6 +81,7 @@
     <string name="title_activity_attention">AttentionActivity</string>
     <string name="title_activity_collection">CollectionActivity</string>
     <string name="title_activity_fans">FansActivity</string>
+    <string name="title_activity_head_image">HeadImageActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_my_attention">MyAttentionActivity</string>
     <string name="title_activity_person_setting">PersonSettingActivity</string>

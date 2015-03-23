@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -145,7 +143,7 @@ public class CollectionActivity extends FragmentActivity {
 
         collectionPager = (ViewPager) findViewById(R.id.collectionPager);
 
-        collectionList = new ArrayList<>();
+        collectionList = new ArrayList<Fragment>();
 
         collectionLoopFragment = CollectionLoopFragment.newInstance("a", "b");
         collectionRouteFragment = CollectionRouteFragment.newInstance("c", "d");

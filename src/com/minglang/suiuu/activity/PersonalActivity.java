@@ -7,6 +7,9 @@ import android.view.MenuItem;
 
 import com.minglang.suiuu.R;
 
+/**
+ * 个人信息
+ */
 public class PersonalActivity extends Activity {
 
     @Override

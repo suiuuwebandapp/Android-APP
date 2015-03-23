@@ -1,13 +1,17 @@
 package com.minglang.suiuu.activity;
 
+import java.io.File;
+
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -24,11 +28,16 @@ import com.minglang.suiuu.fragment.ConversationFragment;
 import com.minglang.suiuu.fragment.LoopFragment;
 import com.minglang.suiuu.fragment.MainFragment;
 import com.minglang.suiuu.fragment.RouteFragment;
+import com.minglang.suiuu.utils.AppConstant;
+import com.minglang.suiuu.utils.Utils;
+
 
 /**
  * 应用程序主界面
  */
 public class MainActivity extends FragmentActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String[] TITLE = {"收藏", "关注", "新提醒", "粉丝", "设置", "退出"};
 
@@ -88,6 +97,8 @@ public class MainActivity extends FragmentActivity {
     private ConversationFragment conversationFragment;
 
     private ListView mListView;
+    
+    private Utils utils = null;
 
     public MainActivity() {
     }
@@ -122,6 +133,7 @@ public class MainActivity extends FragmentActivity {
                         break;
 
                     case R.id.headImage:
+                    	utils.selectPicture(MainActivity.this);
                         break;
 
                     case R.id.nickName:
@@ -208,6 +220,36 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
+    }
+
+    private Uri uri =null;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if(resultCode != Activity.RESULT_OK){
+    		return;
+    	}
+    	
+		if (null == data) {
+			return;
+		}
+
+		if(requestCode==AppConstant.KITKAT_LESS){
+			uri = data.getData();
+			utils.cropPicture(MainActivity.this,uri);
+			Log.i(TAG, "Uri:"+uri.toString());
+			
+		}else if (requestCode == AppConstant.KITKAT_ABOVE) {
+			uri = data.getData();
+			String imagePath = utils.getPath(MainActivity.this, uri);
+			utils.cropPicture(MainActivity.this, Uri.fromFile(new File(imagePath)));
+			Log.i(TAG, "Uri:"+uri.toString());
+			
+		}else if (requestCode == AppConstant.INTENT_CROP) {
+			Bitmap bitmap = data.getParcelableExtra("data");
+			headImage.setImageBitmap(bitmap);
+		}
+    	
     }
 
     /**
@@ -358,7 +400,7 @@ public class MainActivity extends FragmentActivity {
         nickNameView = (TextView) findViewById(R.id.nickName);
 
         headImage = (ImageView) findViewById(R.id.headImage);
-        
+
         tab1 = (LinearLayout) findViewById(R.id.tab1);
         tab2 = (LinearLayout) findViewById(R.id.tab2);
         tab3 = (LinearLayout) findViewById(R.id.tab3);
@@ -372,13 +414,15 @@ public class MainActivity extends FragmentActivity {
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
 
         mListView = (ListView) findViewById(R.id.drawerList);
-        mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TITLE));
+        mListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, TITLE));
 
         fm = getSupportFragmentManager();
 
         mainFragment = new MainFragment();
 
         LoadDefaultFragment();
+        
+        utils = Utils.getInstance();
     }
 
     @Override

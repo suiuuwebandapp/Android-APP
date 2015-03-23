@@ -8,13 +8,9 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -65,11 +61,15 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name=".activity.MyAttentionActivity"
-            android:label="@string/title_activity_my_attention" >
+            android:label="@string/title_activity_my_attention"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name=".activity.OtherUserActivity"
+            android:label="@string/title_activity_other_user" >
         </activity>
         <activity
-            android:name=".activity.HeadImageActivity"
-            android:label="@string/title_activity_head_image" >
+            android:name=".activity.NewRemindActivity"
+            android:label="@string/title_activity_new_remind" >
         </activity>
     </application>
 

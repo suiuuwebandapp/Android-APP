@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import com.minglang.suiuu.R;
 
 /**
+ *
+ * 收藏的圈子
+ *
  * A simple {@link Fragment} subclass.
  * Use the {@link CollectionLoopFragment#newInstance} factory method to
  * create an instance of this fragment.

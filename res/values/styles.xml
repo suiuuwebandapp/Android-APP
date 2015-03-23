@@ -65,4 +65,12 @@
         <item name="android:layout_weight">0.5</item>
     </style>
 
+    <style name="newRemind">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.25</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
 </resources>

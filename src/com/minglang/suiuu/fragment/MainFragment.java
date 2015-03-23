@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+
+/**
+ * 主页面
+ */
 public class MainFragment extends Fragment {
 
     private ListView mianPageListView;

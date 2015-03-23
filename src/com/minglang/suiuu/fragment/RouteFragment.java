@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * 路线页面
+ */
 public class RouteFragment extends Fragment {
 	
 	@SuppressLint("InflateParams")

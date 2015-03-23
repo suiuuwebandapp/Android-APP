@@ -2,14 +2,15 @@ package com.minglang.suiuu.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.minglang.suiuu.R;
 
+/**
+ * 我的关注
+ */
 public class MyAttentionActivity extends Activity {
 
     private ImageView MyAttentionBack;
