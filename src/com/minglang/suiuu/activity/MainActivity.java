@@ -1,17 +1,12 @@
 package com.minglang.suiuu.activity;
 
-import java.io.File;
 
-import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -24,12 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
-import com.minglang.suiuu.fragment.ConversationFragment;
-import com.minglang.suiuu.fragment.LoopFragment;
-import com.minglang.suiuu.fragment.MainFragment;
-import com.minglang.suiuu.fragment.RouteFragment;
-import com.minglang.suiuu.utils.AppConstant;
-import com.minglang.suiuu.utils.Utils;
+import com.minglang.suiuu.fragment.main.ConversationFragment;
+import com.minglang.suiuu.fragment.main.LoopFragment;
+import com.minglang.suiuu.fragment.main.MainFragment;
+import com.minglang.suiuu.fragment.main.RouteFragment;
 
 
 /**
@@ -97,8 +90,9 @@ public class MainActivity extends FragmentActivity {
     private ConversationFragment conversationFragment;
 
     private ListView mListView;
-    
-    private Utils utils = null;
+
+//    private Utils utils = null;
+
 
     public MainActivity() {
     }
@@ -111,6 +105,7 @@ public class MainActivity extends FragmentActivity {
         initView();
 
         ViewAction();
+
     }
 
     /**
@@ -133,7 +128,7 @@ public class MainActivity extends FragmentActivity {
                         break;
 
                     case R.id.headImage:
-                    	utils.selectPicture(MainActivity.this);
+//                        utils.selectPicture(MainActivity.this);
                         break;
 
                     case R.id.nickName:
@@ -200,6 +195,8 @@ public class MainActivity extends FragmentActivity {
                         break;
                     //新提醒
                     case 2:
+                        Intent intent2 = new Intent(MainActivity.this, NewRemindActivity.class);
+                        startActivity(intent2);
                         break;
                     //粉丝
                     case 3:
@@ -214,6 +211,7 @@ public class MainActivity extends FragmentActivity {
                         break;
                     //退出
                     case 5:
+                        finish();
                         break;
 
                 }
@@ -222,35 +220,35 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    private Uri uri =null;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	if(resultCode != Activity.RESULT_OK){
-    		return;
-    	}
-    	
-		if (null == data) {
-			return;
-		}
-
-		if(requestCode==AppConstant.KITKAT_LESS){
-			uri = data.getData();
-			utils.cropPicture(MainActivity.this,uri);
-			Log.i(TAG, "Uri:"+uri.toString());
-			
-		}else if (requestCode == AppConstant.KITKAT_ABOVE) {
-			uri = data.getData();
-			String imagePath = utils.getPath(MainActivity.this, uri);
-			utils.cropPicture(MainActivity.this, Uri.fromFile(new File(imagePath)));
-			Log.i(TAG, "Uri:"+uri.toString());
-			
-		}else if (requestCode == AppConstant.INTENT_CROP) {
-			Bitmap bitmap = data.getParcelableExtra("data");
-			headImage.setImageBitmap(bitmap);
-		}
-    	
-    }
+//    private Uri uri = null;
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode != Activity.RESULT_OK) {
+//            return;
+//        }
+//
+//        if (null == data) {
+//            return;
+//        }
+//
+//        if (requestCode == AppConstant.KITKAT_LESS) {
+//            uri = data.getData();
+//            utils.cropPicture(MainActivity.this, uri);
+//            Log.i(TAG, "Uri:" + uri.toString());
+//
+//        } else if (requestCode == AppConstant.KITKAT_ABOVE) {
+//            uri = data.getData();
+//            String imagePath = utils.getPath(MainActivity.this, uri);
+//            utils.cropPicture(MainActivity.this, Uri.fromFile(new File(imagePath)));
+//            Log.i(TAG, "Uri:" + uri.toString());
+//
+//        } else if (requestCode == AppConstant.INTENT_CROP) {
+//            Bitmap bitmap = data.getParcelableExtra("data");
+//            headImage.setImageBitmap(bitmap);
+//        }
+//
+//    }
 
     /**
      * 加载主页页面
@@ -421,8 +419,8 @@ public class MainActivity extends FragmentActivity {
         mainFragment = new MainFragment();
 
         LoadDefaultFragment();
-        
-        utils = Utils.getInstance();
+
+//        utils = Utils.getInstance();
     }
 
     @Override

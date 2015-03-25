@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.CollectionAdapter;
-import com.minglang.suiuu.fragment.CollectionLoopFragment;
-import com.minglang.suiuu.fragment.CollectionRouteFragment;
+import com.minglang.suiuu.fragment.collection.CollectionLoopFragment;
+import com.minglang.suiuu.fragment.collection.CollectionRouteFragment;
 
 import java.util.ArrayList;
 import java.util.List;

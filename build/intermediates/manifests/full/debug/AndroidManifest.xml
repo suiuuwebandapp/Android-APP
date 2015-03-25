@@ -61,10 +61,18 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name="com.minglang.suiuu.activity.MyAttentionActivity"
-            android:label="@string/title_activity_my_attention" />
+            android:label="@string/title_activity_my_attention"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.minglang.suiuu.activity.HeadImageActivity"
-            android:label="@string/title_activity_head_image" />
+            android:name="com.minglang.suiuu.activity.OtherUserActivity"
+            android:label="@string/title_activity_other_user"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.minglang.suiuu.activity.NewRemindActivity"
+            android:label="@string/title_activity_new_remind"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AttentionPagerAdapter;
-import com.minglang.suiuu.fragment.AttentionThemeFragment;
-import com.minglang.suiuu.fragment.AttentionUserFragment;
+import com.minglang.suiuu.fragment.attention.AttentionThemeFragment;
+import com.minglang.suiuu.fragment.attention.AttentionUserFragment;
 
 import java.util.ArrayList;
 import java.util.List;

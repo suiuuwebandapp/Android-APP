@@ -1,8 +1,10 @@
 package com.minglang.suiuu.activity;
 
-import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -12,12 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.NewRemindAdapter;
+import com.minglang.suiuu.fragment.remind.NewAtFragment;
+import com.minglang.suiuu.fragment.remind.NewAttentionFragment;
+import com.minglang.suiuu.fragment.remind.NewCommentFragment;
+import com.minglang.suiuu.fragment.remind.NewReplyFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 新提醒页面
  */
 
-public class NewRemindActivity extends Activity {
+public class NewRemindActivity extends FragmentActivity {
 
     private ImageView newRemindBack;
 
@@ -34,6 +44,32 @@ public class NewRemindActivity extends Activity {
     private int tabWidth;// 每个tab头的宽度
 
     private int offsetX;//偏移量
+
+    private List<Fragment> fragmentList;
+
+    private FragmentManager fm;
+
+    private NewRemindAdapter newRemindAdapter;
+
+    /**
+     * 新@页面
+     */
+    private NewAtFragment newAtFragment;
+
+    /**
+     * 新评论页面
+     */
+    private NewCommentFragment newCommentFragment;
+
+    /**
+     * 新回复页面
+     */
+    private NewReplyFragment newReplyFragment;
+
+    /**
+     * 新关注页面
+     */
+    private NewAttentionFragment newAttentionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +98,7 @@ public class NewRemindActivity extends Activity {
 
             @Override
             public void onPageSelected(int i) {
-                if(newRemindSlider.getVisibility()== View.INVISIBLE){
+                if (newRemindSlider.getVisibility() == View.INVISIBLE) {
                     newRemindSlider.setVisibility(View.VISIBLE);
                 }
 
@@ -94,7 +130,22 @@ public class NewRemindActivity extends Activity {
 
         newRemindPager = (ViewPager) findViewById(R.id.newRemindPager);
 
+        fragmentList = new ArrayList<>();
+
+        fm = getSupportFragmentManager();
+
         initImageView();
+
+        CreateFragment();
+
+        fragmentList.add(newAtFragment);
+        fragmentList.add(newCommentFragment);
+        fragmentList.add(newReplyFragment);
+        fragmentList.add(newAttentionFragment);
+
+        newRemindAdapter = new NewRemindAdapter(fm, fragmentList);
+
+        newRemindPager.setAdapter(newRemindAdapter);
     }
 
     private void initImageView() {
@@ -102,13 +153,20 @@ public class NewRemindActivity extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;// 获取分辨率宽度
-        tabWidth = screenW / 2;
+        tabWidth = screenW / 4;
         if (sliderViewWidth > tabWidth) {
             newRemindSlider.getLayoutParams().width = tabWidth;
             sliderViewWidth = tabWidth;
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
+    }
+
+    private void CreateFragment() {
+        newAtFragment = NewAtFragment.newInstance("a", "b");
+        newCommentFragment = NewCommentFragment.newInstance("c", "d");
+        newReplyFragment = NewReplyFragment.newInstance("e", "f");
+        newAttentionFragment = NewAttentionFragment.newInstance("g", "h");
     }
 
     class NewRemindClick implements View.OnClickListener {
