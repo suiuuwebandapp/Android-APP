@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -84,7 +85,12 @@
         </activity>
         <activity
             android:name=".activity.PictureSelectActivity"
-            android:label="@string/title_activity_picture_select" >
+            android:label="@string/title_activity_picture_select"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name="org.fireking.app.imagelib.widget.PicSelectActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

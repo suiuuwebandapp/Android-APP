@@ -2,11 +2,15 @@ package com.minglang.suiuu.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.minglang.suiuu.R;
-
+/**
+ * 
+ * 发帖页面
+ * 
+ * @author LZY
+ *
+ */
 public class SendPostActivity_One extends Activity {
 
     @Override

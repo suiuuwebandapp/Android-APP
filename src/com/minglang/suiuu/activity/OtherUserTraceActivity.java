@@ -124,6 +124,8 @@ public class OtherUserTraceActivity extends FragmentActivity {
         fragmentList.add(traceRouteFragment);
 
         tracePagerAdapter = new TracePagerAdapter(fm, fragmentList);
+        
+        tracePager.setAdapter(tracePagerAdapter);
 
         initImage();
     }

@@ -1,6 +1,8 @@
 package com.minglang.suiuu.activity;
 
 
+import org.fireking.app.imagelib.widget.PicSelectActivity;
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -65,7 +67,7 @@ public class MainActivity extends FragmentActivity {
      */
     private Button sendMsg;
 
-    private OnClickListener click;
+    private OnClickListener onClickListener;
 
     private FragmentManager fm;
 
@@ -93,10 +95,6 @@ public class MainActivity extends FragmentActivity {
 
 //    private Utils utils = null;
 
-
-    public MainActivity() {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +104,15 @@ public class MainActivity extends FragmentActivity {
 
         ViewAction();
 
+        findViewById(R.id.mainPagerSearch).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this,PicSelectActivity.class);
+				startActivity(intent);
+			}
+		});
+        
     }
 
     /**
@@ -113,7 +120,7 @@ public class MainActivity extends FragmentActivity {
      */
     private void ViewAction() {
 
-        click = new OnClickListener() {
+        onClickListener = new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -163,18 +170,18 @@ public class MainActivity extends FragmentActivity {
             }
         };
 
-        drawerSwitch.setOnClickListener(click);
+        drawerSwitch.setOnClickListener(onClickListener);
 
-        nickNameView.setOnClickListener(click);
+        nickNameView.setOnClickListener(onClickListener);
 
-        headImage.setOnClickListener(click);
+        headImage.setOnClickListener(onClickListener);
 
-        tab1.setOnClickListener(click);
-        tab2.setOnClickListener(click);
-        tab3.setOnClickListener(click);
-        tab4.setOnClickListener(click);
+        tab1.setOnClickListener(onClickListener);
+        tab2.setOnClickListener(onClickListener);
+        tab3.setOnClickListener(onClickListener);
+        tab4.setOnClickListener(onClickListener);
 
-        sendMsg.setOnClickListener(click);
+        sendMsg.setOnClickListener(onClickListener);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
