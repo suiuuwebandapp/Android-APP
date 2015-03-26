@@ -76,7 +76,15 @@
         <activity
             android:name=".activity.HeadImageActivity"
             android:label="@string/title_activity_head_image"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".activity.OtherUserTraceActivity"
+            android:label="@string/title_activity_other_user_trace" >
+        </activity>
+        <activity
+            android:name=".activity.PictureSelectActivity"
+            android:label="@string/title_activity_picture_select" >
         </activity>
     </application>
 

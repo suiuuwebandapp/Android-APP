@@ -73,6 +73,11 @@
             android:label="@string/title_activity_new_remind"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
+        <activity
+            android:name="com.minglang.suiuu.activity.HeadImageActivity"
+            android:label="@string/title_activity_head_image"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
     </application>
 
 </manifest>

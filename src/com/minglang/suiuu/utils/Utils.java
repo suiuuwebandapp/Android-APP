@@ -22,6 +22,16 @@ public class Utils {
 		return utils;
 	}
 
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
 	/***
 	 * 选择一张图片 图片类型，这里是image/*，当然也可以设置限制 如：image/jpeg等
 	 * 
