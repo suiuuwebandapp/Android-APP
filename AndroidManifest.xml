@@ -84,13 +84,9 @@
             android:label="@string/title_activity_other_user_trace" >
         </activity>
         <activity
-            android:name=".activity.PictureSelectActivity"
-            android:label="@string/title_activity_picture_select"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
-        </activity>
-        <activity
             android:name="org.fireking.app.imagelib.widget.PicSelectActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         </activity>
     </application>
 
