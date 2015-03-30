@@ -6,13 +6,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <RelativeLayout
             android:id="@+id/titleLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:background="@color/tr_black">
 
             <ImageView
                 android:id="@+id/drawerSwitch"
@@ -31,6 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="@string/title1"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <ImageView
@@ -39,8 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/icon_search" />
 
         </RelativeLayout>
 
@@ -48,7 +52,7 @@
             android:id="@+id/showLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/tabSelect"
+            android:layout_alignParentBottom="true"
             android:layout_below="@+id/titleLayout"></FrameLayout>
 
         <LinearLayout
@@ -56,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/slider_bg2"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -65,7 +70,7 @@
                 <ImageView
                     android:id="@+id/img1"
                     style="@style/titleImage"
-                    android:src="@drawable/ic_launcher"></ImageView>
+                    android:src="@drawable/icon_main1"></ImageView>
 
                 <TextView
                     android:id="@+id/title1"
@@ -80,7 +85,8 @@
                 <ImageView
                     android:id="@+id/img2"
                     style="@style/titleImage"
-                    android:src="@drawable/ic_launcher"></ImageView>
+
+                    android:src="@drawable/icon_loop1"></ImageView>
 
                 <TextView
                     android:id="@+id/title2"
@@ -88,13 +94,13 @@
                     android:text="@string/title2" />
             </LinearLayout>
 
-            <Button
+            <ImageView
                 android:id="@+id/sendNewMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@color/transparent"
-                android:text="@string/sendMsg" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="12.5dp"
+                android:src="@drawable/icon_edit2" />
 
             <LinearLayout
                 android:id="@+id/tab3"
@@ -103,7 +109,8 @@
                 <ImageView
                     android:id="@+id/img3"
                     style="@style/titleImage"
-                    android:src="@drawable/ic_launcher"></ImageView>
+
+                    android:src="@drawable/icon_suiuu1"></ImageView>
 
                 <TextView
                     android:id="@+id/title3"
@@ -118,13 +125,14 @@
                 <ImageView
                     android:id="@+id/img4"
                     style="@style/titleImage"
-                    android:src="@drawable/ic_launcher"></ImageView>
+                    android:src="@drawable/icon_conversation1"></ImageView>
 
                 <TextView
                     android:id="@+id/title4"
                     style="@style/titleText"
                     android:text="@string/title4" />
             </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -133,7 +141,7 @@
         android:id="@+id/slideLayout"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
-		android:layout_gravity="left"
+        android:layout_gravity="left"
         android:layout_marginTop="50dp">
 
         <LinearLayout

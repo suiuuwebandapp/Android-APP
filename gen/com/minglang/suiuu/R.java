@@ -49,6 +49,10 @@ public final class R {
         public static final int white=0x7f070004;
     }
     public static final class dimen {
+        public static final int action_button_content_margin=0x7f040004;
+        public static final int action_button_margin=0x7f040005;
+        public static final int action_button_size=0x7f040003;
+        public static final int action_menu_radius=0x7f040006;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
@@ -64,19 +68,33 @@ public final class R {
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
         public static final int navigation_drawer_width=0x7f040002;
+        public static final int sub_action_button_content_margin=0x7f040008;
+        public static final int sub_action_button_size=0x7f040007;
     }
     public static final class drawable {
-        public static final int friends_sends_pictures_no=0x7f020000;
-        public static final int friends_sends_pictures_select_icon_selected=0x7f020001;
-        public static final int friends_sends_pictures_select_icon_unselected=0x7f020002;
-        public static final int ic_del=0x7f020003;
-        public static final int ic_drawer=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int icon_addpic_focused=0x7f020006;
-        public static final int pictures_select_icon=0x7f020007;
-        public static final int slider=0x7f020008;
-        public static final int tk_photo=0x7f020009;
-        public static final int yt_btn_back_normal=0x7f02000a;
+        public static final int button_action=0x7f020000;
+        public static final int button_action_dark=0x7f020001;
+        public static final int button_action_dark_selector=0x7f020002;
+        public static final int button_action_dark_touch=0x7f020003;
+        public static final int button_action_selector=0x7f020004;
+        public static final int button_action_touch=0x7f020005;
+        public static final int button_sub_action=0x7f020006;
+        public static final int button_sub_action_dark=0x7f020007;
+        public static final int button_sub_action_dark_selector=0x7f020008;
+        public static final int button_sub_action_dark_touch=0x7f020009;
+        public static final int button_sub_action_selector=0x7f02000a;
+        public static final int button_sub_action_touch=0x7f02000b;
+        public static final int friends_sends_pictures_no=0x7f02000c;
+        public static final int friends_sends_pictures_select_icon_selected=0x7f02000d;
+        public static final int friends_sends_pictures_select_icon_unselected=0x7f02000e;
+        public static final int ic_del=0x7f02000f;
+        public static final int ic_drawer=0x7f020010;
+        public static final int ic_launcher=0x7f020011;
+        public static final int icon_addpic_focused=0x7f020012;
+        public static final int pictures_select_icon=0x7f020013;
+        public static final int slider=0x7f020014;
+        public static final int tk_photo=0x7f020015;
+        public static final int yt_btn_back_normal=0x7f020016;
     }
     public static final class id {
         public static final int AttentionBack=0x7f090001;
@@ -261,31 +279,32 @@ public final class R {
         public static final int activity_picture_select=0x7f03000d;
         public static final int activity_send_post_activity_one=0x7f03000e;
         public static final int activity_setting=0x7f03000f;
-        public static final int fragment_area=0x7f030010;
-        public static final int fragment_attention_theme=0x7f030011;
-        public static final int fragment_attention_user=0x7f030012;
-        public static final int fragment_collection_loop=0x7f030013;
-        public static final int fragment_collection_route=0x7f030014;
-        public static final int fragment_conversation=0x7f030015;
-        public static final int fragment_loop=0x7f030016;
-        public static final int fragment_main=0x7f030017;
-        public static final int fragment_new_at=0x7f030018;
-        public static final int fragment_new_attention=0x7f030019;
-        public static final int fragment_new_comment=0x7f03001a;
-        public static final int fragment_new_reply=0x7f03001b;
-        public static final int fragment_route=0x7f03001c;
-        public static final int fragment_theme=0x7f03001d;
-        public static final int fragment_trace_post=0x7f03001e;
-        public static final int fragment_trace_route=0x7f03001f;
-        public static final int item_publish=0x7f030020;
-        public static final int pop_select_list=0x7f030021;
-        public static final int popip_register=0x7f030022;
-        public static final int popup_login=0x7f030023;
-        public static final int publish=0x7f030024;
-        public static final int the_picture_selection=0x7f030025;
-        public static final int the_picture_selection_item=0x7f030026;
-        public static final int the_picture_selection_pop=0x7f030027;
-        public static final int the_picture_selection_pop_item=0x7f030028;
+        public static final int activity_test=0x7f030010;
+        public static final int fragment_area=0x7f030011;
+        public static final int fragment_attention_theme=0x7f030012;
+        public static final int fragment_attention_user=0x7f030013;
+        public static final int fragment_collection_loop=0x7f030014;
+        public static final int fragment_collection_route=0x7f030015;
+        public static final int fragment_conversation=0x7f030016;
+        public static final int fragment_loop=0x7f030017;
+        public static final int fragment_main=0x7f030018;
+        public static final int fragment_new_at=0x7f030019;
+        public static final int fragment_new_attention=0x7f03001a;
+        public static final int fragment_new_comment=0x7f03001b;
+        public static final int fragment_new_reply=0x7f03001c;
+        public static final int fragment_route=0x7f03001d;
+        public static final int fragment_theme=0x7f03001e;
+        public static final int fragment_trace_post=0x7f03001f;
+        public static final int fragment_trace_route=0x7f030020;
+        public static final int item_publish=0x7f030021;
+        public static final int pop_select_list=0x7f030022;
+        public static final int popip_register=0x7f030023;
+        public static final int popup_login=0x7f030024;
+        public static final int publish=0x7f030025;
+        public static final int the_picture_selection=0x7f030026;
+        public static final int the_picture_selection_item=0x7f030027;
+        public static final int the_picture_selection_pop=0x7f030028;
+        public static final int the_picture_selection_pop_item=0x7f030029;
     }
     public static final class menu {
         public static final int activity_main=0x7f080000;
@@ -304,6 +323,7 @@ public final class R {
         public static final int menu_picture_select=0x7f08000d;
         public static final int menu_send_post_activity_one=0x7f08000e;
         public static final int menu_setting=0x7f08000f;
+        public static final int menu_test=0x7f080010;
     }
     public static final class string {
         public static final int AllPicture=0x7f050029;
@@ -364,6 +384,7 @@ public final class R {
         public static final int title_activity_picture_select=0x7f050038;
         public static final int title_activity_send_post_activity__one=0x7f05002f;
         public static final int title_activity_setting=0x7f050030;
+        public static final int title_activity_test=0x7f050039;
         public static final int trade_hint=0x7f05001f;
     }
     public static final class style {

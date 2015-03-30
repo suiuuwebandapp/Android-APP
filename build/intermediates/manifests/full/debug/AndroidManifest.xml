@@ -96,6 +96,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.minglang.suiuu.activity.TestActivity"
+            android:label="@string/title_activity_test" >
+        </activity>
+        <activity
             android:name="org.fireking.app.imagelib.HostActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

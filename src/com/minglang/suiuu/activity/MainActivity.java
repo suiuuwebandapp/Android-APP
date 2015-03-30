@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity {
     /**
      * 跳转发送新帖子
      */
-    private Button sendMsg;
+    private ImageView sendMsg;
 
     private OnClickListener onClickListener;
 
@@ -105,14 +105,23 @@ public class MainActivity extends FragmentActivity {
         ViewAction();
 
         findViewById(R.id.mainPagerSearch).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this,PicSelectActivity.class);
-				startActivity(intent);
-			}
-		});
-        
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PicSelectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.mainPagerSearch).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
     }
 
     /**
@@ -411,7 +420,7 @@ public class MainActivity extends FragmentActivity {
         tab3 = (LinearLayout) findViewById(R.id.tab3);
         tab4 = (LinearLayout) findViewById(R.id.tab4);
 
-        sendMsg = (Button) findViewById(R.id.sendNewMessage);
+        sendMsg = (ImageView) findViewById(R.id.sendNewMessage);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
@@ -427,7 +436,7 @@ public class MainActivity extends FragmentActivity {
 
         LoadDefaultFragment();
 
-//        utils = Utils.getInstance();
+        //        utils = Utils.getInstance();
     }
 
     @Override

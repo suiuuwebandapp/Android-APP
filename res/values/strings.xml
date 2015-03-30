@@ -78,5 +78,6 @@
     <string name="title_activity_new_remind">NewRemindActivity</string>
     <string name="title_activity_other_user_trace">OtherUserTraceActivity</string>
     <string name="title_activity_picture_select">PictureSelectActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 
 </resources>

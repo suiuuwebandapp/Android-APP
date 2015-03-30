@@ -86,7 +86,11 @@
         <activity
             android:name="org.fireking.app.imagelib.widget.PicSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".activity.TestActivity"
+            android:label="@string/title_activity_test" >
         </activity>
     </application>
 
