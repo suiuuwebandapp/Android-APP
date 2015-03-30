@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/Project2/Suiuu/build/intermediates/exploded-aar/Suiuu/ImageLib/unspecified/res/values-sw720dp-land-v13/values.xml -->
+    <!-- From: file:/D:/Android/SuiuuProject/Android-APP/build/intermediates/exploded-aar/Android-APP/ImageLib/unspecified/res/values-sw720dp-land-v13/values.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">128dp</dimen>
 </resources>

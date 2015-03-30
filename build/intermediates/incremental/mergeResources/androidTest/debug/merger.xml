@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\Android\Project2\Suiuu\src\androidTest\res"/><source path="D:\Android\Project2\Suiuu\build\generated\res\rs\androidTest\debug"/><source path="D:\Android\Project2\Suiuu\build\generated\res\generated\androidTest\debug"/></dataSet><mergedItems/></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Android\SuiuuProject\Android-APP\src\androidTest\res"/><source path="D:\Android\SuiuuProject\Android-APP\build\generated\res\rs\androidTest\debug"/><source path="D:\Android\SuiuuProject\Android-APP\build\generated\res\generated\androidTest\debug"/></dataSet><mergedItems/></merger>

@@ -9,8 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -398,6 +401,17 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout.setFocusableInTouchMode(true);
 
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
+
+        ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+
+        params.width = (int)screenWidth/4*3;
+        params.height = screenHeight;
+        slideLayout.setLayoutParams(params);
 
         mListView = (ListView) findViewById(R.id.drawerList);
 

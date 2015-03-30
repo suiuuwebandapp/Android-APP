@@ -37,6 +37,7 @@
 
     <color name="tr_black">#8c211d1c</color>
     <color name="tr_withe">#E3E3E1</color>
+    <color name="tr_write2">#E5FFFFFF</color>
     <color name="textColor">#737373</color>
 
 </resources>

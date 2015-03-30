@@ -20,4 +20,4 @@
         android:button="@drawable/pictures_select_icon"
         android:visibility="gone" />
 
-</FrameLayout><!-- From: file:/D:/Android/Project2/Suiuu/ImageLib/res/layout/the_picture_selection_item.xml --><!-- From: file:/D:/Android/Project2/Suiuu/build/intermediates/exploded-aar/Suiuu/ImageLib/unspecified/res/layout/the_picture_selection_item.xml -->
+</FrameLayout><!-- From: file:/D:/Android/SuiuuProject/Android-APP/ImageLib/res/layout/the_picture_selection_item.xml --><!-- From: file:/D:/Android/SuiuuProject/Android-APP/build/intermediates/exploded-aar/Android-APP/ImageLib/unspecified/res/layout/the_picture_selection_item.xml -->

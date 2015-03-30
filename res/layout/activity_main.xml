@@ -142,7 +142,7 @@
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:layout_marginTop="50dp">
+        android:background="@color/tr_write2">
 
         <LinearLayout
             android:id="@+id/headLayout"

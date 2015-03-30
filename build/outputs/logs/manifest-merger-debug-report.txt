@@ -13,14 +13,14 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:2:11
 uses-sdk
 ADDED from AndroidManifest.xml:7:5
-MERGED from Suiuu:ImageLib:unspecified:7:5
+MERGED from Android-APP:ImageLib:unspecified:7:5
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:9:9
 	android:minSdkVersion
 		ADDED from AndroidManifest.xml:8:9
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:11:5
-MERGED from Suiuu:ImageLib:unspecified:12:5
+MERGED from Android-APP:ImageLib:unspecified:12:5
 	android:name
 		ADDED from AndroidManifest.xml:11:22
 uses-permission#android.permission.READ_PHONE_STATE
@@ -29,7 +29,7 @@ ADDED from AndroidManifest.xml:12:5
 		ADDED from AndroidManifest.xml:12:22
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:13:5
-MERGED from Suiuu:ImageLib:unspecified:11:5
+MERGED from Android-APP:ImageLib:unspecified:11:5
 	android:name
 		ADDED from AndroidManifest.xml:13:22
 uses-permission#android.permission.CAMERA
@@ -38,7 +38,7 @@ ADDED from AndroidManifest.xml:14:5
 		ADDED from AndroidManifest.xml:14:22
 application
 ADDED from AndroidManifest.xml:16:5
-MERGED from Suiuu:ImageLib:unspecified:16:5
+MERGED from Android-APP:ImageLib:unspecified:16:5
 	android:label
 		ADDED from AndroidManifest.xml:19:9
 	android:allowBackup
@@ -169,7 +169,7 @@ ADDED from AndroidManifest.xml:82:9
 		ADDED from AndroidManifest.xml:83:13
 activity#org.fireking.app.imagelib.widget.PicSelectActivity
 ADDED from AndroidManifest.xml:86:9
-MERGED from Suiuu:ImageLib:unspecified:26:9
+MERGED from Android-APP:ImageLib:unspecified:26:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:88:13
 	android:theme
@@ -183,26 +183,26 @@ ADDED from AndroidManifest.xml:91:9
 	android:name
 		ADDED from AndroidManifest.xml:92:13
 uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
-ADDED from Suiuu:ImageLib:unspecified:13:5
+ADDED from Android-APP:ImageLib:unspecified:13:5
 	android:name
-		ADDED from Suiuu:ImageLib:unspecified:13:22
+		ADDED from Android-APP:ImageLib:unspecified:13:22
 uses-permission#android.permission.INTERNET
-ADDED from Suiuu:ImageLib:unspecified:14:5
+ADDED from Android-APP:ImageLib:unspecified:14:5
 	android:name
-		ADDED from Suiuu:ImageLib:unspecified:14:22
+		ADDED from Android-APP:ImageLib:unspecified:14:22
 activity#org.fireking.app.imagelib.HostActivity
-ADDED from Suiuu:ImageLib:unspecified:20:9
+ADDED from Android-APP:ImageLib:unspecified:20:9
 	android:screenOrientation
-		ADDED from Suiuu:ImageLib:unspecified:23:13
+		ADDED from Android-APP:ImageLib:unspecified:23:13
 	android:label
-		ADDED from Suiuu:ImageLib:unspecified:22:13
+		ADDED from Android-APP:ImageLib:unspecified:22:13
 	android:theme
-		ADDED from Suiuu:ImageLib:unspecified:24:13
+		ADDED from Android-APP:ImageLib:unspecified:24:13
 	android:name
-		ADDED from Suiuu:ImageLib:unspecified:21:13
+		ADDED from Android-APP:ImageLib:unspecified:21:13
 activity#org.fireking.app.imagelib.widget.ImageBrowserActivity
-ADDED from Suiuu:ImageLib:unspecified:35:9
+ADDED from Android-APP:ImageLib:unspecified:35:9
 	android:screenOrientation
-		ADDED from Suiuu:ImageLib:unspecified:37:13
+		ADDED from Android-APP:ImageLib:unspecified:37:13
 	android:name
-		ADDED from Suiuu:ImageLib:unspecified:36:13
+		ADDED from Android-APP:ImageLib:unspecified:36:13

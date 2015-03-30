@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/Project2/Suiuu/res/values/colors.xml -->
+    <!-- From: file:/D:/Android/SuiuuProject/Android-APP/res/values/colors.xml -->
     <eat-comment/>
     <color name="bg">#203037</color>
     <color name="bg_color">#EDEDED</color>
@@ -31,12 +31,13 @@
     <color name="text_bg_color">#1d272b</color>
     <color name="tr_black">#8c211d1c</color>
     <color name="tr_withe">#E3E3E1</color>
+    <color name="tr_write2">#E5FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="viewfinder_frame">#ff000000</color>
     <color name="viewfinder_laser">#ffff0000</color>
     <color name="viewfinder_mask">#60000000</color>
     <color name="white">#FFFFFF</color>
-    <!-- From: file:/D:/Android/Project2/Suiuu/res/values/dimens.xml -->
+    <!-- From: file:/D:/Android/SuiuuProject/Android-APP/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="action_button_content_margin">16dp</dimen>
     <dimen name="action_button_margin">12dp</dimen>
@@ -47,7 +48,7 @@
     <dimen name="navigation_drawer_width">150dp</dimen>
     <dimen name="sub_action_button_content_margin">6dp</dimen>
     <dimen name="sub_action_button_size">36dp</dimen>
-    <!-- From: file:/D:/Android/Project2/Suiuu/res/values/strings.xml -->
+    <!-- From: file:/D:/Android/SuiuuProject/Android-APP/res/values/strings.xml -->
     <eat-comment/>
     <string name="AllPicture">所有图片</string>
     <string name="Location_hint">请输入您的所在地</string>
@@ -107,7 +108,7 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="trade_hint">请输入您的职业</string>
-    <!-- From: file:/D:/Android/Project2/Suiuu/res/values/styles.xml -->
+    <!-- From: file:/D:/Android/SuiuuProject/Android-APP/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
