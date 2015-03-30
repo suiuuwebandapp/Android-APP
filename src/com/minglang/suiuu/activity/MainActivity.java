@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,10 +20,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.MainSliderAdapter;
 import com.minglang.suiuu.fragment.main.ConversationFragment;
 import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,7 +37,11 @@ public class MainActivity extends FragmentActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String[] TITLE = {"收藏", "关注", "新提醒", "粉丝", "设置", "退出"};
+    private static final String[] TITLE = {"收藏", "关注", "消息", "粉丝", "设置", "退出"};
+
+    private List<String> stringList;
+
+    private MainSliderAdapter mainSliderAdapter;
 
     private DrawerLayout mDrawerLayout;
 
@@ -92,8 +99,6 @@ public class MainActivity extends FragmentActivity {
     private ConversationFragment conversationFragment;
 
     private ListView mListView;
-
-//    private Utils utils = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,13 +206,11 @@ public class MainActivity extends FragmentActivity {
                     case 0:
                         Intent intent0 = new Intent(MainActivity.this, CollectionActivity.class);
                         startActivity(intent0);
-                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
                     //关注
                     case 1:
                         Intent intent1 = new Intent(MainActivity.this, AttentionActivity.class);
                         startActivity(intent1);
-                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
                     //新提醒
                     case 2:
@@ -218,7 +221,6 @@ public class MainActivity extends FragmentActivity {
                     case 3:
                         Intent intent3 = new Intent(MainActivity.this, FansActivity.class);
                         startActivity(intent3);
-                        mDrawerLayout.closeDrawer(slideLayout);
                         break;
                     //设置
                     case 4:
@@ -235,36 +237,6 @@ public class MainActivity extends FragmentActivity {
         });
 
     }
-
-//    private Uri uri = null;
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode != Activity.RESULT_OK) {
-//            return;
-//        }
-//
-//        if (null == data) {
-//            return;
-//        }
-//
-//        if (requestCode == AppConstant.KITKAT_LESS) {
-//            uri = data.getData();
-//            utils.cropPicture(MainActivity.this, uri);
-//            Log.i(TAG, "Uri:" + uri.toString());
-//
-//        } else if (requestCode == AppConstant.KITKAT_ABOVE) {
-//            uri = data.getData();
-//            String imagePath = utils.getPath(MainActivity.this, uri);
-//            utils.cropPicture(MainActivity.this, Uri.fromFile(new File(imagePath)));
-//            Log.i(TAG, "Uri:" + uri.toString());
-//
-//        } else if (requestCode == AppConstant.INTENT_CROP) {
-//            Bitmap bitmap = data.getParcelableExtra("data");
-//            headImage.setImageBitmap(bitmap);
-//        }
-//
-//    }
 
     /**
      * 加载主页页面
@@ -428,7 +400,16 @@ public class MainActivity extends FragmentActivity {
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
 
         mListView = (ListView) findViewById(R.id.drawerList);
-        mListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, TITLE));
+
+        stringList = new ArrayList<>();
+
+        for (int i=0;i<TITLE.length;i++){
+            stringList.add(TITLE[i]);
+        }
+
+        mainSliderAdapter = new MainSliderAdapter(this,stringList);
+
+        mListView.setAdapter(mainSliderAdapter);
 
         fm = getSupportFragmentManager();
 
@@ -436,7 +417,6 @@ public class MainActivity extends FragmentActivity {
 
         LoadDefaultFragment();
 
-        //        utils = Utils.getInstance();
     }
 
     @Override
