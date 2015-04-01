@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,56 +31,69 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.SendPostActivity_One"
             android:label="@string/title_activity_send_post_activity__one"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name=".activity.PersonalActivity"
             android:label="@string/title_activity_personal"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.AttentionActivity"
             android:label="@string/title_activity_attention"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.CollectionActivity"
             android:label="@string/title_activity_collection"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.FansActivity"
             android:label="@string/title_activity_fans"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.PersonSettingActivity"
             android:label="@string/title_activity_person_setting"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.MyAttentionActivity"
             android:label="@string/title_activity_my_attention"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.OtherUserActivity"
             android:label="@string/title_activity_other_user"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".activity.NewRemindActivity"
             android:label="@string/title_activity_new_remind"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme" >
         </activity>
         <activity
             android:name=".activity.HeadImageActivity"
             android:label="@string/title_activity_head_image"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         </activity>
         <activity
             android:name=".activity.OtherUserTraceActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_other_user_trace" >
         </activity>
         <activity

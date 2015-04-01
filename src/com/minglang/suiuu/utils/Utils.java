@@ -24,9 +24,10 @@ public class Utils {
     public static Utils getInstance(Context context) {
         if (utils == null) {
             utils = new Utils(context);
+            return utils;
+        }else{
+            return utils;
         }
-
-        return utils;
     }
 
     public int dip2px(float dpValue) {
@@ -37,6 +38,24 @@ public class Utils {
     public int px2dip(float pxValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    public int getStatusHeight()
+    {
+
+        int statusHeight = -1;
+        try
+        {
+            Class<?> clazz = Class.forName("com.android.internal.R$dimen");
+            Object object = clazz.newInstance();
+            int height = Integer.parseInt(clazz.getField("status_bar_height")
+                    .get(object).toString());
+            statusHeight = context.getResources().getDimensionPixelSize(height);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return statusHeight;
     }
 
     /**

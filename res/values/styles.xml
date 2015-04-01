@@ -25,6 +25,10 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="FullBleedTheme" parent="android:Theme.Light.NoTitleBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
     <!-- 主页面Tab页TextView控件样式 -->
     <style name="titleText">
         <item name="android:textSize">16sp</item>

@@ -1,8 +1,6 @@
 package com.minglang.suiuu.activity;
 
 
-import org.fireking.app.imagelib.widget.PicSelectActivity;
-
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,12 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,6 +25,8 @@ import com.minglang.suiuu.fragment.main.ConversationFragment;
 import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
+import com.minglang.suiuu.utils.SystemBarTintManager;
+import com.minglang.suiuu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,24 +110,6 @@ public class MainActivity extends FragmentActivity {
         initView();
 
         ViewAction();
-
-        findViewById(R.id.mainPagerSearch).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PicSelectActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.mainPagerSearch).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
-                return false;
-            }
-        });
 
     }
 
@@ -382,6 +363,46 @@ public class MainActivity extends FragmentActivity {
      */
     private void initView() {
 
+        /****************设置状态栏颜色*************/
+        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setNavigationBarTintEnabled(false);
+        mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
+        /***************Activity可控制View设置padding****************/
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout.setFocusableInTouchMode(true);
+
+        int statusHeight = Utils.getInstance(this).getStatusHeight();
+
+        Log.i(TAG, "状态栏高度:" + String.valueOf(statusHeight));
+
+        mDrawerLayout.setPadding(0, statusHeight, 0, 0);
+
+        /**************HeadLayout设置Margins*****************/
+        RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
+        RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(titleLayout.getLayoutParams());
+        titleLayoutParams.setMargins(0, statusHeight, 0, 0);
+        titleLayout.setLayoutParams(titleLayoutParams);
+
+        /*************设置侧滑菜单Params**********************/
+        slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
+        slideLayout.setPadding(0, statusHeight, 0, 0);
+
+        ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+
+        params.width = screenWidth / 4 * 3;
+        slideLayout.setLayoutParams(params);
+
+        Log.i(TAG, "屏幕宽度:" + String.valueOf(screenWidth));
+        Log.i(TAG, "屏幕高度:" + String.valueOf(screenHeight));
+
+
         titleInfo = (TextView) findViewById(R.id.titleInfo);
 
         drawerSwitch = (ImageView) findViewById(R.id.drawerSwitch);
@@ -397,31 +418,15 @@ public class MainActivity extends FragmentActivity {
 
         sendMsg = (ImageView) findViewById(R.id.sendNewMessage);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerLayout.setFocusableInTouchMode(true);
-
-        slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
-
-        ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenWidth = dm.widthPixels;
-        int screenHeight = dm.heightPixels;
-
-        params.width = (int)screenWidth/4*3;
-        params.height = screenHeight;
-        slideLayout.setLayoutParams(params);
-
         mListView = (ListView) findViewById(R.id.drawerList);
 
         stringList = new ArrayList<>();
 
-        for (int i=0;i<TITLE.length;i++){
+        for (int i = 0; i < TITLE.length; i++) {
             stringList.add(TITLE[i]);
         }
 
-        mainSliderAdapter = new MainSliderAdapter(this,stringList);
+        mainSliderAdapter = new MainSliderAdapter(this, stringList);
 
         mListView.setAdapter(mainSliderAdapter);
 

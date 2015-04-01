@@ -50,4 +50,7 @@
 
     <color name="slider_line_color">#ffa93b</color>
 
+    <color name="login_bg">#baefff</color>
+
+
 </resources>

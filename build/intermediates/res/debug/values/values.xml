@@ -12,6 +12,7 @@
     <color name="header">#58567D</color>
     <color name="help_button_view">#ffcccccc</color>
     <color name="help_view">#ff404040</color>
+    <color name="login_bg">#baefff</color>
     <color name="login_bg_color">#ffa91b</color>
     <color name="mask">#40000000</color>
     <color name="mine_info_bg">#10162300</color>
@@ -131,6 +132,9 @@
         -->
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="FullBleedTheme" parent="android:Theme.Light.NoTitleBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <style name="collectionInfoStyle">

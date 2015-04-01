@@ -2,15 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.minglang.suiuu.activity.LoginActivity">
 
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/linearLayout">
+
+        <View
+            android:id="@+id/loginColorBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/login_bg"
+            android:layout_alignParentBottom="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginImageDownBG"
+            android:src="@drawable/login_down_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
 
         <Button
             android:id="@+id/loginBtn"
@@ -31,5 +58,22 @@
             style="@style/register_button_style" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loginUpLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/login_up_bg"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

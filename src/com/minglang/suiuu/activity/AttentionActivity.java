@@ -7,16 +7,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AttentionPagerAdapter;
 import com.minglang.suiuu.fragment.attention.AttentionThemeFragment;
 import com.minglang.suiuu.fragment.attention.AttentionUserFragment;
+import com.minglang.suiuu.utils.SystemBarTintManager;
+import com.minglang.suiuu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,8 @@ import java.util.List;
  * 关注页面
  */
 public class AttentionActivity extends FragmentActivity {
+
+    private static final String TAG = AttentionActivity.class.getSimpleName();
 
     /**
      * 返回键
@@ -99,7 +106,7 @@ public class AttentionActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int i) {
 
-                switch (i){
+                switch (i) {
                     case 0:
                         attentionThemeTitle.setTextColor(getResources().getColor(R.color.slider_line_color));
                         attentionUserTitle.setTextColor(getResources().getColor(R.color.textColor));
@@ -132,6 +139,16 @@ public class AttentionActivity extends FragmentActivity {
      * 初始化方法
      */
     private void initView() {
+
+        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setNavigationBarTintEnabled(false);
+        mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
+        int statusHeight = Utils.getInstance(this).getStatusHeight();
+
+        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.attentionRootLayout);
+        rootLayout.setPadding(0,statusHeight,0,0);
 
         AttentionBack = (ImageView) findViewById(R.id.AttentionBack);
 
