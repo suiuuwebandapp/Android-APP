@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/item_icon_star"/>
+        android:src="@drawable/item_icon_star2"/>
 
     <TextView
         android:layout_width="wrap_content"

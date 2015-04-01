@@ -78,4 +78,25 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <!--登陆按钮style-->
+    <style name="login_button_style">
+        <item name="android:background">@color/login_bg_color</item>
+        <item name="android:text">@string/login</item>
+        <item name="android:textColor">@color/text_color1</item>
+    </style>
+
+    <!--注册按钮style-->
+    <style name="register_button_style">
+        <item name="android:background">@color/register_bg_color</item>
+        <item name="android:text">@string/register</item>
+        <item name="android:textColor">@color/text_color1</item>
+    </style>
+
+    <style name="register_edit_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
 </resources>

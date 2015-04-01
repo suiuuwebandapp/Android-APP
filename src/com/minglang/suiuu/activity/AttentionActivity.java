@@ -26,22 +26,37 @@ import java.util.List;
  */
 public class AttentionActivity extends FragmentActivity {
 
+    /**
+     * 返回键
+     */
     private ImageView AttentionBack;
 
     private ViewPager attentionPager;
 
+    /**
+     * tab头
+     */
     private TextView attentionThemeTitle, attentionUserTitle;
 
     private List<Fragment> fragmentList;
 
     private FragmentManager fm;
 
+    /**
+     * 关注主题页面
+     */
     private AttentionThemeFragment attentionThemeFragment;
 
+    /**
+     * 关注用户页面
+     */
     private AttentionUserFragment attentionUserFragment;
 
     private AttentionPagerAdapter attentionPagerAdapter;
 
+    /**
+     * 滑块
+     */
     private ImageView attentionSliderView;
 
     private int currIndex = 1;// 当前页卡编号
@@ -63,6 +78,9 @@ public class AttentionActivity extends FragmentActivity {
 
     }
 
+    /**
+     * 控件动作
+     */
     private void ViewAction() {
 
         AttentionBack.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +98,16 @@ public class AttentionActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
-                if (attentionSliderView.getVisibility() == View.INVISIBLE) {
-                    attentionSliderView.setVisibility(View.VISIBLE);
+
+                switch (i){
+                    case 0:
+                        attentionThemeTitle.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        attentionUserTitle.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+                    case 1:
+                        attentionThemeTitle.setTextColor(getResources().getColor(R.color.textColor));
+                        attentionUserTitle.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        break;
                 }
 
                 Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
@@ -112,7 +138,6 @@ public class AttentionActivity extends FragmentActivity {
         attentionPager = (ViewPager) findViewById(R.id.attentionPager);
 
         attentionSliderView = (ImageView) findViewById(R.id.attention_sliderView);
-        attentionSliderView.setVisibility(View.INVISIBLE);
 
         attentionThemeTitle = (TextView) findViewById(R.id.attention_theme_title);
         attentionUserTitle = (TextView) findViewById(R.id.attention_user_title);

@@ -109,8 +109,17 @@ public class CollectionActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
-                if (collectionSlider.getVisibility() == View.INVISIBLE) {
-                    collectionSlider.setVisibility(View.VISIBLE);
+
+                switch (i){
+                    case 0:
+                        collectionLoop.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        collectionRoute.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+                    case 1:
+                        collectionLoop.setTextColor(getResources().getColor(R.color.textColor));
+                        collectionRoute.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        break;
+
                 }
 
                 Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
@@ -139,11 +148,10 @@ public class CollectionActivity extends FragmentActivity {
         collectionRoute = (TextView) findViewById(R.id.collectionRoute);
 
         collectionSlider = (ImageView) findViewById(R.id.collectionSlider);
-        collectionSlider.setVisibility(View.INVISIBLE);
 
         collectionPager = (ViewPager) findViewById(R.id.collectionPager);
 
-        collectionList = new ArrayList<Fragment>();
+        collectionList = new ArrayList<>();
 
         collectionLoopFragment = CollectionLoopFragment.newInstance("a", "b");
         collectionRouteFragment = CollectionRouteFragment.newInstance("c", "d");

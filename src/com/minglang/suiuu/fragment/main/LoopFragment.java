@@ -29,21 +29,37 @@ import java.util.List;
  */
 public class LoopFragment extends Fragment {
 
-    private TextView title1, title2;
+    /**
+     * tab头对象
+     */
+    private TextView title0, title1;
 
+    /**
+     * 滑块
+     */
     private ImageView sliderView;
 
     private ViewPager loopViewPager;
 
     private FragmentManager fm;
 
+    /**
+     * 主题页面
+     */
     private ThemeFragment themeFragment;
 
+    /**
+     * 地区页面
+     */
     private AreaFragment areaFragment;
 
     private List<Fragment> fragments;
 
     private LoopFragmentPagerAdapter lfpAdapter;
+
+    private DisplayMetrics dm;
+
+    private int screenW;
 
     private int currIndex = 1;// 当前页卡编号
 
@@ -69,8 +85,8 @@ public class LoopFragment extends Fragment {
 
     private void ViewAction() {
 
-        title1.setOnClickListener(new TitleOnClick(0));
-        title2.setOnClickListener(new TitleOnClick(1));
+        title0.setOnClickListener(new TitleOnClick(0));
+        title1.setOnClickListener(new TitleOnClick(1));
 
         loopViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -81,8 +97,15 @@ public class LoopFragment extends Fragment {
             @Override
             public void onPageSelected(int i) {
 
-                if (sliderView.getVisibility() == View.INVISIBLE) {
-                    sliderView.setVisibility(View.VISIBLE);
+                switch (i){
+                    case 0:
+                        title0.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        title1.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+                    case 1:
+                        title0.setTextColor(getResources().getColor(R.color.textColor));
+                        title1.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        break;
                 }
 
                 Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
@@ -99,13 +122,27 @@ public class LoopFragment extends Fragment {
         });
     }
 
+    /**
+     * 初始化方法
+     *
+     * @param rootView Fragment根View
+     */
     private void initView(View rootView) {
 
-        title1 = (TextView) rootView.findViewById(R.id.theme_title);
-        title2 = (TextView) rootView.findViewById(R.id.area_title);
+        dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        screenW = dm.widthPixels;// 获取设备宽度
+        tabWidth = screenW / 2;
+
+        title0 = (TextView) rootView.findViewById(R.id.theme_title);
+        title1 = (TextView) rootView.findViewById(R.id.area_title);
 
         sliderView = (ImageView) rootView.findViewById(R.id.slideerView);
-        sliderView.setVisibility(View.INVISIBLE);
+//        sliderView.setVisibility(View.INVISIBLE);
+        ViewGroup.LayoutParams sliderParams = sliderView.getLayoutParams();
+        sliderParams.width = tabWidth;
+        sliderView.setLayoutParams(sliderParams);
 
         loopViewPager = (ViewPager) rootView.findViewById(R.id.loopViewPager);
 
@@ -114,7 +151,7 @@ public class LoopFragment extends Fragment {
 
         fm = getFragmentManager();
 
-        fragments = new ArrayList<Fragment>();
+        fragments = new ArrayList<>();
         fragments.add(themeFragment);
         fragments.add(areaFragment);
 
@@ -128,11 +165,7 @@ public class LoopFragment extends Fragment {
     private void initImageView() {
 
         sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();//获取图片宽度
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenW = dm.widthPixels;// 获取分辨率宽度
 
-        tabWidth = screenW / 2;
         if (sliderViewWidth > tabWidth) {
             sliderView.getLayoutParams().width = tabWidth;
             sliderViewWidth = tabWidth;

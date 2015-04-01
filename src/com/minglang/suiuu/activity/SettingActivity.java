@@ -10,17 +10,25 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.SettingAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 设置页面
  */
 public class SettingActivity extends Activity {
 
-    private static final String[] SETTINGS = {"个人设置", "通用设置", "检查更新", "反馈", "关于"};
+    private static final String[] SETTINGS = {"个人设置", "通用设置", "检查更新", "联系我们", "反馈", "去评分"};
+
+    private List<String>stringList;
 
     private ImageView settingBack;
 
     private ListView settingList;
+
+    private SettingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +80,15 @@ public class SettingActivity extends Activity {
         settingBack = (ImageView) findViewById(R.id.settingBack);
         settingList = (ListView) findViewById(R.id.settingList);
 
-        settingList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SETTINGS));
+        stringList = new ArrayList<>();
+
+        for(int i=0;i<SETTINGS.length;i++){
+            stringList.add(SETTINGS[i]);
+        }
+
+        adapter = new SettingAdapter(this,stringList);
+
+        settingList.setAdapter(adapter);
 
     }
 

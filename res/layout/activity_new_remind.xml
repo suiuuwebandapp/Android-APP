@@ -9,7 +9,8 @@
     <RelativeLayout
         android:id="@+id/NewRemindHeadLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/tr_black">
 
         <TextView
             android:id="@+id/textView27"
@@ -18,6 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/NewRemind"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageView
@@ -26,32 +28,38 @@
             android:id="@+id/newRemindBack"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/back"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginBottom="2.5dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/newAt"
             style="@style/newRemind"
+            android:textColor="@color/slider_line_color"
             android:text="@string/newAt" />
 
         <TextView
             android:id="@+id/newComment"
             style="@style/newRemind"
+            android:textColor="@color/textColor"
             android:text="@string/newComment" />
 
         <TextView
             android:id="@+id/newReply"
             style="@style/newRemind"
+            android:textColor="@color/textColor"
             android:text="@string/newReply" />
 
         <TextView
             android:id="@+id/newAttention"
             style="@style/newRemind"
+            android:textColor="@color/textColor"
             android:text="@string/newAttention" />
     </LinearLayout>
 
@@ -61,6 +69,11 @@
         android:layout_height="wrap_content"
         android:scaleType="matrix"
         android:src="@drawable/slider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:background="@color/slider_line_color"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/newRemindPager"

@@ -31,16 +31,9 @@
         android:layout_height="wrap_content"
         android:text="登陆"
         android:id="@+id/popupLoginBtn"
+        style="@style/login_button_style"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/userPassword"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:id="@+id/popupTest"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

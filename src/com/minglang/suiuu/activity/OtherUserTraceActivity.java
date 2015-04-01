@@ -80,8 +80,16 @@ public class OtherUserTraceActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
-                if (traceSlider.getVisibility() == View.INVISIBLE) {
-                    traceSlider.setVisibility(View.VISIBLE);
+
+                switch (i){
+                    case 0:
+                        tracePost.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        traceRoute.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+                    case 1:
+                        tracePost.setTextColor(getResources().getColor(R.color.textColor));
+                        traceRoute.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        break;
                 }
 
                 Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
@@ -109,7 +117,6 @@ public class OtherUserTraceActivity extends FragmentActivity {
         traceRoute = (TextView) findViewById(R.id.otherUserTraceRoute);
 
         traceSlider = (ImageView) findViewById(R.id.otherUserTraceSlider);
-        traceSlider.setVisibility(View.INVISIBLE);
 
         tracePager = (ViewPager) findViewById(R.id.otherUserTracePager);
 

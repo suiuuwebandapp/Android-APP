@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/tr_black">
 
         <TextView
             android:id="@+id/OtherUserTraceName"
@@ -18,6 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="New Text"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageView
@@ -28,13 +30,16 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/back" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginBottom="2.5dp"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -44,6 +49,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/post"
+            android:textColor="@color/slider_line_color"
             android:textSize="18sp" />
 
         <TextView
@@ -53,6 +59,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/route"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -62,6 +69,11 @@
         android:layout_height="wrap_content"
         android:scaleType="matrix"
         android:src="@drawable/slider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:background="@color/slider_line_color"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/otherUserTracePager"

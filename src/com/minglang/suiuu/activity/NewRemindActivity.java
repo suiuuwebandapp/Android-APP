@@ -29,6 +29,9 @@ import java.util.List;
 
 public class NewRemindActivity extends FragmentActivity {
 
+    /**
+     * 返回键
+     */
     private ImageView newRemindBack;
 
     private TextView newAt, newComment, newReply, newAttention;
@@ -82,6 +85,9 @@ public class NewRemindActivity extends FragmentActivity {
 
     }
 
+    /**
+     * 控件动作
+     */
     private void ViewAction() {
         newRemindBack.setOnClickListener(new NewRemindClick());
 
@@ -98,8 +104,35 @@ public class NewRemindActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
-                if (newRemindSlider.getVisibility() == View.INVISIBLE) {
-                    newRemindSlider.setVisibility(View.VISIBLE);
+
+                switch (i){
+                    case 0:
+                        newAt.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        newComment.setTextColor(getResources().getColor(R.color.textColor));
+                        newReply.setTextColor(getResources().getColor(R.color.textColor));
+                        newAttention.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+
+                    case 1:
+                        newAt.setTextColor(getResources().getColor(R.color.textColor));
+                        newComment.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        newReply.setTextColor(getResources().getColor(R.color.textColor));
+                        newAttention.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+
+                    case 2:
+                        newAt.setTextColor(getResources().getColor(R.color.textColor));
+                        newComment.setTextColor(getResources().getColor(R.color.textColor));
+                        newReply.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        newAttention.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+
+                    case 3:
+                        newAt.setTextColor(getResources().getColor(R.color.textColor));
+                        newComment.setTextColor(getResources().getColor(R.color.textColor));
+                        newReply.setTextColor(getResources().getColor(R.color.textColor));
+                        newAttention.setTextColor(getResources().getColor(R.color.slider_line_color));
+                        break;
                 }
 
                 Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
@@ -117,6 +150,9 @@ public class NewRemindActivity extends FragmentActivity {
         });
     }
 
+    /**
+     * 初始化方法
+     */
     private void initView() {
         newRemindBack = (ImageView) findViewById(R.id.newRemindBack);
 
@@ -126,7 +162,6 @@ public class NewRemindActivity extends FragmentActivity {
         newAttention = (TextView) findViewById(R.id.newAttention);
 
         newRemindSlider = (ImageView) findViewById(R.id.newRemindSlider);
-        newRemindSlider.setVisibility(View.INVISIBLE);
 
         newRemindPager = (ViewPager) findViewById(R.id.newRemindPager);
 

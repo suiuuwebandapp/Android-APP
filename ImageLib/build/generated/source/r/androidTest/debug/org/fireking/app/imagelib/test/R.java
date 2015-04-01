@@ -21,9 +21,10 @@ public final class R {
         public static final int ic_del=0x7f020003;
         public static final int ic_launcher=0x7f020004;
         public static final int icon_addpic_focused=0x7f020005;
-        public static final int pictures_select_icon=0x7f020006;
-        public static final int tk_photo=0x7f020007;
-        public static final int yt_btn_back_normal=0x7f020008;
+        public static final int main_icon=0x7f020006;
+        public static final int pictures_select_icon=0x7f020007;
+        public static final int tk_photo=0x7f020008;
+        public static final int yt_btn_back_normal=0x7f020009;
     }
     public static final class id {
         public static final int album=0x7f08000a;

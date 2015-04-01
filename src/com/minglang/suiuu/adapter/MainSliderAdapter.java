@@ -74,27 +74,27 @@ public class MainSliderAdapter extends BaseAdapter {
         switch (str) {
 
             case "收藏":
-                holder.icon.setImageResource(R.drawable.item_icon_star);
+                holder.icon.setImageResource(R.drawable.item_icon_star2);
                 break;
 
             case "关注":
-                holder.icon.setImageResource(R.drawable.item_icon_attention);
+                holder.icon.setImageResource(R.drawable.item_icon_attention2);
                 break;
 
             case "消息":
-                holder.icon.setImageResource(R.drawable.item_icon_infomation);
+                holder.icon.setImageResource(R.drawable.item_icon_infomation2);
                 break;
 
             case "粉丝":
-                holder.icon.setImageResource(R.drawable.item_icon_fans);
+                holder.icon.setImageResource(R.drawable.item_icon_fans2);
                 break;
 
             case "设置":
-                holder.icon.setImageResource(R.drawable.item_icon_setting);
+                holder.icon.setImageResource(R.drawable.item_icon_setting2);
                 break;
 
             case "退出":
-                holder.icon.setImageResource(R.drawable.item_icon_exit);
+                holder.icon.setImageResource(R.drawable.item_icon_exit2);
                 break;
         }
 

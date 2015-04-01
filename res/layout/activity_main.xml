@@ -70,7 +70,7 @@
                 <ImageView
                     android:id="@+id/img1"
                     style="@style/titleImage"
-                    android:src="@drawable/icon_main1"></ImageView>
+                    android:src="@drawable/icon_main2"></ImageView>
 
                 <TextView
                     android:id="@+id/title1"
@@ -85,8 +85,7 @@
                 <ImageView
                     android:id="@+id/img2"
                     style="@style/titleImage"
-
-                    android:src="@drawable/icon_loop1"></ImageView>
+                    android:src="@drawable/icon_loop2"></ImageView>
 
                 <TextView
                     android:id="@+id/title2"
@@ -109,8 +108,7 @@
                 <ImageView
                     android:id="@+id/img3"
                     style="@style/titleImage"
-
-                    android:src="@drawable/icon_suiuu1"></ImageView>
+                    android:src="@drawable/icon_suiuu2"></ImageView>
 
                 <TextView
                     android:id="@+id/title3"
@@ -125,7 +123,7 @@
                 <ImageView
                     android:id="@+id/img4"
                     style="@style/titleImage"
-                    android:src="@drawable/icon_conversation1"></ImageView>
+                    android:src="@drawable/icon_conversation2"></ImageView>
 
                 <TextView
                     android:id="@+id/title4"
@@ -139,7 +137,7 @@
 
     <RelativeLayout
         android:id="@+id/slideLayout"
-        android:layout_width="@dimen/navigation_drawer_width"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="@color/tr_write2">
@@ -156,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/default_head_image" />
 
             <TextView
                 android:id="@+id/nickName"

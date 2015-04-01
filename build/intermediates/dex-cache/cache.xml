@@ -2,25 +2,11 @@
 <items version="2" >
 
     <item
-        jar="D:\Android\Project2\Suiuu\build\intermediates\exploded-aar\Suiuu\ImageLib\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="23d951fcc186789e2d93b5b43599d9055b16a28f">
-        <dex dex="D:\Android\Project2\Suiuu\build\intermediates\pre-dexed\debug\classes-a25766fa30e184ff49eeb518df1d95c7f9c5bce5.jar" />
-    </item>
-    <item
         jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\picasso-2.4.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\picasso-2.4.0-5c7cd1e11124b55816500dd71f5839e5f3c62c61.jar" />
-    </item>
-    <item
-        jar="D:\Android\SuiuuProject\Android-APP\libs\android-support-v4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
-        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\android-support-v4-f9209de93eb84e342ac66439044e02bea0520ccf.jar" />
     </item>
     <item
         jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\nineoldandroids-2.4.0.jar"
@@ -30,39 +16,11 @@
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-df1c3e78f310dc0519238d39f6faed19e96cf234.jar" />
     </item>
     <item
-        jar="D:\Android\Project2\Suiuu\build\intermediates\exploded-aar\Suiuu\ImageLib\unspecified\libs\nineoldandroids-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
-        <dex dex="D:\Android\Project2\Suiuu\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-1e7176a128f6d8cda9cbaf445b1c10e18a318ee1.jar" />
-    </item>
-    <item
         jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="6c74ff1733186544469eda1345b0241ae47a5128">
+        sha1="61223963153853633d38ff2baa4f93ac57efbf2e">
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\classes-04a57824eb90ac5de76c0737d000269ec15deaa0.jar" />
-    </item>
-    <item
-        jar="D:\Android\Project2\Suiuu\build\intermediates\exploded-aar\Suiuu\ImageLib\unspecified\libs\picasso-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
-        <dex dex="D:\Android\Project2\Suiuu\build\intermediates\pre-dexed\debug\picasso-2.4.0-18fc6140244735752932eadc5c047c1fcc21b19c.jar" />
-    </item>
-    <item
-        jar="D:\Android\Project2\Suiuu\build\intermediates\exploded-aar\Suiuu\ImageLib\unspecified\libs\android-support-v4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
-        <dex dex="D:\Android\Project2\Suiuu\build\intermediates\pre-dexed\debug\android-support-v4-9df3203fc1668bfe41419ad489b0871fc98b6fd5.jar" />
-    </item>
-    <item
-        jar="D:\Android\Project2\Suiuu\libs\xUtils-2.6.14.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f10c51f3e0732fdeefe6e104279a58e275879b6c">
-        <dex dex="D:\Android\Project2\Suiuu\build\intermediates\pre-dexed\debug\xUtils-2.6.14-71618016b0ec39befd2873a8922fdaadd0d827c1.jar" />
     </item>
     <item
         jar="D:\Android\SuiuuProject\Android-APP\libs\xUtils-2.6.14.jar"
@@ -70,6 +28,13 @@
         revision="21.1.2"
         sha1="f10c51f3e0732fdeefe6e104279a58e275879b6c">
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\xUtils-2.6.14-c81f1b9c2587765f55fa958249c62c74969b912b.jar" />
+    </item>
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\android-support-v4-52fda7e0dd93944b1a206280467b0ec1b5337d5a.jar" />
     </item>
 
 </items>

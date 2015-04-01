@@ -8,6 +8,7 @@
     <RelativeLayout
         android:id="@+id/settingHeadLayout"
         android:layout_width="match_parent"
+        android:background="@color/tr_black"
         android:layout_height="50dp">
 
         <TextView
@@ -17,6 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/setting"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageView
@@ -26,13 +28,13 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_margin="5dp"
+            android:src="@drawable/back" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/settingList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>
 <!-- From: file:/D:/Android/SuiuuProject/Android-APP/res/layout/activity_setting.xml -->

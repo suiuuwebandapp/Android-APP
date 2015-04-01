@@ -7,6 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginBottom="2.5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -17,6 +19,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/themes"
+            android:textColor="@color/slider_line_color"
             android:textSize="18sp" />
 
         <TextView
@@ -27,6 +30,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/areas"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -36,6 +40,11 @@
         android:layout_height="wrap_content"
         android:scaleType="matrix"
         android:src="@drawable/slider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:background="@color/slider_line_color"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/loopViewPager"

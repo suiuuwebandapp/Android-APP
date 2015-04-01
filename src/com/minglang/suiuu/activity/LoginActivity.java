@@ -34,6 +34,8 @@ public class LoginActivity extends Activity {
      * ***************************分割线***************************
      */
 
+    //登陆PopupWindow
+
     private View popupLoginRootView;
 
     private PopupWindow popupWindowLogin;
@@ -44,11 +46,11 @@ public class LoginActivity extends Activity {
 
     private Button popupLoginBtn;
 
-    private Button popupLoginTest;
-
     /**
      * ***************************分割线***************************
      */
+
+    //注册PopupWindow
 
     private View popupRegisterView;
 
@@ -62,8 +64,6 @@ public class LoginActivity extends Activity {
 
     private Button popupRegisterBtn;
 
-    private Button popupRegisterTest;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +72,6 @@ public class LoginActivity extends Activity {
         initView();
 
         ViewAction();
-
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-
-        float density = dm.density;//屏幕密度（像素比例：0.75, 1.0, 1.5, 2.0）
-        int densityDPI = dm.densityDpi;//屏幕密度（每寸像素：120, 160, 240, 320）
-
-        Log.i(TAG, "像素比例:"+String.valueOf(density));
-        Log.i(TAG, "每寸像素:"+String.valueOf(densityDPI));
 
     }
 
@@ -110,15 +102,6 @@ public class LoginActivity extends Activity {
             }
         });
 
-        popupLoginTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str_userName = popupLoginUserName.getText().toString();
-                String str_password = popupLoginPassword.getText().toString();
-
-                Toast.makeText(LoginActivity.this, "UserName:" + str_userName + ",Password:" + str_password, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         popupRegisterBtn.setOnClickListener(new OnClickListener() {
 
@@ -128,24 +111,25 @@ public class LoginActivity extends Activity {
             }
         });
 
-        popupRegisterTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str_Register_UserName = popupRegisterUserName.getText().toString();
-                String str_Register_Password1 = popupRegisterPassword1.getText().toString();
-                String str_Register_Password2 = popupRegisterPassword2.getText().toString();
-
-                Toast.makeText(LoginActivity.this, "UserName:" + str_Register_UserName + ",Password1:" + str_Register_Password1 + ",Password2:" + str_Register_Password2, Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     @SuppressWarnings("deprecation")
     @SuppressLint("InflateParams")
     private void initView() {
+
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+
+        float density = dm.density;//屏幕密度（像素比例：0.75, 1.0, 1.5, 2.0）
+        int densityDPI = dm.densityDpi;//屏幕密度（每寸像素：120, 160, 240, 320）
+
+        int screenWidth = dm.widthPixels;//屏幕宽度
+
+        Log.i(TAG, "像素比例:" + String.valueOf(density));
+        Log.i(TAG, "每寸像素:" + String.valueOf(densityDPI));
+
         loginBtn = (Button) findViewById(R.id.loginBtn);
         registerBtn = (Button) findViewById(R.id.registerBtn);
+
 
         /**
          * ***************************分割线***************************
@@ -156,7 +140,10 @@ public class LoginActivity extends Activity {
         popupLoginUserName = (EditText) popupLoginRootView.findViewById(R.id.userName);
         popupLoginPassword = (EditText) popupLoginRootView.findViewById(R.id.userPassword);
         popupLoginBtn = (Button) popupLoginRootView.findViewById(R.id.popupLoginBtn);
-        popupLoginTest = (Button) popupLoginRootView.findViewById(R.id.popupTest);
+
+        ViewGroup.LayoutParams loginParams = popupLoginBtn.getLayoutParams();
+        loginParams.width = screenWidth / 3;
+        popupLoginBtn.setLayoutParams(loginParams);
 
         popupWindowLogin = new PopupWindow(popupLoginRootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         popupWindowLogin.setBackgroundDrawable(new BitmapDrawable());
@@ -172,10 +159,14 @@ public class LoginActivity extends Activity {
         popupRegisterPassword2 = (EditText) popupRegisterView.findViewById(R.id.registerPassword2);
 
         popupRegisterBtn = (Button) popupRegisterView.findViewById(R.id.registerBtn);
-        popupRegisterTest = (Button) popupRegisterView.findViewById(R.id.registerTest);
+
+        ViewGroup.LayoutParams registerParams = popupRegisterBtn.getLayoutParams();
+        registerParams.width = screenWidth / 3;
+        popupRegisterBtn.setLayoutParams(registerParams);
 
         popupWindowRegister = new PopupWindow(popupRegisterView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         popupWindowRegister.setBackgroundDrawable(new BitmapDrawable());
+
 
     }
 

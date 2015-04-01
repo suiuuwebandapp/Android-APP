@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/tr_black">
 
         <ImageView
             android:id="@+id/fansBack"
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/textView21"
@@ -25,6 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/fans"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 

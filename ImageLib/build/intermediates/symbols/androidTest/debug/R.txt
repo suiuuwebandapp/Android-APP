@@ -6,9 +6,10 @@ int drawable friends_sends_pictures_select_icon_unselected 0x7f020002
 int drawable ic_del 0x7f020003
 int drawable ic_launcher 0x7f020004
 int drawable icon_addpic_focused 0x7f020005
-int drawable pictures_select_icon 0x7f020006
-int drawable tk_photo 0x7f020007
-int drawable yt_btn_back_normal 0x7f020008
+int drawable main_icon 0x7f020006
+int drawable pictures_select_icon 0x7f020007
+int drawable tk_photo 0x7f020008
+int drawable yt_btn_back_normal 0x7f020009
 int id album 0x7f08000a
 int id album_ck 0x7f080014
 int id album_count 0x7f080013
