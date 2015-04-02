@@ -56,6 +56,8 @@ public class LoginActivity extends Activity {
 
     private PopupWindow popupWindowRegister;
 
+    private EditText popupRegisterNickName;
+
     private EditText popupRegisterUserName;
 
     private EditText popupRegisterPassword1;
@@ -108,6 +110,19 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                StringBuilder sb= new StringBuilder();
+
+                sb.append(popupRegisterNickName.getText().toString());
+                sb.append(",");
+                sb.append(popupRegisterUserName.getText().toString());
+                sb.append(",");
+                sb.append(popupRegisterPassword1.getText().toString());
+                sb.append(",");
+                sb.append(popupRegisterPassword2.getText().toString());
+
+                String str = sb.toString();
+
+                Toast.makeText(LoginActivity.this,str,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -154,7 +169,8 @@ public class LoginActivity extends Activity {
 
         popupRegisterView = LayoutInflater.from(this).inflate(R.layout.popip_register, null);
 
-        popupRegisterUserName = (EditText) popupRegisterView.findViewById(R.id.registerUserName);
+        popupRegisterNickName = (EditText) popupRegisterView.findViewById(R.id.registerNickName);
+        popupRegisterUserName = (EditText) popupRegisterView.findViewById(R.id.registerUserInfo);
         popupRegisterPassword1 = (EditText) popupRegisterView.findViewById(R.id.registerPassword1);
         popupRegisterPassword2 = (EditText) popupRegisterView.findViewById(R.id.registerPassword2);
 

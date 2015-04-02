@@ -16,17 +16,10 @@
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-df1c3e78f310dc0519238d39f6faed19e96cf234.jar" />
     </item>
     <item
-        jar="D:\Android\SuiuuProject\Android-APP\libs\android-support-v4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
-        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\android-support-v4-f9209de93eb84e342ac66439044e02bea0520ccf.jar" />
-    </item>
-    <item
         jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="a779e43bd71f96d092bc70e10a6b20448bf70798">
+        sha1="fe3b6e084831b4d10ddebab478a03345bad15535">
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\classes-04a57824eb90ac5de76c0737d000269ec15deaa0.jar" />
     </item>
     <item
@@ -35,6 +28,13 @@
         revision="21.1.2"
         sha1="f10c51f3e0732fdeefe6e104279a58e275879b6c">
         <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\xUtils-2.6.14-c81f1b9c2587765f55fa958249c62c74969b912b.jar" />
+    </item>
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\android-support-v4-52fda7e0dd93944b1a206280467b0ec1b5337d5a.jar" />
     </item>
 
 </items>

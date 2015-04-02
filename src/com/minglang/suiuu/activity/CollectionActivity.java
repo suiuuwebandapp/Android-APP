@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.CollectionAdapter;
 import com.minglang.suiuu.fragment.collection.CollectionLoopFragment;
 import com.minglang.suiuu.fragment.collection.CollectionRouteFragment;
+import com.minglang.suiuu.utils.SystemBarTintManager;
+import com.minglang.suiuu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +143,17 @@ public class CollectionActivity extends FragmentActivity {
      * 初始化方法
      */
     private void initView() {
+
+        /****************设置状态栏颜色*************/
+        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setNavigationBarTintEnabled(false);
+        mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
+        int statusHeight = Utils.getInstance(this).getStatusHeight();
+
+        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.collectionRootLayout);
+        rootLayout.setPadding(0,statusHeight,0,0);
 
         collectionBack = (ImageView) findViewById(R.id.collectionBack);
         collectionSearch = (ImageView) findViewById(R.id.collectionSearch);

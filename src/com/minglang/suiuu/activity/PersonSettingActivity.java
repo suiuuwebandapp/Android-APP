@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.utils.SystemBarTintManager;
 
 public class PersonSettingActivity extends Activity {
 
@@ -63,6 +65,20 @@ public class PersonSettingActivity extends Activity {
     }
 
     private void initView() {
+
+        /****************设置状态栏颜色*************/
+        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setNavigationBarTintEnabled(false);
+        mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
+        SystemBarTintManager.SystemBarConfig systemBarConfig = mTintManager.getConfig();
+
+        int statusBarHeight = systemBarConfig.getStatusBarHeight();
+
+        RelativeLayout personalRootLayout = (RelativeLayout) findViewById(R.id.personalRootLayout);
+        personalRootLayout.setPadding(0,statusBarHeight,0,0);
+
         personalSettingBack = (ImageView) findViewById(R.id.personalSettingBack);
 
         personalSettingHeadLayout = (LinearLayout) findViewById(R.id.personalSettingHeadLayout);

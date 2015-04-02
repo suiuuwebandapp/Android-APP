@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/collectionRootLayout"
     tools:context="com.minglang.suiuu.activity.CollectionActivity">
 
 
@@ -29,7 +30,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:src="@drawable/back" />
 
         <ImageView
@@ -39,7 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:src="@drawable/icon_search" />
     </RelativeLayout>
 

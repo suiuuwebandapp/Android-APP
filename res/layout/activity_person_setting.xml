@@ -1,5 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/personalRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,9 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/tr_black">
+        android:background="@color/tr_black"
+        android:id="@+id/relativeLayout4"
+        android:layout_alignParentTop="true">
 
         <TextView
             android:id="@+id/textView22"
@@ -37,7 +39,8 @@
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/relativeLayout4">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,4 +135,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.minglang.suiuu.activity;
 
 
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,7 +27,6 @@ import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
-import com.minglang.suiuu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,9 +102,52 @@ public class MainActivity extends FragmentActivity {
 
     private ListView mListView;
 
+    /**
+     * 屏幕宽度
+     */
+    private int screenWidth;
+
+    /**
+     * 屏幕高度
+     */
+    private int screenHeight;
+
+    /**
+     * 状态栏控制器
+     */
+    private SystemBarTintManager mTintManager;
+
+    /**
+     * 状态栏高度
+     */
+    private int statusBarHeight;
+
+    /**
+     * 虚拟按键高度
+     */
+    private int NavigationBarHeight;
+
+    /**
+     * 虚拟按键宽度(?)
+     */
+    private int NavigationBarWidth;
+
+    /**
+     * 系统版本是否高于4.4
+     */
+    private boolean isKITKAT = false;
+
+    /**
+     * 是否有虚拟按键
+     */
+    private boolean isNavigationBar = false;
+
+    private SystemBarTintManager.SystemBarConfig systemBarConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         setContentView(R.layout.activity_main);
 
         initView();
@@ -358,13 +401,43 @@ public class MainActivity extends FragmentActivity {
         ft.commit();
     }
 
+    private void initNumber() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels;
+
+        Log.i(TAG, "屏幕宽度:" + String.valueOf(screenWidth));
+        Log.i(TAG, "屏幕高度:" + String.valueOf(screenHeight));
+
+        mTintManager = new SystemBarTintManager(this);
+
+        systemBarConfig = mTintManager.getConfig();
+
+        NavigationBarHeight = systemBarConfig.getNavigationBarHeight();
+        Log.i(TAG, "NavigationBarHeight:" + String.valueOf(NavigationBarHeight));
+
+        NavigationBarWidth = systemBarConfig.getNavigationBarWidth();
+        Log.i(TAG, "NavigationBarWidth:" + String.valueOf(NavigationBarWidth));
+
+        statusBarHeight = systemBarConfig.getStatusBarHeight();
+        Log.i(TAG, "statusBarHeight:" + String.valueOf(statusBarHeight));
+    }
+
+
     /**
      * 初始化方法
      */
     private void initView() {
 
+        initNumber();
+
+        isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        isNavigationBar = systemBarConfig.hasNavigtionBar();
+
         /****************设置状态栏颜色*************/
-        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(false);
         mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
@@ -373,35 +446,52 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
 
-        int statusHeight = Utils.getInstance(this).getStatusHeight();
+        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
 
-        Log.i(TAG, "状态栏高度:" + String.valueOf(statusHeight));
+        if(isNavigationBar){
+            if(isKITKAT){
+                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
+                tabSelect.setLayoutParams(tabSelectParams);
 
-        mDrawerLayout.setPadding(0, statusHeight, 0, 0);
+                Log.i(TAG,"4.4以上，有虚拟按键");
 
-        /**************HeadLayout设置Margins*****************/
-        RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
-        RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(titleLayout.getLayoutParams());
-        titleLayoutParams.setMargins(0, statusHeight, 0, 0);
-        titleLayout.setLayoutParams(titleLayoutParams);
+            }else{
+                mDrawerLayout.setPadding(0, 0, 0, NavigationBarHeight);
+                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
+                tabSelect.setLayoutParams(tabSelectParams);
+
+                Log.i(TAG,"4.4以下，有虚拟按键");
+
+            }
+        }else{
+            if(isKITKAT){
+                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+                Log.i(TAG,"4.4以上，无虚拟按键");
+            }else{
+                //Nothing
+                Log.i(TAG,"4.4以下，无虚拟按键");
+            }
+        }
+
+        if (isKITKAT) {
+            /**************HeadLayout设置Margins*****************/
+            RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
+            RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(titleLayout.getLayoutParams());
+            titleLayoutParams.setMargins(0, statusBarHeight, 0, 0);
+            titleLayout.setLayoutParams(titleLayoutParams);
+        }
 
         /*************设置侧滑菜单Params**********************/
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
-        slideLayout.setPadding(0, statusHeight, 0, 0);
+        slideLayout.setPadding(0, statusBarHeight, 0, 0);
 
         ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenWidth = dm.widthPixels;
-        int screenHeight = dm.heightPixels;
-
         params.width = screenWidth / 4 * 3;
         slideLayout.setLayoutParams(params);
-
-        Log.i(TAG, "屏幕宽度:" + String.valueOf(screenWidth));
-        Log.i(TAG, "屏幕高度:" + String.valueOf(screenHeight));
-
 
         titleInfo = (TextView) findViewById(R.id.titleInfo);
 
