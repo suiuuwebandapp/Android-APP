@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
@@ -19,6 +20,7 @@ import com.minglang.suiuu.fragment.remind.NewAtFragment;
 import com.minglang.suiuu.fragment.remind.NewAttentionFragment;
 import com.minglang.suiuu.fragment.remind.NewCommentFragment;
 import com.minglang.suiuu.fragment.remind.NewReplyFragment;
+import com.minglang.suiuu.utils.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,6 +156,17 @@ public class NewRemindActivity extends FragmentActivity {
      * 初始化方法
      */
     private void initView() {
+
+        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setNavigationBarTintEnabled(false);
+        mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
+        int statusHeight = mTintManager.getConfig().getStatusBarHeight();
+
+        RelativeLayout newRemindRootLayout = (RelativeLayout) findViewById(R.id.newRemindRootLayout);
+        newRemindRootLayout.setPadding(0,statusHeight,0,0);
+
         newRemindBack = (ImageView) findViewById(R.id.newRemindBack);
 
         newAt = (TextView) findViewById(R.id.newAt);

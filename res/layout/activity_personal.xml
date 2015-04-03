@@ -1,5 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/personalRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,18 +8,15 @@
 
 
     <RelativeLayout
+        android:id="@+id/relativeLayout7"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentTop="true"
         android:background="@color/tr_black">
 
         <ImageView
             android:id="@+id/personalBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="5dp"
+            style="@style/backKeyStyle"
             android:src="@drawable/back" />
 
         <TextView
@@ -30,14 +28,28 @@
             android:text="@string/personalInfo"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/personalSave"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/save"
+            android:gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/remindColor"
+            android:textSize="18sp" />
+
     </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/relativeLayout7"
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,13 +64,7 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/default_head_image" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#eeeeee"
-                android:gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/personalItemStyle">
 
                 <TextView
                     android:id="@+id/textView7"
@@ -70,96 +76,59 @@
                     android:text="@string/gender"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="New Text"
-                    android:textSize="18sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#eeeeee"
-                android:gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/personalItemStyle">
 
                 <TextView
                     android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/nickname"
-                    android:textSize="18sp" />
+                    style="@style/personalTextStyle"
+                    android:text="昵称    " />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/personalNickName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="New Text"
-                    android:textSize="18sp" />
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/nickname_hint" />
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#eeeeee"
-                android:gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/personalItemStyle">
 
                 <TextView
                     android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/location"
-                    android:textSize="18sp" />
+                    style="@style/personalTextStyle"
+                    android:text="@string/location" />
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/personalLocation"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="New Text"
-                    android:textSize="18sp" />
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/Location_hint" />
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#eeeeee"
-                android:gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/personalItemStyle">
 
                 <TextView
                     android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/signature2"
-                    android:textSize="18sp" />
+                    style="@style/personalTextStyle"
+                    android:text="签名    " />
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/personalSignature"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="New Text"
-                    android:textSize="18sp" />
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/Signature_hint" />
+
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

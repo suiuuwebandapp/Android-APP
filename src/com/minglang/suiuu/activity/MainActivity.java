@@ -41,10 +41,6 @@ public class MainActivity extends FragmentActivity {
 
     private static final String[] TITLE = {"收藏", "关注", "消息", "粉丝", "设置", "退出"};
 
-    private List<String> stringList;
-
-    private MainSliderAdapter mainSliderAdapter;
-
     private DrawerLayout mDrawerLayout;
 
     private RelativeLayout slideLayout;
@@ -75,8 +71,6 @@ public class MainActivity extends FragmentActivity {
      * 跳转发送新帖子
      */
     private ImageView sendMsg;
-
-    private OnClickListener onClickListener;
 
     private FragmentManager fm;
 
@@ -127,21 +121,6 @@ public class MainActivity extends FragmentActivity {
      */
     private int NavigationBarHeight;
 
-    /**
-     * 虚拟按键宽度(?)
-     */
-    private int NavigationBarWidth;
-
-    /**
-     * 系统版本是否高于4.4
-     */
-    private boolean isKITKAT = false;
-
-    /**
-     * 是否有虚拟按键
-     */
-    private boolean isNavigationBar = false;
-
     private SystemBarTintManager.SystemBarConfig systemBarConfig;
 
     @Override
@@ -161,7 +140,7 @@ public class MainActivity extends FragmentActivity {
      */
     private void ViewAction() {
 
-        onClickListener = new OnClickListener() {
+        OnClickListener onClickListener = new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -176,7 +155,6 @@ public class MainActivity extends FragmentActivity {
                         break;
 
                     case R.id.headImage:
-//                        utils.selectPicture(MainActivity.this);
                         break;
 
                     case R.id.nickName:
@@ -233,30 +211,36 @@ public class MainActivity extends FragmentActivity {
                     case 0:
                         Intent intent0 = new Intent(MainActivity.this, CollectionActivity.class);
                         startActivity(intent0);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         break;
                     //关注
                     case 1:
                         Intent intent1 = new Intent(MainActivity.this, AttentionActivity.class);
                         startActivity(intent1);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         break;
                     //新提醒
                     case 2:
                         Intent intent2 = new Intent(MainActivity.this, NewRemindActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         break;
                     //粉丝
                     case 3:
                         Intent intent3 = new Intent(MainActivity.this, FansActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         break;
                     //设置
                     case 4:
                         Intent intent4 = new Intent(MainActivity.this, SettingActivity.class);
                         startActivity(intent4);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         break;
                     //退出
                     case 5:
                         finish();
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         break;
 
                 }
@@ -401,6 +385,9 @@ public class MainActivity extends FragmentActivity {
         ft.commit();
     }
 
+    /**
+     * 初始化得到各种Bar高度
+     */
     private void initNumber() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -417,8 +404,11 @@ public class MainActivity extends FragmentActivity {
         NavigationBarHeight = systemBarConfig.getNavigationBarHeight();
         Log.i(TAG, "NavigationBarHeight:" + String.valueOf(NavigationBarHeight));
 
-        NavigationBarWidth = systemBarConfig.getNavigationBarWidth();
-        Log.i(TAG, "NavigationBarWidth:" + String.valueOf(NavigationBarWidth));
+        /**
+         虚拟按键宽度(?)
+         */
+        int navigationBarWidth = systemBarConfig.getNavigationBarWidth();
+        Log.i(TAG, "NavigationBarWidth:" + String.valueOf(navigationBarWidth));
 
         statusBarHeight = systemBarConfig.getStatusBarHeight();
         Log.i(TAG, "statusBarHeight:" + String.valueOf(statusBarHeight));
@@ -432,9 +422,15 @@ public class MainActivity extends FragmentActivity {
 
         initNumber();
 
-        isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        /**
+         系统版本是否高于4.4
+         */
+        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
-        isNavigationBar = systemBarConfig.hasNavigtionBar();
+        /**
+         是否有虚拟按键
+         */
+        boolean isNavigationBar = systemBarConfig.hasNavigtionBar();
 
         /****************设置状态栏颜色*************/
 
@@ -448,31 +444,31 @@ public class MainActivity extends FragmentActivity {
 
         LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
 
-        if(isNavigationBar){
-            if(isKITKAT){
+        if (isNavigationBar) {
+            if (isKITKAT) {
                 mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
                 RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
                 tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
                 tabSelect.setLayoutParams(tabSelectParams);
 
-                Log.i(TAG,"4.4以上，有虚拟按键");
+                Log.i(TAG, "4.4以上，有虚拟按键");
 
-            }else{
+            } else {
                 mDrawerLayout.setPadding(0, 0, 0, NavigationBarHeight);
                 RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
                 tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
                 tabSelect.setLayoutParams(tabSelectParams);
 
-                Log.i(TAG,"4.4以下，有虚拟按键");
+                Log.i(TAG, "4.4以下，有虚拟按键");
 
             }
-        }else{
-            if(isKITKAT){
+        } else {
+            if (isKITKAT) {
                 mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
-                Log.i(TAG,"4.4以上，无虚拟按键");
-            }else{
+                Log.i(TAG, "4.4以上，无虚拟按键");
+            } else {
                 //Nothing
-                Log.i(TAG,"4.4以下，无虚拟按键");
+                Log.i(TAG, "4.4以下，无虚拟按键");
             }
         }
 
@@ -510,13 +506,13 @@ public class MainActivity extends FragmentActivity {
 
         mListView = (ListView) findViewById(R.id.drawerList);
 
-        stringList = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
 
-        for (int i = 0; i < TITLE.length; i++) {
-            stringList.add(TITLE[i]);
+        for (String aTITLE : TITLE) {
+            stringList.add(aTITLE);
         }
 
-        mainSliderAdapter = new MainSliderAdapter(this, stringList);
+        MainSliderAdapter mainSliderAdapter = new MainSliderAdapter(this, stringList);
 
         mListView.setAdapter(mainSliderAdapter);
 

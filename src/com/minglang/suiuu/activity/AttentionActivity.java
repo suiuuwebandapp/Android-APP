@@ -1,6 +1,7 @@
 package com.minglang.suiuu.activity;
 
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,7 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
@@ -45,30 +45,12 @@ public class AttentionActivity extends FragmentActivity {
      */
     private TextView attentionThemeTitle, attentionUserTitle;
 
-    private List<Fragment> fragmentList;
-
-    private FragmentManager fm;
-
-    /**
-     * 关注主题页面
-     */
-    private AttentionThemeFragment attentionThemeFragment;
-
-    /**
-     * 关注用户页面
-     */
-    private AttentionUserFragment attentionUserFragment;
-
-    private AttentionPagerAdapter attentionPagerAdapter;
-
     /**
      * 滑块
      */
     private ImageView attentionSliderView;
 
     private int currIndex = 1;// 当前页卡编号
-
-    private int sliderViewWidth;//图片宽度
 
     private int tabWidth;// 每个tab头的宽度
 
@@ -100,7 +82,7 @@ public class AttentionActivity extends FragmentActivity {
         attentionPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i2) {
-
+                Log.i(TAG, "偏移量:" + String.valueOf(v));
             }
 
             @Override
@@ -122,6 +104,8 @@ public class AttentionActivity extends FragmentActivity {
                 anim.setFillAfter(true);
                 anim.setDuration(200);
                 attentionSliderView.startAnimation(anim);
+
+                Log.i(TAG, "offsetX:" + String.valueOf(offsetX));
             }
 
             @Override
@@ -147,8 +131,15 @@ public class AttentionActivity extends FragmentActivity {
 
         int statusHeight = Utils.getInstance(this).getStatusHeight();
 
-        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.attentionRootLayout);
-        rootLayout.setPadding(0,statusHeight,0,0);
+        /**
+         系统版本是否高于4.4
+         */
+        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        if (isKITKAT) {
+            LinearLayout rootLayout = (LinearLayout) findViewById(R.id.attentionRootLayout);
+            rootLayout.setPadding(0, statusHeight, 0, 0);
+        }
 
         AttentionBack = (ImageView) findViewById(R.id.AttentionBack);
 
@@ -159,17 +150,24 @@ public class AttentionActivity extends FragmentActivity {
         attentionThemeTitle = (TextView) findViewById(R.id.attention_theme_title);
         attentionUserTitle = (TextView) findViewById(R.id.attention_user_title);
 
-        fragmentList = new ArrayList<>();
+        List<Fragment> fragmentList = new ArrayList<>();
 
-        fm = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
 
-        attentionThemeFragment = AttentionThemeFragment.newInstance("a", "b");
-        attentionUserFragment = AttentionUserFragment.newInstance("c", "d");
+        /**
+         关注主题页面
+         */
+        AttentionThemeFragment attentionThemeFragment = AttentionThemeFragment.newInstance("a", "b");
+
+        /**
+         关注用户页面
+         */
+        AttentionUserFragment attentionUserFragment = AttentionUserFragment.newInstance("c", "d");
 
         fragmentList.add(attentionThemeFragment);
         fragmentList.add(attentionUserFragment);
 
-        attentionPagerAdapter = new AttentionPagerAdapter(fm, fragmentList);
+        AttentionPagerAdapter attentionPagerAdapter = new AttentionPagerAdapter(fm, fragmentList);
 
         attentionPager.setAdapter(attentionPagerAdapter);
 
@@ -177,10 +175,13 @@ public class AttentionActivity extends FragmentActivity {
     }
 
     private void initImageView() {
-        sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();//获取图片宽度
+        //滑动图片宽度
+        int sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenW = dm.widthPixels;// 获取分辨率宽度
+
+        int screenW = dm.widthPixels;// 获取屏幕宽度
 
         tabWidth = screenW / 2;
         if (sliderViewWidth > tabWidth) {

@@ -188,9 +188,9 @@ ADDED from AndroidManifest.xml:88:9
 activity#com.minglang.suiuu.activity.OtherUserTraceActivity
 ADDED from AndroidManifest.xml:94:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:96:13
-	android:label
 		ADDED from AndroidManifest.xml:97:13
+	android:label
+		ADDED from AndroidManifest.xml:96:13
 	android:name
 		ADDED from AndroidManifest.xml:95:13
 activity#org.fireking.app.imagelib.widget.PicSelectActivity
@@ -208,6 +208,22 @@ ADDED from AndroidManifest.xml:104:9
 		ADDED from AndroidManifest.xml:106:13
 	android:name
 		ADDED from AndroidManifest.xml:105:13
+activity#com.minglang.suiuu.activity.FeedbackActivity
+ADDED from AndroidManifest.xml:108:9
+	android:label
+		ADDED from AndroidManifest.xml:110:13
+	android:theme
+		ADDED from AndroidManifest.xml:111:13
+	android:name
+		ADDED from AndroidManifest.xml:109:13
+activity#com.minglang.suiuu.activity.ContactUsActivity
+ADDED from AndroidManifest.xml:113:9
+	android:label
+		ADDED from AndroidManifest.xml:115:13
+	android:theme
+		ADDED from AndroidManifest.xml:116:13
+	android:name
+		ADDED from AndroidManifest.xml:114:13
 uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
 ADDED from Android-APP:ImageLib:unspecified:13:5
 	android:name

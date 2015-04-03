@@ -1,6 +1,7 @@
 package com.minglang.suiuu.activity;
 
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +20,6 @@ import com.minglang.suiuu.adapter.CollectionAdapter;
 import com.minglang.suiuu.fragment.collection.CollectionLoopFragment;
 import com.minglang.suiuu.fragment.collection.CollectionRouteFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
-import com.minglang.suiuu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,19 +56,7 @@ public class CollectionActivity extends FragmentActivity {
 
     private ViewPager collectionPager;
 
-    private List<Fragment> collectionList;
-
-    private CollectionLoopFragment collectionLoopFragment;
-
-    private CollectionRouteFragment collectionRouteFragment;
-
-    private FragmentManager fm;
-
-    private CollectionAdapter collectionAdapter;
-
     private int currIndex = 1;// 当前页卡编号
-
-    private int sliderViewWidth;//图片宽度
 
     private int tabWidth;// 每个tab头的宽度
 
@@ -91,6 +79,7 @@ public class CollectionActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 
@@ -113,7 +102,7 @@ public class CollectionActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int i) {
 
-                switch (i){
+                switch (i) {
                     case 0:
                         collectionLoop.setTextColor(getResources().getColor(R.color.slider_line_color));
                         collectionRoute.setTextColor(getResources().getColor(R.color.textColor));
@@ -150,10 +139,13 @@ public class CollectionActivity extends FragmentActivity {
         mTintManager.setNavigationBarTintEnabled(false);
         mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
 
-        int statusHeight = Utils.getInstance(this).getStatusHeight();
+        int statusHeight = mTintManager.getConfig().getStatusBarHeight();
 
-        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.collectionRootLayout);
-        rootLayout.setPadding(0,statusHeight,0,0);
+        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        if (isKITKAT) {
+            LinearLayout rootLayout = (LinearLayout) findViewById(R.id.collectionRootLayout);
+            rootLayout.setPadding(0, statusHeight, 0, 0);
+        }
 
         collectionBack = (ImageView) findViewById(R.id.collectionBack);
         collectionSearch = (ImageView) findViewById(R.id.collectionSearch);
@@ -165,24 +157,24 @@ public class CollectionActivity extends FragmentActivity {
 
         collectionPager = (ViewPager) findViewById(R.id.collectionPager);
 
-        collectionList = new ArrayList<>();
+        List<Fragment> collectionList = new ArrayList<>();
 
-        collectionLoopFragment = CollectionLoopFragment.newInstance("a", "b");
-        collectionRouteFragment = CollectionRouteFragment.newInstance("c", "d");
+        CollectionLoopFragment collectionLoopFragment = CollectionLoopFragment.newInstance("a", "b");
+        CollectionRouteFragment collectionRouteFragment = CollectionRouteFragment.newInstance("c", "d");
 
         collectionList.add(collectionLoopFragment);
         collectionList.add(collectionRouteFragment);
 
-        fm = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
 
-        collectionAdapter = new CollectionAdapter(fm, collectionList);
+        CollectionAdapter collectionAdapter = new CollectionAdapter(fm, collectionList);
         collectionPager.setAdapter(collectionAdapter);
 
         initImageView();
     }
 
     private void initImageView() {
-        sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();
+        int sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;// 获取分辨率宽度
@@ -193,6 +185,12 @@ public class CollectionActivity extends FragmentActivity {
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     class CollectionClick implements View.OnClickListener {

@@ -1,6 +1,7 @@
 package com.minglang.suiuu.activity;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -49,8 +50,15 @@ public class MyAttentionActivity extends Activity {
 
         int statusHeight = Utils.getInstance(this).getStatusHeight();
 
-        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.myAttentionRootLayout);
-        rootLayout.setPadding(0,statusHeight,0,0);
+        /**
+         系统版本是否高于4.4
+         */
+        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        if (isKITKAT) {
+            LinearLayout rootLayout = (LinearLayout) findViewById(R.id.myAttentionRootLayout);
+            rootLayout.setPadding(0, statusHeight, 0, 0);
+        }
 
         MyAttentionBack = (ImageView) findViewById(R.id.MyAttentionBack);
         MyAttentionList = (ListView) findViewById(R.id.MyAttentionList);

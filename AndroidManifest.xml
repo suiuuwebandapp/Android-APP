@@ -93,8 +93,8 @@
         </activity>
         <activity
             android:name=".activity.OtherUserTraceActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_other_user_trace" >
+            android:label="@string/title_activity_other_user_trace"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.fireking.app.imagelib.widget.PicSelectActivity"
@@ -104,6 +104,16 @@
         <activity
             android:name=".activity.TestActivity"
             android:label="@string/title_activity_test" >
+        </activity>
+        <activity
+            android:name=".activity.FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:theme="@style/FullBleedTheme" >
+        </activity>
+        <activity
+            android:name=".activity.ContactUsActivity"
+            android:label="@string/title_activity_contact_us"
+            android:theme="@style/FullBleedTheme" >
         </activity>
     </application>
 

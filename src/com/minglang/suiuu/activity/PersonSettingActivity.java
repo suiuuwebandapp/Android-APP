@@ -1,6 +1,7 @@
 package com.minglang.suiuu.activity;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -76,8 +77,14 @@ public class PersonSettingActivity extends Activity {
 
         int statusBarHeight = systemBarConfig.getStatusBarHeight();
 
-        RelativeLayout personalRootLayout = (RelativeLayout) findViewById(R.id.personalRootLayout);
-        personalRootLayout.setPadding(0,statusBarHeight,0,0);
+        /**
+         系统版本是否高于4.4
+         */
+        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        if (isKITKAT) {
+            RelativeLayout personalRootLayout = (RelativeLayout) findViewById(R.id.personalRootLayout);
+            personalRootLayout.setPadding(0, statusBarHeight, 0, 0);
+        }
 
         personalSettingBack = (ImageView) findViewById(R.id.personalSettingBack);
 

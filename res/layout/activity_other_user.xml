@@ -8,7 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/tr_black">
 
         <TextView
             android:id="@+id/OtherUserName"
@@ -21,11 +22,8 @@
 
         <ImageView
             android:id="@+id/OtherUserBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_launcher" />
+            style="@style/backKeyStyle"
+            android:src="@drawable/back" />
     </RelativeLayout>
 
     <ScrollView

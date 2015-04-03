@@ -52,5 +52,8 @@
 
     <color name="login_bg">#baefff</color>
 
+    <color name="titleColor">#e1e1e1</color>
+    <color name="backgroundColor">#eeeeee</color>
+    <color name="remindColor">#ffeb78</color>
 
 </resources>
