@@ -474,7 +474,7 @@ public class MainActivity extends FragmentActivity {
 
         if (isKITKAT) {
             /**************HeadLayout设置Margins*****************/
-            Log.i(TAG, "版本测试1111");
+            Log.i(TAG, "版本测试0000");
             RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
             RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(titleLayout.getLayoutParams());
             titleLayoutParams.setMargins(0, statusBarHeight, 0, 0);

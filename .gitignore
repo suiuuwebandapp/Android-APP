@@ -14,6 +14,8 @@ ImageLib/build
 *.iws
 .idea/
 local.properties
-local.properties
 *.apk
 *.ap_
+.gradle/2.2.1/taskArtifacts/taskArtifacts.bin
+.gradle/2.2.1/taskArtifacts/fileHashes.bin
+.gradle/2.2.1/taskArtifacts/fileSnapshots.bin
