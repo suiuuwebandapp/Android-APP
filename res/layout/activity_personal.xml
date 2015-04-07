@@ -36,9 +36,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="@string/save"
-            android:gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/save"
             android:textColor="@color/remindColor"
             android:textSize="18sp" />
 
@@ -74,8 +74,8 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/gender"
-                    android:visibility="gone"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -84,8 +84,8 @@
                 <TextView
                     android:id="@+id/textView9"
                     style="@style/personalTextStyle"
-                    android:visibility="gone"
-                    android:text="昵称    " />
+                    android:text="昵称    "
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/personalNickName"
@@ -102,8 +102,8 @@
                 <TextView
                     android:id="@+id/textView11"
                     style="@style/personalTextStyle"
-                    android:visibility="gone"
-                    android:text="@string/location" />
+                    android:text="@string/location"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/personalLocation"
@@ -120,8 +120,8 @@
                 <TextView
                     android:id="@+id/textView13"
                     style="@style/personalTextStyle"
-                    android:visibility="gone"
-                    android:text="签名    " />
+                    android:text="签名    "
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/personalSignature"
