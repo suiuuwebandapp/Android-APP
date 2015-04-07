@@ -480,7 +480,7 @@ public class MainActivity extends FragmentActivity {
             titleLayoutParams.setMargins(0, statusBarHeight, 0, 0);
             titleLayout.setLayoutParams(titleLayoutParams);
         } else {
-            Log.i(TAG, "版本测试2222");
+            Log.i(TAG, "版本测试2233");
         }
 
         /*************设置侧滑菜单Params**********************/
