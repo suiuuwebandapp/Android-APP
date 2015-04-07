@@ -474,16 +474,20 @@ public class MainActivity extends FragmentActivity {
 
         if (isKITKAT) {
             /**************HeadLayout设置Margins*****************/
+            Log.i(TAG, "版本测试1111");
             RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
             RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(titleLayout.getLayoutParams());
             titleLayoutParams.setMargins(0, statusBarHeight, 0, 0);
             titleLayout.setLayoutParams(titleLayoutParams);
+        } else {
+            Log.i(TAG, "版本测试2222");
         }
 
         /*************设置侧滑菜单Params**********************/
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
-        slideLayout.setPadding(0, statusBarHeight, 0, 0);
-
+        if (isKITKAT) {
+            slideLayout.setPadding(0, statusBarHeight, 0, 0);
+        }
         ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
 
         params.width = screenWidth / 4 * 3;

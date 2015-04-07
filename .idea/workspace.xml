@@ -84,6 +84,11 @@
           <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/activity_personal.xml">
+        <config>
+          <theme>@style/FullBleedTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/res/layout/activity_picture_select.xml">
         <config>
           <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
@@ -156,20 +161,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d18519f4-6803-4331-bfb7-828cf28a840c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/default_head_image2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/default_head_image3.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/customview/BaseImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/customview/CircleImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/customview/CustomShapeImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/customview/CustomShapeSquareImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/utils/ParserHelper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/customview/RectangleImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/utils/SVG.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/utils/SVGParseException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/utils/SVGParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/customview/SvgImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/attr.xml" />
-      <change type="DELETED" beforePath="D:\Android\SuiuuProject\Android-APP\build\intermediates\model_data.bin" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/exploded-aar/Android-APP/ImageLib/unspecified/classes.jar" afterPath="$PROJECT_DIR$/build/intermediates/exploded-aar/Android-APP/ImageLib/unspecified/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
@@ -179,14 +170,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/build/intermediates/resources/resources-debug-androidTest.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/AttentionActivity.java" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/AttentionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MyAttentionActivity.java" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MyAttentionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonalActivity.java" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonalActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/com/minglang/suiuu/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/com/minglang/suiuu/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/org/fireking/app/imagelib/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/org/fireking/app/imagelib/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/minglang/suiuu/utils/Utils.java" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/utils/Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_personal.xml" afterPath="$PROJECT_DIR$/res/layout/activity_personal.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/item_slider.xml" afterPath="$PROJECT_DIR$/res/layout/item_slider.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/styles.xml" afterPath="$PROJECT_DIR$/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-v17/styles.xml" afterPath="$PROJECT_DIR$/res/values-v17/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="D:\Android\SuiuuProject\Android-APP\res\drawable-hdpi\back.png" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/back.png" />
     </list>
     <ignored path="Suiuu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -214,38 +204,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PersonalActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonalActivity.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="3087">
-              <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CircleImageView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/customview/CircleImageView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="777">
-              <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.4827586" vertical-offset="4109" max-vertical-offset="5775">
+              <caret line="487" column="23" selection-start-line="487" selection-start-column="23" selection-end-line="487" selection-end-column="23" />
               <folding>
-                <element signature="e#1071#1072#0" expanded="true" />
-                <element signature="e#1128#1129#0" expanded="true" />
+                <element signature="method#ViewAction#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#LoadMainFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#LoadLoopFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#LoadRouteFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#LoadConversationFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#LoadDefaultFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#initNumber#0;class#MainActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_personal.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/layout/activity_personal.xml">
-          <provider selected="true" editor-type-id="android-designer">
+      <file leaf-file-name="activity_main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+          <provider editor-type-id="android-designer">
             <state />
           </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1841" max-vertical-offset="3024">
-              <caret line="122" column="45" selection-start-line="122" selection-start-column="45" selection-end-line="122" selection-end-column="45" />
-              <folding />
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.75" vertical-offset="2744" max-vertical-offset="3612">
+              <caret line="145" column="39" selection-start-line="145" selection-start-column="29" selection-end-line="145" selection-end-column="39" />
+              <folding>
+                <element signature="tag#ImageView#0;tag#LinearLayout#0;tag#RelativeLayout#1;tag#android.support.v4.widget.DrawerLayout#0" expanded="false" />
+                <element signature="tag#TextView#0;tag#LinearLayout#0;tag#RelativeLayout#1;tag#android.support.v4.widget.DrawerLayout#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1583,20 +1571,16 @@
         <option value="$PROJECT_DIR$/res/values-v19/styles.xml" />
         <option value="$PROJECT_DIR$/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/res/layout/popip_register.xml" />
-        <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/NewRemindActivity.java" />
-        <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/FansActivity.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/FeedbackActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/item_slider.xml" />
         <option value="$PROJECT_DIR$/res/layout/item_setting.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_setting.xml" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/AttentionActivity.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MyAttentionActivity.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonSettingActivity.java" />
-        <option value="$PROJECT_DIR$/res/values-v17/styles.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_my_attention.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_attention.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_collection.xml" />
@@ -1617,7 +1601,6 @@
         <option value="$PROJECT_DIR$/res/layout/activity_base.xml" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/BaseActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/activity_person_setting.xml" />
-        <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/utils/Utils.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/customview/BaseImageView.java" />
@@ -1626,7 +1609,12 @@
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/utils/ParserHelper.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/customview/SvgImageView.java" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonalActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/item_slider.xml" />
+        <option value="$PROJECT_DIR$/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/res/values-v17/styles.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_personal.xml" />
+        <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -1638,6 +1626,31 @@
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1665,6 +1678,26 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1857,6 +1890,50 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adapter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1879,24 +1956,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Suiuu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Suiuu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-xxhdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Suiuu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-xhdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1911,16 +2004,16 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="options.lastSelected" value="editor.preferences.appearance" />
+    <property name="options.lastSelected" value="preferences.keymap" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="android.project.structure.last.selected" value="Suiuu" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
     <property name="LayoutCode.rearrangeEntriesXML" value="true" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="8e28c1af" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="5D160006000000010911652A0300101?" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/res/drawable-xxhdpi" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="233" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../TestProject/SystemBarTintSamples" />
@@ -1945,11 +2038,11 @@
       <recent name="D:\Android\SuiuuProject\Android-APP\res\drawable-hdpi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Android\SuiuuProject\Android-APP\res\drawable-xhdpi" />
+      <recent name="D:\Android\SuiuuProject\Android-APP\res\drawable-xxhdpi" />
       <recent name="D:\Android\SuiuuProject\Android-APP\res\values-v21" />
       <recent name="D:\Android\SuiuuProject\Android-APP\res\values-v19" />
-      <recent name="D:\Android\SuiuuProject\Android-APP\res\drawable-xhdpi" />
       <recent name="D:\Android\Project2\Suiuu\res\drawable-hdpi" />
-      <recent name="D:\Android\Project2\Suiuu\res\drawable-mdpi" />
     </key>
     <key name="android.template.parentActivityClass">
       <recent name="" />
@@ -2190,7 +2283,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32703003" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2209,11 +2302,11 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5906563" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2510661" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25053304" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2272,104 +2365,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/NewRemindActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21839081" vertical-offset="1070" max-vertical-offset="3675">
-          <caret line="83" column="19" selection-start-line="83" selection-start-column="19" selection-end-line="83" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../adt-bundle-windows-x86_64-20131030/sdk/sources/android-21/java/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="48703" max-vertical-offset="63336">
-          <caret line="2584" column="20" selection-start-line="2584" selection-start-column="20" selection-end-line="2584" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/FansActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2896552" vertical-offset="96" max-vertical-offset="1470">
-          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/FeedbackActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="936" max-vertical-offset="2625">
-          <caret line="73" column="61" selection-start-line="73" selection-start-column="61" selection-end-line="73" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/item_slider.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.0" vertical-offset="0" max-vertical-offset="735">
-          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/adapter/SettingAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="2142">
-          <caret line="60" column="78" selection-start-line="60" selection-start-column="78" selection-end-line="60" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/item_setting.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="756">
-          <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_setting.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.571428" vertical-offset="145" max-vertical-offset="987">
-          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/adapter/MainSliderAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="2247">
-          <caret line="62" column="78" selection-start-line="62" selection-start-column="78" selection-end-line="62" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values-v17/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonSettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16896552" vertical-offset="504" max-vertical-offset="1701">
-          <caret line="41" column="48" selection-start-line="41" selection-start-column="48" selection-end-line="41" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/MyAttentionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13103448" vertical-offset="222" max-vertical-offset="1218">
           <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2377,6 +2381,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8931034" vertical-offset="0" max-vertical-offset="3822">
           <caret line="61" column="43" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2577,14 +2582,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1986" max-vertical-offset="2898">
-          <caret line="129" column="20" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1129" max-vertical-offset="2247">
@@ -2635,20 +2632,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/attr.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="870">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/customview/CustomShapeImageView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19310345" vertical-offset="0" max-vertical-offset="1407">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2666,24 +2655,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="25" max-vertical-offset="1407">
           <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2331" max-vertical-offset="10668">
-          <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonalActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="3087">
-          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2695,15 +2668,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/back.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/customview/CircleImageView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="777">
+        <state vertical-scroll-proportion="0.6758621" vertical-offset="0" max-vertical-offset="870">
           <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="e#1071#1072#0" expanded="true" />
-            <element signature="e#1128#1129#0" expanded="true" />
-          </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/attr.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="870">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/item_slider.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/adapter/MainSliderAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="2247">
+          <caret line="62" column="77" selection-start-line="62" selection-start-column="77" selection-end-line="62" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values-v17/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xxhdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_personal.xml">
@@ -2711,9 +2730,87 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1841" max-vertical-offset="3024">
-          <caret line="122" column="45" selection-start-line="122" selection-start-column="45" selection-end-line="122" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="56" max-vertical-offset="3024">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1915" max-vertical-offset="2898">
+          <caret line="110" column="57" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/PersonalActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="653" max-vertical-offset="3087">
+          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../adt-bundle-windows-x86_64-20131030/sdk/sources/android-21/android/util/Log.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2644" max-vertical-offset="4263">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../adt-bundle-windows-x86_64-20131030/sdk/sources/android-21/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="105233" max-vertical-offset="125748">
+          <caret line="5236" column="0" selection-start-line="5236" selection-start-column="0" selection-end-line="5236" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../adt-bundle-windows-x86_64-20131030/sdk/sources/android-21/android/app/Instrumentation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="21061" max-vertical-offset="38640">
+          <caret line="1083" column="0" selection-start-line="1083" selection-start-column="0" selection-end-line="1083" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../adt-bundle-windows-x86_64-20131030/sdk/sources/android-21/android/app/ActivityThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33268103" vertical-offset="39079" max-vertical-offset="106134">
+          <caret line="2034" column="0" selection-start-line="2034" selection-start-column="0" selection-end-line="2034" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.75" vertical-offset="2744" max-vertical-offset="3612">
+          <caret line="145" column="39" selection-start-line="145" selection-start-column="29" selection-end-line="145" selection-end-column="39" />
+          <folding>
+            <element signature="tag#ImageView#0;tag#LinearLayout#0;tag#RelativeLayout#1;tag#android.support.v4.widget.DrawerLayout#0" expanded="false" />
+            <element signature="tag#TextView#0;tag#LinearLayout#0;tag#RelativeLayout#1;tag#android.support.v4.widget.DrawerLayout#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4827586" vertical-offset="4109" max-vertical-offset="5775">
+          <caret line="487" column="23" selection-start-line="487" selection-start-column="23" selection-end-line="487" selection-end-column="23" />
+          <folding>
+            <element signature="method#ViewAction#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#LoadMainFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#LoadLoopFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#LoadRouteFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#LoadConversationFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#LoadDefaultFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#initNumber#0;class#MainActivity#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
