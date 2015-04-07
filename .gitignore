@@ -1,2 +1,11 @@
 *.class
 bin/R.txt
+build/generated/source/buildConfig/androidTest/debug/com/minglang/suiuu/test/BuildConfig.java
+build/generated/source/buildConfig/debug/com/minglang/suiuu/BuildConfig.java
+build/generated/source/r/debug/org/fireking/app/imagelib/R.java
+ImageLib/build/tmp/packageReleaseJar/MANIFEST.MF
+ImageLib/build/tmp/packageDebugJar/MANIFEST.MF
+ImageLib/build/outputs/aar/ImageLib-release.aar
+ImageLib/build/intermediates/res/androidTest/debug/values-sw720dp-land-v13/values.xml
+build
+ImageLib/build
