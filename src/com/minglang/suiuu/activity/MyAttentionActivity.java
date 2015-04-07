@@ -48,7 +48,7 @@ public class MyAttentionActivity extends Activity {
         mTintManager.setNavigationBarTintEnabled(false);
         mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
 
-        int statusHeight = Utils.getInstance(this).getStatusHeight();
+        int statusHeight = Utils.newInstance(this).getStatusHeight();
 
         /**
          系统版本是否高于4.4

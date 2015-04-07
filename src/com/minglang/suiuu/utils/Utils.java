@@ -21,38 +21,52 @@ public class Utils {
         this.context = context;
     }
 
-    public static Utils getInstance(Context context) {
+    public static Utils newInstance(Context context) {
         if (utils == null) {
             utils = new Utils(context);
             return utils;
-        }else{
+        } else {
             return utils;
         }
     }
 
+    /**
+     * dp转像素
+     *
+     * @param dpValue dp数值
+     * @return
+     */
     public int dip2px(float dpValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
+    /**
+     * 像素转dp
+     *
+     * @param pxValue 像素数值
+     * @return
+     */
     public int px2dip(float pxValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
-    public int getStatusHeight()
-    {
+    /**
+     * 得到状态栏高度
+     *
+     * @return
+     */
+    public int getStatusHeight() {
 
         int statusHeight = -1;
-        try
-        {
+        try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");
             Object object = clazz.newInstance();
             int height = Integer.parseInt(clazz.getField("status_bar_height")
                     .get(object).toString());
             statusHeight = context.getResources().getDimensionPixelSize(height);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return statusHeight;
@@ -64,8 +78,8 @@ public class Utils {
      * @param activity Activity
      */
     @SuppressLint("InlinedApi")
-    public void selectPicture(Activity activity) {
-        if (Build.VERSION.SDK_INT < 19) {
+    public static void selectPicture(Activity activity) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -90,7 +104,7 @@ public class Utils {
      * @param activity Activity
      * @param uri      图片的Uri
      */
-    public void cropPicture(Activity activity, Uri uri) {
+    public static void cropPicture(Activity activity, Uri uri) {
         Intent innerIntent = new Intent("com.android.camera.action.CROP");
         innerIntent.setDataAndType(uri, "image/*");
         innerIntent.putExtra("crop", "true");// 才能出剪辑的小方框，不然没有剪辑功能，只能选取图片
@@ -104,7 +118,7 @@ public class Utils {
     }
 
     /**
-     * 下面几个方法来自于stackoverflow,虽然来自大神，但大神的代码也不是就那样？ 看不懂的地方挨个百度。
+     * 下面几个方法来自于Stack Overflow,虽然来自大神，但大神的代码也不是就那样？ 看不懂的地方挨个百度。
      * -----------------------割------------------------- Get a file path from a
      * Uri. This will get the the path for Storage Access Framework Documents,
      * as well as the _data field for the MediaStore and other file-based
@@ -115,7 +129,7 @@ public class Utils {
      * @author paulburke
      */
     @SuppressLint("NewApi")
-    public String getPath(final Context context, final Uri uri) {
+    public static String getPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
@@ -192,8 +206,8 @@ public class Utils {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    public String getDataColumn(Context context, Uri uri, String selection,
-                                String[] selectionArgs) {
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
 
         Cursor cursor = null;
         final String column = "_data";

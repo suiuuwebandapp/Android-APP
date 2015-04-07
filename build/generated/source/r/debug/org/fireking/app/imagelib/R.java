@@ -12,40 +12,40 @@ public final class R {
 		public static final int activity_vertical_margin = 0x7f050005;
 	}
 	public static final class drawable {
-		public static final int friends_sends_pictures_no = 0x7f020012;
-		public static final int friends_sends_pictures_select_icon_selected = 0x7f020013;
-		public static final int friends_sends_pictures_select_icon_unselected = 0x7f020014;
-		public static final int ic_del = 0x7f020028;
-		public static final int ic_launcher = 0x7f02002a;
-		public static final int icon_addpic_focused = 0x7f02002b;
-		public static final int main_icon = 0x7f02004a;
-		public static final int pictures_select_icon = 0x7f02004b;
-		public static final int tk_photo = 0x7f02004e;
-		public static final int yt_btn_back_normal = 0x7f02004f;
+		public static final int friends_sends_pictures_no = 0x7f020014;
+		public static final int friends_sends_pictures_select_icon_selected = 0x7f020015;
+		public static final int friends_sends_pictures_select_icon_unselected = 0x7f020016;
+		public static final int ic_del = 0x7f02002a;
+		public static final int ic_launcher = 0x7f02002c;
+		public static final int icon_addpic_focused = 0x7f02002d;
+		public static final int main_icon = 0x7f02004c;
+		public static final int pictures_select_icon = 0x7f02004d;
+		public static final int tk_photo = 0x7f020050;
+		public static final int yt_btn_back_normal = 0x7f020051;
 	}
 	public static final class id {
-		public static final int album = 0x7f0900b2;
-		public static final int album_ck = 0x7f0900bc;
-		public static final int album_count = 0x7f0900bb;
-		public static final int album_image = 0x7f0900b9;
-		public static final int album_name = 0x7f0900ba;
-		public static final int back = 0x7f090024;
-		public static final int buttombanner = 0x7f0900b1;
-		public static final int child_checkbox = 0x7f0900b7;
-		public static final int child_grid = 0x7f0900b4;
-		public static final int child_image = 0x7f0900b6;
-		public static final int complete = 0x7f0900b0;
-		public static final int delete = 0x7f090025;
-		public static final int framelayout = 0x7f0900b5;
-		public static final int image = 0x7f0900a0;
-		public static final int image_selector = 0x7f0900ad;
-		public static final int imagebrowser_ptv_page = 0x7f090026;
-		public static final int imagebrowser_svp_pager = 0x7f090023;
-		public static final int list = 0x7f0900b8;
-		public static final int menu_settings = 0x7f0900bd;
-		public static final int preview = 0x7f0900b3;
-		public static final int title = 0x7f0900af;
-		public static final int topbanner = 0x7f0900ae;
+		public static final int album = 0x7f0900b6;
+		public static final int album_ck = 0x7f0900c0;
+		public static final int album_count = 0x7f0900bf;
+		public static final int album_image = 0x7f0900bd;
+		public static final int album_name = 0x7f0900be;
+		public static final int back = 0x7f090027;
+		public static final int buttombanner = 0x7f0900b5;
+		public static final int child_checkbox = 0x7f0900bb;
+		public static final int child_grid = 0x7f0900b8;
+		public static final int child_image = 0x7f0900ba;
+		public static final int complete = 0x7f0900b4;
+		public static final int delete = 0x7f090028;
+		public static final int framelayout = 0x7f0900b9;
+		public static final int image = 0x7f0900a4;
+		public static final int image_selector = 0x7f0900b1;
+		public static final int imagebrowser_ptv_page = 0x7f090029;
+		public static final int imagebrowser_svp_pager = 0x7f090026;
+		public static final int list = 0x7f0900bc;
+		public static final int menu_settings = 0x7f0900c1;
+		public static final int preview = 0x7f0900b7;
+		public static final int title = 0x7f0900b3;
+		public static final int topbanner = 0x7f0900b2;
 	}
 	public static final class layout {
 		public static final int activity_imagebrowser = 0x7f030006;

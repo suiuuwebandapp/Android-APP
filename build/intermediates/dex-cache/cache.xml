@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\picasso-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\picasso-2.4.0-5c7cd1e11124b55816500dd71f5839e5f3c62c61.jar" />
+    </item>
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\nineoldandroids-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-df1c3e78f310dc0519238d39f6faed19e96cf234.jar" />
+    </item>
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="08b94ca2303bb2103bb46bfa76312292bae39002">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\classes-04a57824eb90ac5de76c0737d000269ec15deaa0.jar" />
+    </item>
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\libs\xUtils-2.6.14.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f10c51f3e0732fdeefe6e104279a58e275879b6c">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\xUtils-2.6.14-c81f1b9c2587765f55fa958249c62c74969b912b.jar" />
+    </item>
+    <item
+        jar="D:\Android\SuiuuProject\Android-APP\build\intermediates\exploded-aar\Android-APP\ImageLib\unspecified\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28">
+        <dex dex="D:\Android\SuiuuProject\Android-APP\build\intermediates\pre-dexed\debug\android-support-v4-52fda7e0dd93944b1a206280467b0ec1b5337d5a.jar" />
+    </item>
+
+</items>

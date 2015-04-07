@@ -28,6 +28,20 @@
             android:text="@string/personalInfo"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/personalSave"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/save"
+            android:gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/remindColor"
+            android:textSize="18sp" />
+
     </RelativeLayout>
 
     <ScrollView
@@ -42,13 +56,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.minglang.suiuu.customview.CircleImageView
+                android:id="@+id/personalHeadImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/default_head_image" />
+                android:src="@drawable/default_head_image3" />
 
             <LinearLayout style="@style/personalItemStyle">
 
@@ -60,6 +74,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/gender"
+                    android:visibility="gone"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -68,20 +83,17 @@
 
                 <TextView
                     android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/nickname"
-                    android:textSize="18sp" />
+                    style="@style/personalTextStyle"
+                    android:visibility="gone"
+                    android:text="昵称    " />
 
                 <EditText
                     android:id="@+id/personalNickName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:hint="@string/nickname_hint" />
 
             </LinearLayout>
 
@@ -89,20 +101,17 @@
 
                 <TextView
                     android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/location"
-                    android:textSize="18sp" />
+                    style="@style/personalTextStyle"
+                    android:visibility="gone"
+                    android:text="@string/location" />
 
                 <EditText
                     android:id="@+id/personalLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:hint="@string/Location_hint" />
 
             </LinearLayout>
 
@@ -110,20 +119,17 @@
 
                 <TextView
                     android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/signature2"
-                    android:textSize="18sp" />
+                    style="@style/personalTextStyle"
+                    android:visibility="gone"
+                    android:text="签名    " />
 
                 <EditText
                     android:id="@+id/personalSignature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:hint="@string/Signature_hint" />
 
             </LinearLayout>
 
