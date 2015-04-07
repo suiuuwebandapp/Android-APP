@@ -13,6 +13,8 @@ ImageLib/build
 *.ipr
 *.iws
 .idea/
+local.properties
+local.properties
 *.apk
 *.ap_
 .idea/misc.xml
