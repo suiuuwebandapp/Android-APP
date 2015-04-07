@@ -9,3 +9,11 @@ ImageLib/build/outputs/aar/ImageLib-release.aar
 ImageLib/build/intermediates/res/androidTest/debug/values-sw720dp-land-v13/values.xml
 build
 ImageLib/build
+*.iml
+*.ipr
+*.iws
+.idea/
+local.properties
+local.properties
+*.apk
+*.ap_
