@@ -442,35 +442,35 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
 
-        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
-
-        if (isNavigationBar) {
-            if (isKITKAT) {
-                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
-                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
-                tabSelect.setLayoutParams(tabSelectParams);
-
-                Log.i(TAG, "4.4以上，有虚拟按键");
-
-            } else {
-                mDrawerLayout.setPadding(0, 0, 0, NavigationBarHeight);
-                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
-                tabSelect.setLayoutParams(tabSelectParams);
-
-                Log.i(TAG, "4.4以下，有虚拟按键");
-
-            }
-        } else {
-            if (isKITKAT) {
-                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
-                Log.i(TAG, "4.4以上，无虚拟按键");
-            } else {
-                //Nothing
-                Log.i(TAG, "4.4以下，无虚拟按键");
-            }
-        }
+//        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
+//
+//        if (isNavigationBar) {
+//            if (isKITKAT) {
+//                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+//                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+//                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
+//                tabSelect.setLayoutParams(tabSelectParams);
+//
+//                Log.i(TAG, "4.4以上，有虚拟按键");
+//
+//            } else {
+//                mDrawerLayout.setPadding(0, 0, 0, NavigationBarHeight);
+//                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+//                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
+//                tabSelect.setLayoutParams(tabSelectParams);
+//
+//                Log.i(TAG, "4.4以下，有虚拟按键");
+//
+//            }
+//        } else {
+//            if (isKITKAT) {
+//                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+//                Log.i(TAG, "4.4以上，无虚拟按键");
+//            } else {
+//                //Nothing
+//                Log.i(TAG, "4.4以下，无虚拟按键");
+//            }
+//        }
 
         if (isKITKAT) {
             /**************HeadLayout设置Margins*****************/
@@ -485,9 +485,11 @@ public class MainActivity extends FragmentActivity {
 
         /*************设置侧滑菜单Params**********************/
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
+        //版本高于4.4，设置侧滑菜单的padding
         if (isKITKAT) {
             slideLayout.setPadding(0, statusBarHeight, 0, 0);
         }
+
         ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
 
         params.width = screenWidth / 4 * 3;
