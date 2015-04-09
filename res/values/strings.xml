@@ -88,6 +88,8 @@
 
     <string name="clickPraise">点赞</string>
 
+    <string name="comment">评论</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_personal">PersonalActivity</string>
@@ -109,5 +111,6 @@
     <string name="title_activity_contact_us">ContactUsActivity</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_suiuu_details">SuiuuDetailsActivity</string>
+    <string name="title_activity_comments">CommentsActivity</string>
 
 </resources>

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/remindColor">
 
         <RelativeLayout
             android:id="@+id/titleLayout"
@@ -43,7 +43,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="15dp"
+                android:layout_margin="10dp"
                 android:src="@drawable/icon_search" />
 
         </RelativeLayout>
@@ -54,17 +54,11 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/titleLayout"></FrameLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparent">
-
             <LinearLayout
                 android:id="@+id/tabSelect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/slider_bg2"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -102,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="4dp"
                     android:src="@drawable/icon_edit2" />
 
                 <LinearLayout
@@ -136,7 +130,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout

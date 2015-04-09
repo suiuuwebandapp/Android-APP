@@ -85,19 +85,19 @@
                 <TextView
                     style="@style/otherUserInfo"
                     android:textColor="@color/white"
-                    android:text="New Text"
+                    android:text="@string/blankNickName"
                     android:id="@+id/otherUserName" />
 
                 <TextView
                     style="@style/otherUserInfo"
                     android:textColor="@color/white"
-                    android:text="New Text"
+                    android:text="@string/location"
                     android:id="@+id/otherUserLocation" />
 
                 <TextView
                     style="@style/otherUserInfo"
                     android:textColor="@color/white"
-                    android:text="New Text"
+                    android:text="@string/blankSignature"
                     android:id="@+id/otherUserSignature" />
             </LinearLayout>
         </RelativeLayout>
@@ -139,7 +139,9 @@
         android:id="@+id/otherUserLoop"
         android:layout_below="@+id/otherUserBackgroundLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:numColumns="2"
+        android:choiceMode="none" />
 
 
 </RelativeLayout>

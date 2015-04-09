@@ -59,4 +59,7 @@
     <color name="click_red">#ff7a45</color>
     <color name="click_yellow">#ffeb78</color>
 
+    <color name="comment_title_color">#ffd69f</color>
+    <color name="comment_title_color2">#ff7a3b</color>
+
 </resources>

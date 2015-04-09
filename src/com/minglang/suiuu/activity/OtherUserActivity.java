@@ -70,12 +70,21 @@ public class OtherUserActivity extends Activity {
         attention.setOnClickListener(new OtherUserClick());
 
         conversation.setOnClickListener(new OtherUserClick());
+
+        otherUserLoop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
     }
 
     /**
      * 初始化方法
      */
     private void initView() {
+
         otherUserBack = (ImageView) findViewById(R.id.OtherUserBack);
 
         collection = (TextView) findViewById(R.id.otherUserCollection);
@@ -90,12 +99,6 @@ public class OtherUserActivity extends Activity {
 
         otherUserLoop = (GridView) findViewById(R.id.otherUserLoop);
 
-        otherUserLoop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
     }
 
     class OtherUserClick implements View.OnClickListener {

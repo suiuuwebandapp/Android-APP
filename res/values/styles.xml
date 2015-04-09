@@ -139,6 +139,7 @@
         <item name="android:layout_weight">0.2</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

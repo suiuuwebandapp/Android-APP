@@ -2,6 +2,7 @@ package com.minglang.suiuu.activity;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.utils.SystemBarTintManager;
 
 public class SuDetailsActivity extends Activity {
 
@@ -163,6 +165,29 @@ public class SuDetailsActivity extends Activity {
      * 初始化方法
      */
     private void initView() {
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+
+        SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setNavigationBarTintEnabled(false);
+        mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
+        int statusHeight = mTintManager.getConfig().getStatusBarHeight();
+
+        /**
+         系统版本是否高于4.4
+         */
+        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        if (isKITKAT) {
+            RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.SuDetailsRootLayout);
+            rootLayout.setPadding(0, statusHeight, 0, 0);
+        }
+
         back = (ImageView) findViewById(R.id.SuDetailsBack);
 
         praise = (TextView) findViewById(R.id.SuDetailsPraise);
@@ -182,13 +207,8 @@ public class SuDetailsActivity extends Activity {
 
         content = (TextView) findViewById(R.id.SuDetailsContent);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenWidth = dm.widthPixels;
-        int screenHeight = dm.heightPixels;
-
         RelativeLayout.LayoutParams slideLayoutParams = new RelativeLayout.LayoutParams(slideLayout.getLayoutParams());
-        slideLayoutParams.height = screenHeight/3;
+        slideLayoutParams.height = screenHeight / 3;
         slideLayoutParams.width = screenWidth;
         slideLayout.setLayoutParams(slideLayoutParams);
     }

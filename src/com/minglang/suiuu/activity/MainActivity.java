@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,6 +24,9 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.MainSliderAdapter;
+import com.minglang.suiuu.customview.FloatingActionButton;
+import com.minglang.suiuu.customview.FloatingActionMenu;
+import com.minglang.suiuu.customview.SubActionButton;
 import com.minglang.suiuu.fragment.main.ConversationFragment;
 import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
@@ -29,6 +34,7 @@ import com.minglang.suiuu.fragment.main.RouteFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -111,17 +117,29 @@ public class MainActivity extends FragmentActivity {
      */
     private SystemBarTintManager mTintManager;
 
+    private SystemBarTintManager.SystemBarConfig systemBarConfig;
+
     /**
      * 状态栏高度
      */
     private int statusBarHeight;
 
-    /**
-     * 虚拟按键高度
-     */
-    private int NavigationBarHeight;
+    private  int navigationBarHeight;
 
-    private SystemBarTintManager.SystemBarConfig systemBarConfig;
+    /**
+     * 随问Button
+     */
+    private ImageView ask;
+
+    /**
+     * 随拍
+     */
+    private ImageView pic;
+
+    /**
+     * 随记
+     */
+    private ImageView record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,6 +264,28 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
+
+
+//        ask.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i(TAG, "ask");
+//            }
+//        });
+//
+//        pic.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i(TAG, "pic");
+//            }
+//        });
+//
+//        record.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i(TAG, "record");
+//            }
+//        });
 
     }
 
@@ -401,8 +441,11 @@ public class MainActivity extends FragmentActivity {
 
         systemBarConfig = mTintManager.getConfig();
 
-        NavigationBarHeight = systemBarConfig.getNavigationBarHeight();
-        Log.i(TAG, "NavigationBarHeight:" + String.valueOf(NavigationBarHeight));
+        /**
+         虚拟按键高度
+         */
+        navigationBarHeight = systemBarConfig.getNavigationBarHeight();
+        Log.i(TAG, "NavigationBarHeight:" + String.valueOf(navigationBarHeight));
 
         /**
          虚拟按键宽度(?)
@@ -442,35 +485,37 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
 
-//        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
-//
-//        if (isNavigationBar) {
-//            if (isKITKAT) {
-//                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
+
+        if (isNavigationBar) {
+            if (isKITKAT) {
+                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+                //screenHeight - navigationBarHeight - statusBarHeight
+                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, navigationBarHeight/4);
+                tabSelect.setLayoutParams(tabSelectParams);
+
+                Log.i(TAG, "4.4以上，有虚拟按键");
+
+            }
+//            else {
+//                mDrawerLayout.setPadding(0, 0, 0, navigationBarHeight);
 //                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-//                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
-//                tabSelect.setLayoutParams(tabSelectParams);
-//
-//                Log.i(TAG, "4.4以上，有虚拟按键");
-//
-//            } else {
-//                mDrawerLayout.setPadding(0, 0, 0, NavigationBarHeight);
-//                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-//                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
+//                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, 0);
 //                tabSelect.setLayoutParams(tabSelectParams);
 //
 //                Log.i(TAG, "4.4以下，有虚拟按键");
 //
 //            }
-//        } else {
-//            if (isKITKAT) {
-//                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
-//                Log.i(TAG, "4.4以上，无虚拟按键");
-//            } else {
-//                //Nothing
-//                Log.i(TAG, "4.4以下，无虚拟按键");
-//            }
-//        }
+        } else {
+            if (isKITKAT) {
+                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
+                Log.i(TAG, "4.4以上，无虚拟按键");
+            } else {
+                //Nothing
+                Log.i(TAG, "4.4以下，无虚拟按键");
+            }
+        }
 
         if (isKITKAT) {
             /**************HeadLayout设置Margins*****************/
@@ -514,9 +559,7 @@ public class MainActivity extends FragmentActivity {
 
         List<String> stringList = new ArrayList<>();
 
-        for (String aTITLE : TITLE) {
-            stringList.add(aTITLE);
-        }
+        Collections.addAll(stringList, TITLE);
 
         MainSliderAdapter mainSliderAdapter = new MainSliderAdapter(this, stringList);
 
@@ -527,6 +570,36 @@ public class MainActivity extends FragmentActivity {
         mainFragment = new MainFragment();
 
         LoadDefaultFragment();
+
+//        ImageView icon = new ImageView(this);
+//        icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_edit2));
+//
+//        FloatingActionButton editButton = new FloatingActionButton.Builder(this)
+//                .setContentView(icon)
+//                .setPosition(FloatingActionButton.POSITION_BOTTOM_CENTER)
+//                .build();
+//
+//        SubActionButton.Builder otherButton = new SubActionButton.Builder(this);
+//
+//        ask = new ImageView(this);
+//        pic = new ImageView(this);
+//        record = new ImageView(this);
+//
+//        ask.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_ask));
+//        pic.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_pic));
+//        record.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_record));
+//
+//        FrameLayout.LayoutParams askParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+//
+//        FrameLayout.LayoutParams picParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+//
+//        FrameLayout.LayoutParams recordParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+//
+//        new FloatingActionMenu.Builder(this).setStartAngle(-45).setEndAngle(-135)
+//                .addSubActionView(otherButton.setContentView(ask, askParams).build())
+//                .addSubActionView(otherButton.setContentView(pic, picParams).build())
+//                .addSubActionView(otherButton.setContentView(record, recordParams).build())
+//                .attachTo(editButton).build();
 
     }
 
