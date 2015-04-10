@@ -5,8 +5,10 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/mainShowLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:background="@color/remindColor">
 
         <RelativeLayout
@@ -52,84 +54,117 @@
             android:id="@+id/showLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/titleLayout"></FrameLayout>
+            android:layout_below="@+id/titleLayout"
+            android:layout_alignParentBottom="true"></FrameLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_main_pic"
+            android:id="@+id/main_pic"
+            android:layout_marginBottom="5dp"
+            android:layout_above="@+id/tabSelect"
+            android:visibility="invisible"
+            android:layout_toLeftOf="@+id/main_record"
+            android:layout_toStartOf="@+id/main_record" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_main_record"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/main_record"
+            android:visibility="invisible"
+            android:layout_above="@+id/tabSelect" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_main_ask"
+            android:id="@+id/main_ask"
+            android:layout_marginBottom="5dp"
+            android:visibility="invisible"
+            android:layout_above="@+id/tabSelect"
+            android:layout_toRightOf="@+id/main_record"
+            android:layout_toEndOf="@+id/main_record" />
+
+        <LinearLayout
+            android:id="@+id/tabSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:background="@color/tr_write2"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/tabSelect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    style="@style/tabLayout">
-
-                    <ImageView
-                        android:id="@+id/img1"
-                        style="@style/titleImage"
-                        android:src="@drawable/icon_main2"></ImageView>
-
-                    <TextView
-                        android:id="@+id/title1"
-                        style="@style/titleText"
-                        android:text="@string/title1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    style="@style/tabLayout">
-
-                    <ImageView
-                        android:id="@+id/img2"
-                        style="@style/titleImage"
-                        android:src="@drawable/icon_loop2"></ImageView>
-
-                    <TextView
-                        android:id="@+id/title2"
-                        style="@style/titleText"
-                        android:text="@string/title2" />
-                </LinearLayout>
+                android:id="@+id/tab1"
+                style="@style/tabLayout">
 
                 <ImageView
-                    android:id="@+id/sendNewMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/icon_edit2" />
+                    android:id="@+id/img1"
+                    style="@style/titleImage"
+                    android:src="@drawable/icon_main2"></ImageView>
 
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    style="@style/tabLayout">
-
-                    <ImageView
-                        android:id="@+id/img3"
-                        style="@style/titleImage"
-                        android:src="@drawable/icon_suiuu2"></ImageView>
-
-                    <TextView
-                        android:id="@+id/title3"
-                        style="@style/titleText"
-                        android:text="@string/title3" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab4"
-                    style="@style/tabLayout">
-
-                    <ImageView
-                        android:id="@+id/img4"
-                        style="@style/titleImage"
-                        android:src="@drawable/icon_conversation2"></ImageView>
-
-                    <TextView
-                        android:id="@+id/title4"
-                        style="@style/titleText"
-                        android:text="@string/title4" />
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/title1"
+                    style="@style/titleText"
+                    android:text="@string/title1" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab2"
+                style="@style/tabLayout">
+
+                <ImageView
+                    android:id="@+id/img2"
+                    style="@style/titleImage"
+                    android:src="@drawable/icon_loop2"></ImageView>
+
+                <TextView
+                    android:id="@+id/title2"
+                    style="@style/titleText"
+                    android:text="@string/title2" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/sendNewMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_edit2" />
+
+            <LinearLayout
+                android:id="@+id/tab3"
+                style="@style/tabLayout">
+
+                <ImageView
+                    android:id="@+id/img3"
+                    style="@style/titleImage"
+                    android:src="@drawable/icon_suiuu2"></ImageView>
+
+                <TextView
+                    android:id="@+id/title3"
+                    style="@style/titleText"
+                    android:text="@string/title3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab4"
+                style="@style/tabLayout">
+
+                <ImageView
+                    android:id="@+id/img4"
+                    style="@style/titleImage"
+                    android:src="@drawable/icon_conversation2"></ImageView>
+
+                <TextView
+                    android:id="@+id/title4"
+                    style="@style/titleText"
+                    android:text="@string/title4" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

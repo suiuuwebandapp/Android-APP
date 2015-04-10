@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,14 +27,12 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.MainSliderAdapter;
-import com.minglang.suiuu.customview.FloatingActionButton;
-import com.minglang.suiuu.customview.FloatingActionMenu;
-import com.minglang.suiuu.customview.SubActionButton;
 import com.minglang.suiuu.fragment.main.ConversationFragment;
 import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,7 +77,7 @@ public class MainActivity extends FragmentActivity {
     /**
      * 跳转发送新帖子
      */
-    private ImageView sendMsg;
+    private ImageButton sendMsg;
 
     private FragmentManager fm;
 
@@ -108,23 +109,29 @@ public class MainActivity extends FragmentActivity {
     private int screenWidth;
 
     /**
-     * 屏幕高度
-     */
-    private int screenHeight;
-
-    /**
      * 状态栏控制器
      */
     private SystemBarTintManager mTintManager;
-
-    private SystemBarTintManager.SystemBarConfig systemBarConfig;
 
     /**
      * 状态栏高度
      */
     private int statusBarHeight;
 
-    private  int navigationBarHeight;
+    /**
+     * 虚拟按键高度
+     */
+    private int navigationBarHeight;
+
+    /**
+     * 系统版本是否高于4.4
+     */
+    private boolean isKITKAT;
+
+    /**
+     * 是否有虚拟按键
+     */
+    private boolean isNavigationBar;
 
     /**
      * 随问Button
@@ -132,14 +139,18 @@ public class MainActivity extends FragmentActivity {
     private ImageView ask;
 
     /**
-     * 随拍
+     * 随拍Button
      */
     private ImageView pic;
 
     /**
-     * 随记
+     * 随记Button
      */
     private ImageView record;
+
+    private boolean isMainIcon = false;
+
+    private AnimationSet animationSetHide, animationSetShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +213,21 @@ public class MainActivity extends FragmentActivity {
                         break;
 
                     case R.id.sendNewMessage:
+                        if (isMainIcon) {
+                            ask.startAnimation(animationSetHide);
+                            pic.startAnimation(animationSetHide);
+                            record.startAnimation(animationSetHide);
+
+                            Log.i(TAG, "icon hide");
+
+                        } else {
+                            ask.startAnimation(animationSetShow);
+                            pic.startAnimation(animationSetShow);
+                            record.startAnimation(animationSetShow);
+
+                            Log.i(TAG, "icon show");
+
+                        }
                         break;
                 }
             }
@@ -266,26 +292,25 @@ public class MainActivity extends FragmentActivity {
         });
 
 
-//        ask.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG, "ask");
-//            }
-//        });
-//
-//        pic.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG, "pic");
-//            }
-//        });
-//
-//        record.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG, "record");
-//            }
-//        });
+        ask.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        pic.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "pic");
+            }
+        });
+
+        record.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "record");
+            }
+        });
 
     }
 
@@ -432,14 +457,17 @@ public class MainActivity extends FragmentActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
+        /**
+         屏幕高度
+         */
+        int screenHeight = dm.heightPixels;
 
         Log.i(TAG, "屏幕宽度:" + String.valueOf(screenWidth));
         Log.i(TAG, "屏幕高度:" + String.valueOf(screenHeight));
 
         mTintManager = new SystemBarTintManager(this);
 
-        systemBarConfig = mTintManager.getConfig();
+        SystemBarTintManager.SystemBarConfig systemBarConfig = mTintManager.getConfig();
 
         /**
          虚拟按键高度
@@ -455,8 +483,11 @@ public class MainActivity extends FragmentActivity {
 
         statusBarHeight = systemBarConfig.getStatusBarHeight();
         Log.i(TAG, "statusBarHeight:" + String.valueOf(statusBarHeight));
-    }
 
+        isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        isNavigationBar = systemBarConfig.hasNavigtionBar();
+    }
 
     /**
      * 初始化方法
@@ -464,16 +495,6 @@ public class MainActivity extends FragmentActivity {
     private void initView() {
 
         initNumber();
-
-        /**
-         系统版本是否高于4.4
-         */
-        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        /**
-         是否有虚拟按键
-         */
-        boolean isNavigationBar = systemBarConfig.hasNavigtionBar();
 
         /****************设置状态栏颜色*************/
 
@@ -485,15 +506,18 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
 
-        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
+        RelativeLayout mainShowLayout = (RelativeLayout) findViewById(R.id.mainShowLayout);
+//        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
 
         if (isNavigationBar) {
             if (isKITKAT) {
-                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
-                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-                //screenHeight - navigationBarHeight - statusBarHeight
-                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, navigationBarHeight/4);
-                tabSelect.setLayoutParams(tabSelectParams);
+                mDrawerLayout.setPadding(0, statusBarHeight, 0, navigationBarHeight);
+                mainShowLayout.setPadding(0, 0, 0, navigationBarHeight);
+
+//                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+//                screenHeight - navigationBarHeight - statusBarHeight
+//                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight*2, 0, 0);
+//                tabSelect.setLayoutParams(tabSelectParams);
 
                 Log.i(TAG, "4.4以上，有虚拟按键");
 
@@ -503,9 +527,7 @@ public class MainActivity extends FragmentActivity {
 //                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
 //                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, 0);
 //                tabSelect.setLayoutParams(tabSelectParams);
-//
 //                Log.i(TAG, "4.4以下，有虚拟按键");
-//
 //            }
         } else {
             if (isKITKAT) {
@@ -553,9 +575,13 @@ public class MainActivity extends FragmentActivity {
         tab3 = (LinearLayout) findViewById(R.id.tab3);
         tab4 = (LinearLayout) findViewById(R.id.tab4);
 
-        sendMsg = (ImageView) findViewById(R.id.sendNewMessage);
+        sendMsg = (ImageButton) findViewById(R.id.sendNewMessage);
 
         mListView = (ListView) findViewById(R.id.drawerList);
+
+        ask = (ImageView) findViewById(R.id.main_ask);
+        pic = (ImageView) findViewById(R.id.main_pic);
+        record = (ImageView) findViewById(R.id.main_record);
 
         List<String> stringList = new ArrayList<>();
 
@@ -571,36 +597,60 @@ public class MainActivity extends FragmentActivity {
 
         LoadDefaultFragment();
 
-//        ImageView icon = new ImageView(this);
-//        icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_edit2));
-//
-//        FloatingActionButton editButton = new FloatingActionButton.Builder(this)
-//                .setContentView(icon)
-//                .setPosition(FloatingActionButton.POSITION_BOTTOM_CENTER)
-//                .build();
-//
-//        SubActionButton.Builder otherButton = new SubActionButton.Builder(this);
-//
-//        ask = new ImageView(this);
-//        pic = new ImageView(this);
-//        record = new ImageView(this);
-//
-//        ask.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_ask));
-//        pic.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_pic));
-//        record.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_record));
-//
-//        FrameLayout.LayoutParams askParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-//
-//        FrameLayout.LayoutParams picParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-//
-//        FrameLayout.LayoutParams recordParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-//
-//        new FloatingActionMenu.Builder(this).setStartAngle(-45).setEndAngle(-135)
-//                .addSubActionView(otherButton.setContentView(ask, askParams).build())
-//                .addSubActionView(otherButton.setContentView(pic, picParams).build())
-//                .addSubActionView(otherButton.setContentView(record, recordParams).build())
-//                .attachTo(editButton).build();
+        initAnimation();
+    }
 
+    /**
+     * 初始化动画
+     */
+    private void initAnimation() {
+
+        Animation animHide = new AlphaAnimation(1.0f, 0.0f);
+        Animation animShow = new AlphaAnimation(0.0f, 1.0f);
+
+        Animation animNarrow = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
+        Animation animBoost = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
+
+        animationSetHide = new AnimationSet(true);
+        animationSetHide.setDuration(500);
+        animationSetHide.setAnimationListener(new MyAnimationListener());
+
+        animationSetShow = new AnimationSet(true);
+        animationSetShow.setDuration(500);
+        animationSetShow.setAnimationListener(new MyAnimationListener());
+
+        animationSetHide.addAnimation(animHide);
+        animationSetHide.addAnimation(animNarrow);
+
+        animationSetShow.addAnimation(animShow);
+        animationSetShow.addAnimation(animBoost);
+    }
+
+    class MyAnimationListener implements Animation.AnimationListener {
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if (isMainIcon) {
+                ask.setVisibility(View.INVISIBLE);
+                pic.setVisibility(View.INVISIBLE);
+                record.setVisibility(View.INVISIBLE);
+                isMainIcon = false;
+            } else {
+                ask.setVisibility(View.VISIBLE);
+                pic.setVisibility(View.VISIBLE);
+                record.setVisibility(View.VISIBLE);
+                isMainIcon = true;
+            }
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
     }
 
     @Override

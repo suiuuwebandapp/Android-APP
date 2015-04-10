@@ -40,7 +40,7 @@
     <style name="titleImage">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
+
     </style>
 
     <!-- 主页面Tab页外层布局样式 -->
@@ -48,9 +48,10 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">0.2</item>
+        <item name="android:layout_gravity">bottom</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginTop">5dp</item>
     </style>
 
 

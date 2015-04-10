@@ -82,7 +82,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
-    <orderEntry type="module" module-name="ImageLib" exported="" />
   </component>
 </module>
 
