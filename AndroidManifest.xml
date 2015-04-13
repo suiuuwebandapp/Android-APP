@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.minglang.suiuu"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -17,11 +17,11 @@
         android:allowBackup="true"
         android:icon="@drawable/main_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,44 +77,48 @@
             android:name=".activity.OtherUserActivity"
             android:label="@string/title_activity_other_user"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name=".activity.NewRemindActivity"
             android:label="@string/title_activity_new_remind"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme"></activity>
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.HeadImageActivity"
             android:label="@string/title_activity_head_image"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
         <activity
             android:name=".activity.OtherUserTraceActivity"
             android:label="@string/title_activity_other_user_trace"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TestActivity"
-            android:label="@string/title_activity_test"></activity>
+            android:label="@string/title_activity_test" />
         <activity
             android:name=".activity.FeedbackActivity"
             android:label="@string/title_activity_feedback"
-            android:theme="@style/FullBleedTheme"></activity>
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.ContactUsActivity"
             android:label="@string/title_activity_contact_us"
-            android:theme="@style/FullBleedTheme"></activity>
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.SuDetailsActivity"
             android:label="@string/title_activity_suiuu_details"
-            android:theme="@style/FullBleedTheme"></activity>
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.CommentsActivity"
             android:label="@string/title_activity_comments"
-            android:theme="@style/FullBleedTheme"></activity>
+            android:theme="@style/FullBleedTheme" />
         <activity
             android:name=".activity.SelectImageActivity"
-            android:label="@string/title_activity_select_picture"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+            android:label="@string/title_activity_select_image"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+        <activity
+            android:name=".activity.SelectPictureActivity"
+            android:label="@string/title_activity_select_picture" >
+        </activity>
     </application>
 
 </manifest>

@@ -18,8 +18,8 @@ public class ListImageDirPopupWindow extends
 	private ListView mListDir;
 
 	public ListImageDirPopupWindow(int width, int height,
-			List<ImageFolder> datas, View convertView) {
-		super(convertView, width, height, true, datas);
+			List<ImageFolder> data, View convertView) {
+		super(convertView, width, height, true, data);
 	}
 
 	@Override

@@ -26,18 +26,18 @@ public abstract class BasePopupWindowForListView<T> extends PopupWindow {
 	}
 
 	public BasePopupWindowForListView(View contentView, int width, int height,
-			boolean focusable, List<T> mDatas) {
-		this(contentView, width, height, focusable, mDatas, new Object[0]);
+			boolean focusable, List<T> mData) {
+		this(contentView, width, height, focusable, mData, new Object[0]);
 	}
 
 	@SuppressWarnings("deprecation")
 	public BasePopupWindowForListView(View contentView, int width, int height,
-			boolean focusable, List<T> mDatas, Object... params) {
+			boolean focusable, List<T> mData, Object... params) {
 		super(contentView, width, height, focusable);
 		this.mContentView = contentView;
 		context = contentView.getContext();
-		if (mDatas != null)
-			this.mDatas = mDatas;
+		if (mData != null)
+			this.mDatas = mData;
 
 		if (params != null && params.length > 0) {
 			beforeInitWeNeedSomeParams(params);

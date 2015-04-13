@@ -122,7 +122,7 @@ public class SelectImageActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_picture);
+        setContentView(R.layout.activity_select_image);
 
         initView();
 
@@ -136,8 +136,9 @@ public class SelectImageActivity extends Activity {
      * 初始化PopupWindow
      */
     private void initPopupWindow() {
-        mListImageDirPopupWindow = new ListImageDirPopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, mScreenHeight / 10 * 7,
-                mImageFolders, LayoutInflater.from(this).inflate(R.layout.check_img_list_dir, null));
+        mListImageDirPopupWindow = new ListImageDirPopupWindow(ViewGroup.LayoutParams.MATCH_PARENT,
+                mScreenHeight / 10 * 7,mImageFolders,
+                LayoutInflater.from(this).inflate(R.layout.check_img_list_dir, null));
 
         mListImageDirPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
@@ -159,7 +160,8 @@ public class SelectImageActivity extends Activity {
                 mImages = Arrays.asList(mImgDir.list(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String filename) {
-                        if (filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".jpeg")) {
+                        if (filename.endsWith(".jpg") || filename.endsWith(".png")
+                                || filename.endsWith(".jpeg")) {
                             return true;
                         }
 
@@ -171,7 +173,7 @@ public class SelectImageActivity extends Activity {
                  * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
                  */
                 selectPictureAdapter = new SelectImageAdapter(getApplicationContext(), mImages,
-                        R.layout.item_select_picture, mImgDir.getAbsolutePath(),
+                        R.layout.item_select_image, mImgDir.getAbsolutePath(),
                         complete);
 
                 selectImage.setAdapter(selectPictureAdapter);
@@ -197,7 +199,7 @@ public class SelectImageActivity extends Activity {
 
         allPicture.setText("/" + str[str.length - 1]);
 
-        selectPictureAdapter = new SelectImageAdapter(this, mImages, R.layout.item_select_picture,
+        selectPictureAdapter = new SelectImageAdapter(this, mImages, R.layout.item_select_image,
                 mImgDir.getAbsolutePath(), complete);
         selectImage.setAdapter(selectPictureAdapter);
     }
@@ -224,8 +226,10 @@ public class SelectImageActivity extends Activity {
                 ContentResolver mContentResolver = SelectImageActivity.this.getContentResolver();
 
                 // 只查询jpeg和png的图片
-                Cursor mCursor = mContentResolver.query(mImageUri, null, MediaStore.Images.Media.MIME_TYPE + "=? or "
-                                + MediaStore.Images.Media.MIME_TYPE + "=?", new String[]{"image/jpeg", "image/png"},
+                Cursor mCursor = mContentResolver.query(mImageUri, null,
+                        MediaStore.Images.Media.MIME_TYPE + "=? or "
+                        + MediaStore.Images.Media.MIME_TYPE + "=?",
+                        new String[]{"image/jpeg", "image/png"},
                         MediaStore.Images.Media.DATE_MODIFIED);
 
                 while (mCursor.moveToNext()) {
@@ -260,7 +264,8 @@ public class SelectImageActivity extends Activity {
                     int picSize = parentFile.list(new FilenameFilter() {
                         @Override
                         public boolean accept(File dir, String filename) {
-                            if (filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".jpeg")) {
+                            if (filename.endsWith(".jpg") || filename.endsWith(".png")
+                                    || filename.endsWith(".jpeg")) {
                                 return true;
                             }
                             return false;
@@ -312,12 +317,12 @@ public class SelectImageActivity extends Activity {
 
         mScreenHeight = dm.heightPixels;
 
-        back = (ImageView) findViewById(R.id.selectPictureBack);
-        complete = (TextView) findViewById(R.id.selectPictureComplete);
+        back = (ImageView) findViewById(R.id.selectImageBack);
+        complete = (TextView) findViewById(R.id.selectImageComplete);
 
         selectImage = (GridView) findViewById(R.id.selectImage);
 
-        allPicture = (TextView) findViewById(R.id.selectPictureAll);
+        allPicture = (TextView) findViewById(R.id.selectImageAll);
     }
 
     private String cameraPath = null;
@@ -362,7 +367,7 @@ public class SelectImageActivity extends Activity {
                     finish();
                     break;
 
-                case R.id.selectPictureComplete:
+                case R.id.selectImageComplete:
 
                     break;
 

@@ -115,7 +115,7 @@ public class ViewHolder {
      * @return
      */
     public ViewHolder setImageByUrl(int viewId, String url) {
-        ImageLoader.getInstance(3, ImageLoader.Type.LIFO).loadImage(url,
+        ImageLoaderUtils.getInstance(3, ImageLoaderUtils.Type.LIFO).loadImage(url,
                 (ImageView) getView(viewId));
         return this;
     }

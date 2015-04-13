@@ -114,6 +114,7 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_suiuu_details">SuiuuDetailsActivity</string>
     <string name="title_activity_comments">CommentsActivity</string>
+    <string name="title_activity_select_image">SelectImageActivity</string>
     <string name="title_activity_select_picture">SelectPictureActivity</string>
 
 </resources>

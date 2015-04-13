@@ -1,6 +1,8 @@
 package com.minglang.suiuu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImageFolder implements Serializable{
 	/**
@@ -17,6 +19,8 @@ public class ImageFolder implements Serializable{
 	 * 文件夹的名称
 	 */
 	private String name;
+
+    public List<ImageItem> images = new ArrayList<>();
 
 	/**
 	 * 图片的数量
@@ -58,5 +62,6 @@ public class ImageFolder implements Serializable{
 		return "ImageFolder [dir=" + dir + ", firstImagePath=" + firstImagePath
 				+ ", name=" + name + ", count=" + count + "]";
 	}
+
 
 }
