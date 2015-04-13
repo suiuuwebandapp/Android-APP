@@ -112,7 +112,7 @@
             android:label="@string/title_activity_comments"
             android:theme="@style/FullBleedTheme"></activity>
         <activity
-            android:name=".activity.SelectPictureActivity"
+            android:name=".activity.SelectImageActivity"
             android:label="@string/title_activity_select_picture"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
     </application>

@@ -1,6 +1,8 @@
 package com.minglang.suiuu.entity;
 
-public class ImageFolder {
+import java.io.Serializable;
+
+public class ImageFolder implements Serializable{
 	/**
 	 * 图片的文件夹路径
 	 */

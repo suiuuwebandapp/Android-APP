@@ -295,7 +295,8 @@ public class MainActivity extends FragmentActivity {
         ask.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent =new Intent(MainActivity.this,SelectImageActivity.class);
+                startActivity(intent);
             }
         });
 
