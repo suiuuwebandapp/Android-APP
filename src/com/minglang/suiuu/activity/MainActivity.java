@@ -295,6 +295,7 @@ public class MainActivity extends FragmentActivity {
         ask.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
 
@@ -527,7 +528,7 @@ public class MainActivity extends FragmentActivity {
 //                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
 //                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, 0);
 //                tabSelect.setLayoutParams(tabSelectParams);
-//                Log.i(TAG, "4.4以下，有虚拟按键");
+                Log.i(TAG, "4.4以下，有虚拟按键");
 //            }
         } else {
             if (isKITKAT) {
