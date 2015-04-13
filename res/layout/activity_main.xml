@@ -5,9 +5,11 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/mainShowLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_alignParentBottom="true"
+        android:background="@color/remindColor">
 
         <RelativeLayout
             android:id="@+id/titleLayout"
@@ -43,7 +45,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="15dp"
+                android:layout_margin="10dp"
                 android:src="@drawable/icon_search" />
 
         </RelativeLayout>
@@ -52,16 +54,48 @@
             android:id="@+id/showLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/tabSelect"
-            android:layout_below="@+id/titleLayout"></FrameLayout>
+            android:layout_below="@+id/titleLayout"
+            android:layout_alignParentBottom="true"></FrameLayout>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_main_pic"
+            android:id="@+id/main_pic"
+            android:layout_marginBottom="5dp"
+            android:layout_above="@+id/tabSelect"
+            android:visibility="invisible"
+            android:layout_toLeftOf="@+id/main_record"
+            android:layout_toStartOf="@+id/main_record" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_main_record"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/main_record"
+            android:visibility="invisible"
+            android:layout_above="@+id/tabSelect" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_main_ask"
+            android:id="@+id/main_ask"
+            android:layout_marginBottom="5dp"
+            android:visibility="invisible"
+            android:layout_above="@+id/tabSelect"
+            android:layout_toRightOf="@+id/main_record"
+            android:layout_toEndOf="@+id/main_record" />
 
         <LinearLayout
             android:id="@+id/tabSelect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/slider_bg2"
+            android:gravity="center_vertical"
+            android:background="@color/tr_write2"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -94,13 +128,11 @@
                     android:text="@string/title2" />
             </LinearLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/sendNewMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="12dp"
-                android:src="@drawable/icon_edit2" />
+                android:background="@drawable/icon_edit2" />
 
             <LinearLayout
                 android:id="@+id/tab3"
@@ -133,6 +165,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout

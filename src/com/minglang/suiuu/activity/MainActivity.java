@@ -13,7 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,7 +33,9 @@ import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -70,7 +77,7 @@ public class MainActivity extends FragmentActivity {
     /**
      * 跳转发送新帖子
      */
-    private ImageView sendMsg;
+    private ImageButton sendMsg;
 
     private FragmentManager fm;
 
@@ -102,11 +109,6 @@ public class MainActivity extends FragmentActivity {
     private int screenWidth;
 
     /**
-     * 屏幕高度
-     */
-    private int screenHeight;
-
-    /**
      * 状态栏控制器
      */
     private SystemBarTintManager mTintManager;
@@ -119,9 +121,36 @@ public class MainActivity extends FragmentActivity {
     /**
      * 虚拟按键高度
      */
-    private int NavigationBarHeight;
+    private int navigationBarHeight;
 
-    private SystemBarTintManager.SystemBarConfig systemBarConfig;
+    /**
+     * 系统版本是否高于4.4
+     */
+    private boolean isKITKAT;
+
+    /**
+     * 是否有虚拟按键
+     */
+    private boolean isNavigationBar;
+
+    /**
+     * 随问Button
+     */
+    private ImageView ask;
+
+    /**
+     * 随拍Button
+     */
+    private ImageView pic;
+
+    /**
+     * 随记Button
+     */
+    private ImageView record;
+
+    private boolean isMainIcon = false;
+
+    private AnimationSet animationSetHide, animationSetShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +213,21 @@ public class MainActivity extends FragmentActivity {
                         break;
 
                     case R.id.sendNewMessage:
+                        if (isMainIcon) {
+                            ask.startAnimation(animationSetHide);
+                            pic.startAnimation(animationSetHide);
+                            record.startAnimation(animationSetHide);
+
+                            Log.i(TAG, "icon hide");
+
+                        } else {
+                            ask.startAnimation(animationSetShow);
+                            pic.startAnimation(animationSetShow);
+                            record.startAnimation(animationSetShow);
+
+                            Log.i(TAG, "icon show");
+
+                        }
                         break;
                 }
             }
@@ -244,6 +288,27 @@ public class MainActivity extends FragmentActivity {
                         break;
 
                 }
+            }
+        });
+
+
+        ask.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        pic.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "pic");
+            }
+        });
+
+        record.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "record");
             }
         });
 
@@ -392,17 +457,23 @@ public class MainActivity extends FragmentActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
+        /**
+         屏幕高度
+         */
+        int screenHeight = dm.heightPixels;
 
         Log.i(TAG, "屏幕宽度:" + String.valueOf(screenWidth));
         Log.i(TAG, "屏幕高度:" + String.valueOf(screenHeight));
 
         mTintManager = new SystemBarTintManager(this);
 
-        systemBarConfig = mTintManager.getConfig();
+        SystemBarTintManager.SystemBarConfig systemBarConfig = mTintManager.getConfig();
 
-        NavigationBarHeight = systemBarConfig.getNavigationBarHeight();
-        Log.i(TAG, "NavigationBarHeight:" + String.valueOf(NavigationBarHeight));
+        /**
+         虚拟按键高度
+         */
+        navigationBarHeight = systemBarConfig.getNavigationBarHeight();
+        Log.i(TAG, "NavigationBarHeight:" + String.valueOf(navigationBarHeight));
 
         /**
          虚拟按键宽度(?)
@@ -412,8 +483,11 @@ public class MainActivity extends FragmentActivity {
 
         statusBarHeight = systemBarConfig.getStatusBarHeight();
         Log.i(TAG, "statusBarHeight:" + String.valueOf(statusBarHeight));
-    }
 
+        isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        isNavigationBar = systemBarConfig.hasNavigtionBar();
+    }
 
     /**
      * 初始化方法
@@ -421,16 +495,6 @@ public class MainActivity extends FragmentActivity {
     private void initView() {
 
         initNumber();
-
-        /**
-         系统版本是否高于4.4
-         */
-        boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        /**
-         是否有虚拟按键
-         */
-        boolean isNavigationBar = systemBarConfig.hasNavigtionBar();
 
         /****************设置状态栏颜色*************/
 
@@ -442,26 +506,29 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
 
-        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
+        RelativeLayout mainShowLayout = (RelativeLayout) findViewById(R.id.mainShowLayout);
+//        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
 
         if (isNavigationBar) {
             if (isKITKAT) {
-                mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
-                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
-                tabSelect.setLayoutParams(tabSelectParams);
+                mDrawerLayout.setPadding(0, statusBarHeight, 0, navigationBarHeight);
+                mainShowLayout.setPadding(0, 0, 0, navigationBarHeight);
+
+//                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+//                screenHeight - navigationBarHeight - statusBarHeight
+//                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight*2, 0, 0);
+//                tabSelect.setLayoutParams(tabSelectParams);
 
                 Log.i(TAG, "4.4以上，有虚拟按键");
 
-            } else {
-                mDrawerLayout.setPadding(0, 0, 0, NavigationBarHeight);
-                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
-                tabSelectParams.setMargins(0, screenHeight - NavigationBarHeight - statusBarHeight, 0, 0);
-                tabSelect.setLayoutParams(tabSelectParams);
-
-                Log.i(TAG, "4.4以下，有虚拟按键");
-
             }
+//            else {
+//                mDrawerLayout.setPadding(0, 0, 0, navigationBarHeight);
+//                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
+//                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, 0);
+//                tabSelect.setLayoutParams(tabSelectParams);
+//                Log.i(TAG, "4.4以下，有虚拟按键");
+//            }
         } else {
             if (isKITKAT) {
                 mDrawerLayout.setPadding(0, statusBarHeight, 0, 0);
@@ -485,9 +552,11 @@ public class MainActivity extends FragmentActivity {
 
         /*************设置侧滑菜单Params**********************/
         slideLayout = (RelativeLayout) findViewById(R.id.slideLayout);
+        //版本高于4.4，设置侧滑菜单的padding
         if (isKITKAT) {
             slideLayout.setPadding(0, statusBarHeight, 0, 0);
         }
+
         ViewGroup.LayoutParams params = slideLayout.getLayoutParams();
 
         params.width = screenWidth / 4 * 3;
@@ -506,15 +575,17 @@ public class MainActivity extends FragmentActivity {
         tab3 = (LinearLayout) findViewById(R.id.tab3);
         tab4 = (LinearLayout) findViewById(R.id.tab4);
 
-        sendMsg = (ImageView) findViewById(R.id.sendNewMessage);
+        sendMsg = (ImageButton) findViewById(R.id.sendNewMessage);
 
         mListView = (ListView) findViewById(R.id.drawerList);
 
+        ask = (ImageView) findViewById(R.id.main_ask);
+        pic = (ImageView) findViewById(R.id.main_pic);
+        record = (ImageView) findViewById(R.id.main_record);
+
         List<String> stringList = new ArrayList<>();
 
-        for (String aTITLE : TITLE) {
-            stringList.add(aTITLE);
-        }
+        Collections.addAll(stringList, TITLE);
 
         MainSliderAdapter mainSliderAdapter = new MainSliderAdapter(this, stringList);
 
@@ -526,6 +597,60 @@ public class MainActivity extends FragmentActivity {
 
         LoadDefaultFragment();
 
+        initAnimation();
+    }
+
+    /**
+     * 初始化动画
+     */
+    private void initAnimation() {
+
+        Animation animHide = new AlphaAnimation(1.0f, 0.0f);
+        Animation animShow = new AlphaAnimation(0.0f, 1.0f);
+
+        Animation animNarrow = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
+        Animation animBoost = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
+
+        animationSetHide = new AnimationSet(true);
+        animationSetHide.setDuration(500);
+        animationSetHide.setAnimationListener(new MyAnimationListener());
+
+        animationSetShow = new AnimationSet(true);
+        animationSetShow.setDuration(500);
+        animationSetShow.setAnimationListener(new MyAnimationListener());
+
+        animationSetHide.addAnimation(animHide);
+        animationSetHide.addAnimation(animNarrow);
+
+        animationSetShow.addAnimation(animShow);
+        animationSetShow.addAnimation(animBoost);
+    }
+
+    class MyAnimationListener implements Animation.AnimationListener {
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if (isMainIcon) {
+                ask.setVisibility(View.INVISIBLE);
+                pic.setVisibility(View.INVISIBLE);
+                record.setVisibility(View.INVISIBLE);
+                isMainIcon = false;
+            } else {
+                ask.setVisibility(View.VISIBLE);
+                pic.setVisibility(View.VISIBLE);
+                record.setVisibility(View.VISIBLE);
+                isMainIcon = true;
+            }
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
     }
 
     @Override

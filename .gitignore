@@ -20,3 +20,8 @@ local.properties
 .idea/misc.xml
 .idea/misc.xml
 local.properties
+.gradle/2.2.1/taskArtifacts/taskArtifacts.bin
+.gradle/2.2.1/taskArtifacts/fileHashes.bin
+.gradle/2.2.1/taskArtifacts/taskArtifacts.bin
+.gradle/2.2.1/taskArtifacts/cache.properties.lock
+.gradle/2.2.1/taskArtifacts/fileSnapshots.bin

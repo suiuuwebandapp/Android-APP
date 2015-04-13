@@ -115,6 +115,16 @@
             android:label="@string/title_activity_contact_us"
             android:theme="@style/FullBleedTheme" >
         </activity>
+        <activity
+            android:name=".activity.SuDetailsActivity"
+            android:theme="@style/FullBleedTheme"
+            android:label="@string/title_activity_suiuu_details" >
+        </activity>
+        <activity
+            android:name=".activity.CommentsActivity"
+            android:theme="@style/FullBleedTheme"
+            android:label="@string/title_activity_comments" >
+        </activity>
     </application>
 
 </manifest>
