@@ -153,7 +153,6 @@ public class AttentionActivity extends FragmentActivity {
         List<Fragment> fragmentList = new ArrayList<>();
 
         FragmentManager fm = getSupportFragmentManager();
-
         /**
          关注主题页面
          */
@@ -163,13 +162,13 @@ public class AttentionActivity extends FragmentActivity {
          关注用户页面
          */
         AttentionUserFragment attentionUserFragment = AttentionUserFragment.newInstance("c", "d");
-
         fragmentList.add(attentionThemeFragment);
         fragmentList.add(attentionUserFragment);
 
         AttentionPagerAdapter attentionPagerAdapter = new AttentionPagerAdapter(fm, fragmentList);
 
         attentionPager.setAdapter(attentionPagerAdapter);
+
 
         initImageView();
     }

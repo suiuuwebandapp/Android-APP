@@ -62,4 +62,7 @@
     <color name="comment_title_color">#ffd69f</color>
     <color name="comment_title_color2">#ff7a3b</color>
 
+    <color name="text_color_black_middle">#222222</color>
+    <color name="text_color_white">#FFFFFF</color>
+
 </resources>
