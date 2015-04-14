@@ -2,9 +2,11 @@ package com.minglang.suiuu.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,7 +19,11 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.easemob.EMError;
+import com.easemob.chat.EMChatManager;
+import com.easemob.exceptions.EaseMobException;
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.chat.chat.DemoApplication;
 
 /**
  * 登录页面
@@ -106,11 +112,68 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onClick(View v) {
+                String st1 = getResources().getString(R.string.User_name_cannot_be_empty);
+                String st2 = getResources().getString(R.string.Password_cannot_be_empty);
+                String st3 = getResources().getString(R.string.Confirm_password_cannot_be_empty);
+                String st4 = getResources().getString(R.string.Two_input_password);
+                String st5 = getResources().getString(R.string.Is_the_registered);
+                final String st6 = getResources().getString(R.string.Registered_successfully);
+                final String username = popupRegisterUserName.getText().toString().trim();
+                final String pwd = popupRegisterPassword1.getText().toString().trim();
+                if (TextUtils.isEmpty(username)) {
+                    Toast.makeText(LoginActivity.this, st1, Toast.LENGTH_SHORT).show();
+                    popupRegisterUserName.requestFocus();
+                    return;
+                } else if (TextUtils.isEmpty(pwd)) {
+                    Toast.makeText(LoginActivity.this, st2, Toast.LENGTH_SHORT).show();
+                    popupRegisterPassword1.requestFocus();
+                    return;
+                }
 
-                String str =popupRegisterUserName.getText().toString() + ","
-                        + popupRegisterPassword1.getText().toString();
+                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pwd)) {
+                    final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+                    pd.setMessage(st5);
+                    pd.show();
+                    final String st7 = getResources().getString(R.string.network_anomalies);
+                    final String st8 = getResources().getString(R.string.User_already_exists);
+                    final String st9 = getResources().getString(R.string.registration_failed_without_permission);
+                    final String st10 = getResources().getString(R.string.Registration_failed);
+                    new Thread(new Runnable() {
+                        public void run() {
+                            try {
+                                // 调用sdk注册方法
+                                EMChatManager.getInstance().createAccountOnServer(username, pwd);
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        // 保存用户名
+                                        pd.dismiss();
+                                        DemoApplication.getInstance().setUserName(username);
+                                        Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
+                                        popupWindowRegister.dismiss();
+                                    }
+                                });
+                            } catch (final EaseMobException e) {
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        if (!LoginActivity.this.isFinishing())
+                                            pd.dismiss();
+                                        int errorCode=e.getErrorCode();
+                                        if(errorCode== EMError.NONETWORK_ERROR){
+                                            Toast.makeText(getApplicationContext(), st7, Toast.LENGTH_SHORT).show();
+                                        }else if(errorCode==EMError.USER_ALREADY_EXISTS){
+                                            Toast.makeText(getApplicationContext(), st8, Toast.LENGTH_SHORT).show();
+                                        }else if(errorCode==EMError.UNAUTHORIZED){
+                                            Toast.makeText(getApplicationContext(), st9, Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), st10 + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
 
-                Toast.makeText(LoginActivity.this, str, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
