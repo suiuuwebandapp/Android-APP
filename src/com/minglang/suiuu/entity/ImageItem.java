@@ -10,4 +10,11 @@ public class ImageItem {
     public ImageItem(String p) {
         this.path = p;
     }
+
+    @Override
+    public String toString() {
+        return "ImageItem{" +
+                "path='" + path + '\'' +
+                '}';
+    }
 }

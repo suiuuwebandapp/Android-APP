@@ -68,7 +68,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/relativeLayout11"
         android:layout_above="@+id/relativeLayout12"
-        android:numColumns="auto_fit" />
+        android:numColumns="3" />
 
 
 </RelativeLayout>

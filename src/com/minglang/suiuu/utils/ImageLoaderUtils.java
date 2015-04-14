@@ -43,7 +43,7 @@ public class ImageLoaderUtils {
 	 * 轮询的线程
 	 */
 	private Thread mPoolThread;
-	private Handler mPoolThreadHander;
+	private Handler mPoolThreadHandler;
 
 	/**
 	 * 运行在UI线程的handler，用于给ImageView设置图片
@@ -51,7 +51,7 @@ public class ImageLoaderUtils {
 	private Handler mHandler;
 
 	/**
-	 * 引入一个值为1的信号量，防止mPoolThreadHander未初始化完成
+	 * 引入一个值为1的信号量，防止mPoolThreadHandler未初始化完成
 	 */
 	private volatile Semaphore mSemaphore = new Semaphore(0);
 
@@ -99,7 +99,7 @@ public class ImageLoaderUtils {
 			public void run() {
 				Looper.prepare();
 
-				mPoolThreadHander = new Handler(new Handler.Callback() {
+				mPoolThreadHandler = new Handler(new Handler.Callback() {
 
 					@Override
 					public boolean handleMessage(Message msg) {
@@ -207,13 +207,13 @@ public class ImageLoaderUtils {
 	private synchronized void addTask(Runnable runnable) {
 		try {
 			// 请求信号量，防止mPoolThreadHander为null
-			if (mPoolThreadHander == null)
+			if (mPoolThreadHandler == null)
 				mSemaphore.acquire();
 		} catch (InterruptedException e) {
 		}
 		mTasks.add(runnable);
 
-		mPoolThreadHander.sendEmptyMessage(0x110);
+		mPoolThreadHandler.sendEmptyMessage(0x110);
 	}
 
 	/**

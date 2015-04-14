@@ -2,6 +2,8 @@ package com.minglang.suiuu.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import com.minglang.suiuu.entity.ImageFolder;
 import com.minglang.suiuu.entity.ImageItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
 
@@ -23,6 +27,8 @@ import java.util.List;
  * Created by LZY on 2015/4/13 0013.
  */
 public class SelectPictureAdapter extends BaseAdapter {
+
+    private static final String TAG = SelectPictureAdapter.class.getSimpleName();
 
     private static int MAX_NUM = 6;
 
@@ -40,23 +46,28 @@ public class SelectPictureAdapter extends BaseAdapter {
 
     private TextView complete;
 
-    public SelectPictureAdapter(Context context,
-                                List<ImageItem> list,
-                                ImageFolder currentImageFolder,
-                                ImageLoader loader, DisplayImageOptions options,
+    public SelectPictureAdapter(Context context, List<ImageItem> list, ImageFolder currentImageFolder,
                                 List<String> selectedPicture, TextView complete) {
         this.context = context;
         this.list = list;
         this.currentImageFolder = currentImageFolder;
-        this.loader = loader;
-        this.options = options;
         this.selectedPicture = selectedPicture;
         this.complete = complete;
+
+        loader = ImageLoader.getInstance();
+        options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
+                .showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+                .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
+                .imageScaleType(ImageScaleType.EXACTLY).bitmapConfig(Bitmap.Config.RGB_565).build();
+        loader.init(ImageLoaderConfiguration.createDefault(context));
+
+        Log.i(TAG, currentImageFolder.toString());
     }
 
     public void setImageFolder(ImageFolder currentImageFolder) {
         this.currentImageFolder = currentImageFolder;
         this.list = currentImageFolder.images;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -71,7 +82,7 @@ public class SelectPictureAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @SuppressLint("InflateParams")

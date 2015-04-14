@@ -1,38 +1,47 @@
 package com.minglang.suiuu.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.BaseHolderAdapter;
 import com.minglang.suiuu.adapter.SelectPictureAdapter;
 import com.minglang.suiuu.customview.BasePopupWindowForListView;
 import com.minglang.suiuu.entity.ImageFolder;
 import com.minglang.suiuu.entity.ImageItem;
+import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SelectPictureActivity extends Activity {
@@ -40,9 +49,11 @@ public class SelectPictureActivity extends Activity {
     private static final String TAG = SelectPictureActivity.class.getSimpleName();
 
     /**
-     * 扫描完成
+     * 最多选择图片的个数
      */
-    private static final int SCANNING_COMPLETE = 1;
+    private static int MAX_NUM = 9;
+
+    private static final int OPEN_CAMERA = 100;
 
     private ImageLoader loader;
     private DisplayImageOptions options;
@@ -84,8 +95,6 @@ public class SelectPictureActivity extends Activity {
      */
     private TextView allPicture;
 
-    private ProgressDialog progressDialog;
-
     /**
      * 屏幕高度
      */
@@ -109,19 +118,52 @@ public class SelectPictureActivity extends Activity {
 
         ObtainThumbnail();
 
+        ViewAction();
+
         selectPictureAdapter = new SelectPictureAdapter(context, currentImageFolder.images,
-                currentImageFolder, loader, options, selectedPicture, complete);
+                currentImageFolder, selectedPicture, complete);
         selectImage.setAdapter(selectPictureAdapter);
 
-        ViewAction();
 
     }
 
+    /**
+     * 控件动作
+     */
     private void ViewAction() {
-        allPicture.setOnClickListener(new View.OnClickListener() {
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        allPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listPictureDirPopupWindow.setAnimationStyle(R.style.anim_popup_dir);
+                listPictureDirPopupWindow.showAsDropDown(allPicture, 0, 0);
+                // 设置背景颜色变暗
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = .3f;
+                getWindow().setAttributes(lp);
+            }
+        });
+
+        selectImage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    openCamera();
+                }
             }
         });
     }
@@ -149,7 +191,7 @@ public class SelectPictureActivity extends Activity {
                     continue;
                 }
 
-                ImageFolder imageFolder = null;
+                ImageFolder imageFolder;
 
                 String dirPath = parentFile.getAbsolutePath();
 
@@ -178,8 +220,56 @@ public class SelectPictureActivity extends Activity {
 
     }
 
+
+    /**
+     * 使用相机拍照
+     */
+    protected void openCamera() {
+        if (selectedPicture.size() + 1 > MAX_NUM) {
+            Toast.makeText(context, "最多选择" + MAX_NUM + "张", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri imageUri = getOutputMediaFileUri();
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(openCameraIntent, OPEN_CAMERA);
+    }
+
+    private String cameraPath = null;
+
+    /**
+     * 用于拍照时获取输出的Uri
+     */
+    protected Uri getOutputMediaFileUri() {
+        File mediaStorageDir = new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Night");
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("MyCameraApp", "failed to create directory");
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault()).format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+        cameraPath = mediaFile.getAbsolutePath();
+        return Uri.fromFile(mediaFile);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && cameraPath != null) {
+            selectedPicture.add(cameraPath);
+        }
+    }
+
+    /**
+     * 初始化PopupWindow
+     */
     private void initPopupWindow() {
 
+        @SuppressLint("InflateParams")
         View view = LayoutInflater.from(context).inflate(R.layout.check_img_list_dir, null);
 
         listPictureDirPopupWindow = new ListPictureDirPopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
@@ -219,15 +309,10 @@ public class SelectPictureActivity extends Activity {
     class ListPictureDirPopupWindow extends BasePopupWindowForListView<ImageFolder> {
 
         private ListView mListDir;
-        //写ListView的Adapter
 
         public ListPictureDirPopupWindow(View contentView, int width, int height,
                                          boolean focusable, List<ImageFolder> data) {
             super(contentView, width, height, focusable, data);
-        }
-
-        public ListView getListView() {
-            return mListDir;
         }
 
         @Override
@@ -238,6 +323,21 @@ public class SelectPictureActivity extends Activity {
         @Override
         public void initViews() {
             mListDir = (ListView) findViewById(R.id.id_list_dir);
+            mListDir.setAdapter(new BaseHolderAdapter<ImageFolder>(context, mData, R.layout.item_list_dir) {
+                @Override
+                public void convert(ViewHolder helper, ImageFolder item, long position) {
+
+                    ImageView imageView = helper.getView(R.id.id_dir_item_image);
+                    TextView title = helper.getView(R.id.id_dir_item_name);
+                    TextView count = helper.getView(R.id.id_dir_item_count);
+                    ImageView choose = helper.getView(R.id.choose);
+
+                    loader.displayImage("file://" + item.getFirstImagePath(), imageView, options);
+                    title.setText(item.getName());
+                    count.setText(item.images.size() + "张");
+                    choose.setVisibility(currentImageFolder == item ? View.VISIBLE : View.GONE);
+                }
+            });
         }
 
         @Override
@@ -245,6 +345,14 @@ public class SelectPictureActivity extends Activity {
             mListDir.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    currentImageFolder = mDirPaths.get(position);
+                    ListPictureDirPopupWindow.this.dismiss();
+                    selectPictureAdapter.setImageFolder(currentImageFolder);
+                    allPicture.setText(currentImageFolder.getName());
+
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getWindow().setAttributes(lp);
 
                 }
             });
@@ -253,6 +361,16 @@ public class SelectPictureActivity extends Activity {
         @Override
         public void init() {
 
+        }
+
+        @Override
+        public void dismiss() {
+            super.dismiss();
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            if(lp.alpha!=1f){
+                lp.alpha = 1f;
+                getWindow().setAttributes(lp);
+            }
         }
     }
 

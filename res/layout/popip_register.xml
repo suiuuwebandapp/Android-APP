@@ -5,13 +5,6 @@
     android:background="#b0000000">
 
     <EditText
-        android:id="@+id/registerNickName"
-        style="@style/register_edit_style"
-        android:layout_above="@+id/registerUserInfo"
-        android:layout_centerHorizontal="true"
-        android:hint="请输入昵称"></EditText>
-
-    <EditText
         android:id="@+id/registerUserInfo"
         style="@style/register_edit_style"
         android:layout_marginTop="10dp"
@@ -30,23 +23,14 @@
         android:hint="请输入密码"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/registerPassword2"
-        style="@style/register_edit_style"
-        android:layout_below="@+id/registerPassword1"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="请再次输入密码"
-        android:inputType="textPassword" />
-
     <Button
         android:id="@+id/registerBtn"
         style="@style/register_button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/registerPassword2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="注册" />
+        android:text="注册"
+        android:layout_below="@+id/registerPassword1" />
 
 </RelativeLayout>

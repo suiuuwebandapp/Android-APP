@@ -117,7 +117,8 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
             android:name=".activity.SelectPictureActivity"
-            android:label="@string/title_activity_select_picture" >
+            android:label="@string/title_activity_select_picture"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         </activity>
     </application>
 

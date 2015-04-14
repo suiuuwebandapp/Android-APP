@@ -2,11 +2,13 @@ package com.minglang.suiuu.customview;
 
 import java.util.List;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 public abstract class BasePopupWindowForListView<T> extends PopupWindow {
@@ -18,7 +20,7 @@ public abstract class BasePopupWindowForListView<T> extends PopupWindow {
 	/**
 	 * ListView的数据集
 	 */
-	protected List<T> mDatas;
+	protected List<T> mData;
 
 	public BasePopupWindowForListView(View contentView, int width, int height,
 			boolean focusable) {
@@ -37,7 +39,7 @@ public abstract class BasePopupWindowForListView<T> extends PopupWindow {
 		this.mContentView = contentView;
 		context = contentView.getContext();
 		if (mData != null)
-			this.mDatas = mData;
+			this.mData = mData;
 
 		if (params != null && params.length > 0) {
 			beforeInitWeNeedSomeParams(params);
@@ -62,7 +64,7 @@ public abstract class BasePopupWindowForListView<T> extends PopupWindow {
 		init();
 	}
 
-	protected abstract void beforeInitWeNeedSomeParams(Object... params);
+    protected abstract void beforeInitWeNeedSomeParams(Object... params);
 
 	public abstract void initViews();
 

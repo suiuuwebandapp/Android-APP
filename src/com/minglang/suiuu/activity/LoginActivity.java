@@ -56,13 +56,9 @@ public class LoginActivity extends Activity {
 
     private PopupWindow popupWindowRegister;
 
-    private EditText popupRegisterNickName;
-
     private EditText popupRegisterUserName;
 
     private EditText popupRegisterPassword1;
-
-    private EditText popupRegisterPassword2;
 
     private Button popupRegisterBtn;
 
@@ -101,7 +97,7 @@ public class LoginActivity extends Activity {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 
@@ -111,19 +107,10 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                StringBuilder sb= new StringBuilder();
+                String str =popupRegisterUserName.getText().toString() + ","
+                        + popupRegisterPassword1.getText().toString();
 
-                sb.append(popupRegisterNickName.getText().toString());
-                sb.append(",");
-                sb.append(popupRegisterUserName.getText().toString());
-                sb.append(",");
-                sb.append(popupRegisterPassword1.getText().toString());
-                sb.append(",");
-                sb.append(popupRegisterPassword2.getText().toString());
-
-                String str = sb.toString();
-
-                Toast.makeText(LoginActivity.this,str,Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, str, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -161,7 +148,8 @@ public class LoginActivity extends Activity {
         loginParams.width = screenWidth / 3;
         popupLoginBtn.setLayoutParams(loginParams);
 
-        popupWindowLogin = new PopupWindow(popupLoginRootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        popupWindowLogin = new PopupWindow(popupLoginRootView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT, true);
         popupWindowLogin.setBackgroundDrawable(new BitmapDrawable());
 
         /**
@@ -170,10 +158,8 @@ public class LoginActivity extends Activity {
 
         popupRegisterView = LayoutInflater.from(this).inflate(R.layout.popip_register, null);
 
-        popupRegisterNickName = (EditText) popupRegisterView.findViewById(R.id.registerNickName);
         popupRegisterUserName = (EditText) popupRegisterView.findViewById(R.id.registerUserInfo);
         popupRegisterPassword1 = (EditText) popupRegisterView.findViewById(R.id.registerPassword1);
-        popupRegisterPassword2 = (EditText) popupRegisterView.findViewById(R.id.registerPassword2);
 
         popupRegisterBtn = (Button) popupRegisterView.findViewById(R.id.registerBtn);
 
@@ -181,7 +167,8 @@ public class LoginActivity extends Activity {
         registerParams.width = screenWidth / 3;
         popupRegisterBtn.setLayoutParams(registerParams);
 
-        popupWindowRegister = new PopupWindow(popupRegisterView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        popupWindowRegister = new PopupWindow(popupRegisterView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT, true);
         popupWindowRegister.setBackgroundDrawable(new BitmapDrawable());
 
 

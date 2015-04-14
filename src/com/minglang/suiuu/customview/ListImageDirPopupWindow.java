@@ -25,7 +25,7 @@ public class ListImageDirPopupWindow extends
 	@Override
 	public void initViews() {
 		mListDir = (ListView) findViewById(R.id.id_list_dir);
-		mListDir.setAdapter(new BaseHolderAdapter<ImageFolder>(context, mDatas,
+		mListDir.setAdapter(new BaseHolderAdapter<ImageFolder>(context, mData,
 				R.layout.item_image_dir_pop) {
 			@Override
 			public void convert(ViewHolder helper, ImageFolder item,long position) {
@@ -55,7 +55,7 @@ public class ListImageDirPopupWindow extends
 					int position, long id) {
 
 				if (mImageDirSelected != null) {
-					mImageDirSelected.selected(mDatas.get(position));
+					mImageDirSelected.selected(mData.get(position));
 				}
 			}
 		});
