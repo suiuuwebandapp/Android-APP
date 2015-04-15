@@ -12,7 +12,6 @@
  * limitations under the License.
  */
 package com.minglang.suiuu.chat.activity;
-
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;

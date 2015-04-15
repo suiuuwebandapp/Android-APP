@@ -1,12 +1,20 @@
 package com.minglang.suiuu.activity;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,26 +32,43 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.easemob.EMConnectionListener;
+import com.easemob.EMError;
+import com.easemob.chat.CmdMessageBody;
+import com.easemob.chat.EMChat;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMConversation;
+import com.easemob.chat.EMMessage;
+import com.easemob.chat.EMMessage.ChatType;
+import com.easemob.chat.EMMessage.Type;
+import com.easemob.util.EMLog;
+import com.easemob.util.EasyUtils;
+import com.easemob.util.NetUtils;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.MainSliderAdapter;
-import com.minglang.suiuu.fragment.main.ConversationFragment;
+import com.minglang.suiuu.chat.activity.ChatActivity;
+import com.minglang.suiuu.chat.activity.ChatAllHistoryFragment;
+import com.minglang.suiuu.chat.chat.Constant;
+import com.minglang.suiuu.chat.chat.DemoApplication;
+import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
-
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 /**
  * 应用程序主界面
  */
-public class MainActivity extends FragmentActivity {
-
+public class MainActivity extends FragmentActivity{
+    protected NotificationManager notificationManager;
+    private static final int notifiId = 11;
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String[] TITLE = {"收藏", "关注", "消息", "粉丝", "设置", "退出"};
@@ -99,7 +124,7 @@ public class MainActivity extends FragmentActivity {
     /**
      * 会话页面
      */
-    private ConversationFragment conversationFragment;
+    private ChatAllHistoryFragment conversationFragment;
 
     private ListView mListView;
 
@@ -151,18 +176,80 @@ public class MainActivity extends FragmentActivity {
     private boolean isMainIcon = false;
 
     private AnimationSet animationSetHide, animationSetShow;
-
+    // 账号在别处登录
+    public boolean isConflict = false;
+    private NewMessageBroadcastReceiver msgReceiver;
+    //当前为fragment的第几页
+    private int currentIndex = 0;
+    private TextView msgCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        if(savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)){
+            // 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
+            // 三个fragment里加的判断同理
+            DemoApplication.getInstance().logout(null);
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }else if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false)) {
+            // 防止被T后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
+            // 三个fragment里加的判断同理
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
+        if (conversationFragment == null) {
+            conversationFragment = new ChatAllHistoryFragment();
+        }
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         setContentView(R.layout.activity_main);
-
         initView();
+        MobclickAgent.updateOnlineConfig(this);
+        if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
+            showConflictDialog();
+        }else if(getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow){
+            showAccountRemovedDialog();
+        }
+        MobclickAgent.updateOnlineConfig(this);
 
         ViewAction();
+        // 注册一个接收消息的BroadcastReceiver
+        msgReceiver = new NewMessageBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
+        intentFilter.setPriority(3);
+        registerReceiver(msgReceiver, intentFilter);
+
+        // 注册一个ack回执消息的BroadcastReceiver
+        IntentFilter ackMessageIntentFilter = new IntentFilter(EMChatManager.getInstance().getAckMessageBroadcastAction());
+        ackMessageIntentFilter.setPriority(3);
+        registerReceiver(ackMessageReceiver, ackMessageIntentFilter);
+
+        //注册一个透传消息的BroadcastReceiver
+        IntentFilter cmdMessageIntentFilter = new IntentFilter(EMChatManager.getInstance().getCmdMessageBroadcastAction());
+        cmdMessageIntentFilter.setPriority(3);
+        registerReceiver(cmdMessageReceiver, cmdMessageIntentFilter);
+
+
+
+        // 注册一个离线消息的BroadcastReceiver
+        // IntentFilter offlineMessageIntentFilter = new
+        // IntentFilter(EMChatManager.getInstance()
+        // .getOfflineMessageBroadcastAction());
+        // registerReceiver(offlineMessageReceiver, offlineMessageIntentFilter);
+
+        // setContactListener监听联系人的变化等
+//        EMContactManager.getInstance().setContactListener(new MyContactListener());
+        // 注册一个监听连接状态的listener
+        EMChatManager.getInstance().addConnectionListener(new MyConnectionListener());
+        // 注册群聊相关的listener
+//		EMGroupManager.getInstance().addGroupChangeListener(new MyGroupChangeListener());
+        // 通知sdk，UI 已经初始化完毕，注册了相应的receiver和listener, 可以接受broadcast了
+        EMChat.getInstance().setAppInited();
 
     }
+
 
     /**
      * 控件行为
@@ -344,6 +431,7 @@ public class MainActivity extends FragmentActivity {
         } else {
             ft.add(R.id.showLayout, mainFragment);
         }
+        currentIndex = 0;
         ft.commit();
     }
 
@@ -375,6 +463,7 @@ public class MainActivity extends FragmentActivity {
         } else {
             ft.add(R.id.showLayout, loopFragment);
         }
+        currentIndex = 1;
         ft.commit();
     }
 
@@ -406,6 +495,8 @@ public class MainActivity extends FragmentActivity {
         } else {
             ft.add(R.id.showLayout, routeFragment);
         }
+        currentIndex = 2;
+
         ft.commit();
     }
 
@@ -429,14 +520,13 @@ public class MainActivity extends FragmentActivity {
                 ft.hide(routeFragment);
             }
         }
-        if (conversationFragment == null) {
-            conversationFragment = new ConversationFragment();
-        }
+
         if (conversationFragment.isAdded()) {
             ft.show(conversationFragment);
         } else {
             ft.add(R.id.showLayout, conversationFragment);
         }
+        currentIndex = 3;
         ft.commit();
     }
 
@@ -497,7 +587,7 @@ public class MainActivity extends FragmentActivity {
     private void initView() {
 
         initNumber();
-
+        msgCount = (TextView)findViewById(R.id.unread_msg_number);
         /****************设置状态栏颜色*************/
 
         mTintManager.setStatusBarTintEnabled(true);
@@ -664,5 +754,299 @@ public class MainActivity extends FragmentActivity {
             finish();
         }
     }
+    //账号被移除
+    private boolean isCurrentAccountRemoved = false;
+    private boolean isAccountRemovedDialogShow;
+    private android.app.AlertDialog.Builder accountRemovedBuilder;
+    private android.app.AlertDialog.Builder conflictBuilder;
+    private boolean isConflictDialogShow;
+    /**
+     * 检查当前用户是否被删除
+     */
+    public boolean getCurrentAccountRemoved(){
+        return isCurrentAccountRemoved;
+    }
+    /**
+     * 帐号被移除的dialog
+     */
+    private void showAccountRemovedDialog() {
+        isAccountRemovedDialogShow = true;
+        DemoApplication.getInstance().logout(null);
+        String st5 = getResources().getString(R.string.Remove_the_notification);
+        if (!MainActivity.this.isFinishing()) {
+            // clear up global variables
+            try {
+                if (accountRemovedBuilder == null)
+                    accountRemovedBuilder = new android.app.AlertDialog.Builder(MainActivity.this);
+                accountRemovedBuilder.setTitle(st5);
+                accountRemovedBuilder.setMessage(R.string.em_user_remove);
+                accountRemovedBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        accountRemovedBuilder = null;
+                        finish();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                });
+                accountRemovedBuilder.setCancelable(false);
+                accountRemovedBuilder.create().show();
+                isCurrentAccountRemoved = true;
+            } catch (Exception e) {
+                EMLog.e(TAG, "---------color userRemovedBuilder error" + e.getMessage());
+            }
+
+        }
+
+    }
+
+    /**
+     * 显示帐号在别处登录dialog
+     */
+    private void showConflictDialog() {
+        isConflictDialogShow = true;
+        DemoApplication.getInstance().logout(null);
+        String st = getResources().getString(R.string.Logoff_notification);
+        if (!MainActivity.this.isFinishing()) {
+            // clear up global variables
+            try {
+                if (conflictBuilder == null)
+                    conflictBuilder = new android.app.AlertDialog.Builder(MainActivity.this);
+                conflictBuilder.setTitle(st);
+                conflictBuilder.setMessage(R.string.connect_conflict);
+                conflictBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        conflictBuilder = null;
+                        finish();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                });
+                conflictBuilder.setCancelable(false);
+                conflictBuilder.create().show();
+                isConflict = true;
+            } catch (Exception e) {
+                EMLog.e(TAG, "---------color conflictBuilder error" + e.getMessage());
+            }
+
+        }
+
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
+            showConflictDialog();
+        }else if(getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow){
+            showAccountRemovedDialog();
+        }
+    }
+    /**
+     * 新消息广播接收者
+     *
+     *
+     */
+    private class NewMessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // 主页面收到消息后，主要为了提示未读，实际消息内容需要到chat页面查看
+
+            String from = intent.getStringExtra("from");
+            // 消息id
+            String msgId = intent.getStringExtra("msgid");
+            EMMessage message = EMChatManager.getInstance().getMessage(msgId);
+
+            // fix: logout crash， 如果正在接收大量消息
+            // 因为此时已经logout，消息队列已经被清空， broadcast延时收到，所以会出现message为空的情况
+            if (message == null) {
+                return;
+            }
+
+            // 2014-10-22 修复在某些机器上，在聊天页面对方发消息过来时不立即显示内容的bug
+            if (ChatActivity.activityInstance != null) {
+                if (message.getChatType() == ChatType.GroupChat) {
+                    if (message.getTo().equals(ChatActivity.activityInstance.getToChatUsername()))
+                        return;
+                } else {
+                    if (from.equals(ChatActivity.activityInstance.getToChatUsername()))
+                        return;
+                }
+            }
+
+            // 注销广播接收者，否则在ChatActivity中会收到这个广播
+            abortBroadcast();
+
+            notifyNewMessage(message);
+
+            // 刷新bottom bar消息未读数
+            updateUnreadLabel();
+            if (currentIndex == 3) {
+                // 当前页面如果为聊天历史页面，刷新此页面
+                if (conversationFragment != null) {
+                    conversationFragment.refresh();
+                }
+            }
+
+        }
+    }
+    /**
+     * 消息回执BroadcastReceiver
+     */
+    private BroadcastReceiver ackMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            abortBroadcast();
+
+            String msgid = intent.getStringExtra("msgid");
+            String from = intent.getStringExtra("from");
+
+            EMConversation conversation = EMChatManager.getInstance().getConversation(from);
+            if (conversation != null) {
+                // 把message设为已读
+                EMMessage msg = conversation.getMessage(msgid);
+
+                if (msg != null) {
+
+                    // 2014-11-5 修复在某些机器上，在聊天页面对方发送已读回执时不立即显示已读的bug
+                    if (ChatActivity.activityInstance != null) {
+                        if (msg.getChatType() == ChatType.Chat) {
+                            if (from.equals(ChatActivity.activityInstance.getToChatUsername()))
+                                return;
+                        }
+                    }
+
+                    msg.isAcked = true;
+                }
+            }
+
+        }
+    };
+    /**
+     * 透传消息BroadcastReceiver
+     */
+    private BroadcastReceiver cmdMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            abortBroadcast();
+            EMLog.d(TAG, "收到透传消息");
+            //获取cmd message对象
+            String msgId = intent.getStringExtra("msgid");
+            EMMessage message = intent.getParcelableExtra("message");
+            //获取消息body
+            CmdMessageBody cmdMsgBody = (CmdMessageBody) message.getBody();
+            String action = cmdMsgBody.action;//获取自定义action
+
+            //获取扩展属性 此处省略
+//			message.getStringAttribute("");
+            EMLog.d(TAG, String.format("透传消息：action:%s,message:%s", action,message.toString()));
+            String st9 = getResources().getString(R.string.receive_the_passthrough);
+            Toast.makeText(MainActivity.this, st9 + action, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    /**
+     * 当应用在前台时，如果当前消息不是属于当前会话，在状态栏提示一下
+     * 如果不需要，注释掉即可
+     * @param message
+     */
+    protected void notifyNewMessage(EMMessage message) {
+        //如果是设置了不提醒只显示数目的群组(这个是app里保存这个数据的，demo里不做判断)
+        //以及设置了setShowNotificationInbackgroup:false(设为false后，后台时sdk也发送广播)
+        if(!EasyUtils.isAppRunningForeground(this)){
+            return;
+        }
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(getApplicationInfo().icon)
+                .setWhen(System.currentTimeMillis()).setAutoCancel(true);
+
+        String ticker = CommonUtils.getMessageDigest(message, this);
+        String st = getResources().getString(R.string.expression);
+        if(message.getType() == Type.TXT)
+            ticker = ticker.replaceAll("\\[.{2,3}\\]", st);
+        //设置状态栏提示
+        mBuilder.setTicker(message.getFrom()+": " + ticker);
+
+        //必须设置pendingintent，否则在2.3的机器上会有bug
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, notifiId, intent, PendingIntent.FLAG_ONE_SHOT);
+        mBuilder.setContentIntent(pendingIntent);
+
+        Notification notification = mBuilder.build();
+        notificationManager.notify(notifiId, notification);
+        notificationManager.cancel(notifiId);
+    }
+    /**
+     * 连接监听listener
+     *
+     */
+    private class MyConnectionListener implements EMConnectionListener {
+
+        @Override
+        public void onConnected() {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+//                    conversationFragment.errorItem.setVisibility(View.GONE);
+                }
+
+            });
+        }
+
+        @Override
+        public void onDisconnected(final int error) {
+            final String st1 = getResources().getString(R.string.Less_than_chat_server_connection);
+            final String st2 = getResources().getString(R.string.the_current_network);
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if(error == EMError.USER_REMOVED){
+                        // 显示帐号已经被移除
+                        showAccountRemovedDialog();
+                    }else if (error == EMError.CONNECTION_CONFLICT) {
+                        // 显示帐号在其他设备登陆dialog
+                        showConflictDialog();
+                    } else {
+                        conversationFragment.errorItem.setVisibility(View.VISIBLE);
+                        if (NetUtils.hasNetwork(MainActivity.this))
+                            conversationFragment.errorText.setText(st1);
+                        else
+                            conversationFragment.errorText.setText(st2);
+
+                    }
+                }
+
+            });
+        }
+    }
+    /**
+     * 刷新未读消息数
+     */
+    public void updateUnreadLabel() {
+        int count = getUnreadMsgCountTotal();
+        if (count > 0) {
+            msgCount.setText(String.valueOf(count));
+            msgCount.setVisibility(View.VISIBLE);
+        } else {
+            msgCount.setVisibility(View.INVISIBLE);
+        }
+    }
+    /**
+     * 获取未读消息数
+     *
+     * @return
+     */
+    public int getUnreadMsgCountTotal() {
+        int unreadMsgCountTotal = 0;
+        unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
+        return unreadMsgCountTotal;
+    }
 }

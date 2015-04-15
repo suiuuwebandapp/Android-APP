@@ -3,6 +3,8 @@ package com.minglang.suiuu.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -19,11 +21,19 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.easemob.EMCallBack;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.chat.DemoApplication;
+import com.minglang.suiuu.chat.chat.DemoHXSDKHelper;
+import com.minglang.suiuu.chat.utils.CommonUtils;
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录页面
@@ -67,11 +77,21 @@ public class LoginActivity extends Activity {
     private EditText popupRegisterPassword1;
 
     private Button popupRegisterBtn;
-
+    //判断是否登录
+    private boolean autoLogin = false;
+    private String currentUsername;
+    private String currentPassword;
+    private boolean progressShow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        //		 如果用户名密码都有，直接进入主页面
+        if (DemoHXSDKHelper.getInstance().isLogined()) {
+            autoLogin = true;
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            return;
+        }
+         setContentView(R.layout.activity_login);
 
         initView();
 
@@ -98,12 +118,22 @@ public class LoginActivity extends Activity {
         popupLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindowLogin.dismiss();
+                if (!CommonUtils.isNetWorkConnected(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                currentUsername = popupLoginUserName.getText().toString().trim();
+                currentPassword = popupLoginPassword.getText().toString().trim();
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                if(TextUtils.isEmpty(currentUsername)){
+                    Toast.makeText(LoginActivity.this, R.string.User_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(currentPassword)){
+                    Toast.makeText(LoginActivity.this, R.string.Password_cannot_be_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                login();
             }
         });
 
@@ -178,7 +208,106 @@ public class LoginActivity extends Activity {
         });
 
     }
+    //登录方法
+    public void login() {
+        progressShow = true;
+        final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+        pd.setCanceledOnTouchOutside(false);
+        pd.setOnCancelListener(new OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                progressShow = false;
+            }
+        });
+        pd.setMessage(getString(R.string.Is_landing));
+        pd.show();
 
+        final long start = System.currentTimeMillis();
+        // 调用sdk登陆方法登陆聊天服务器
+        EMChatManager.getInstance().login(currentUsername, currentPassword, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                if (!progressShow) {
+                    return;
+                }
+                // 登陆成功，保存用户名密码
+                DemoApplication.getInstance().setUserName(currentUsername);
+                DemoApplication.getInstance().setPassword(currentPassword);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        pd.setMessage(getString(R.string.list_is_for));
+                    }
+                });
+                try {
+                    // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
+                    // ** manually load all local groups and
+                    // conversations in case we are auto login
+                    EMGroupManager.getInstance().loadAllGroups();
+                    EMChatManager.getInstance().loadAllConversations();
+                    //处理好友和群组
+//							processContactsAndGroups();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //取好友或者群聊失败，不让进入主页面
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            pd.dismiss();
+                            DemoApplication.getInstance().logout(null);
+                            Toast.makeText(getApplicationContext(), R.string.login_failure_failed, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    return;
+                }
+                //更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
+                boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(DemoApplication.currentUserNick.trim());
+                if (!updatenick) {
+                    Log.e("LoginActivity", "update current user nick fail");
+                }
+                if (!LoginActivity.this.isFinishing())
+                    pd.dismiss();
+                // 进入主页面
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+
+
+
+            @Override
+            public void onProgress(int progress, String status) {
+            }
+
+            @Override
+            public void onError(final int code, final String message) {
+                loginFailure2Umeng(start,code,message);
+                if (!progressShow) {
+                    return;
+                }
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        pd.dismiss();
+                        Toast.makeText(getApplicationContext(), getString(R.string.Login_failed) + message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+    }
+    private void loginFailure2Umeng(final long start, final int code, final String message) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                long costTime = System.currentTimeMillis() - start;
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("status", "failure");
+                params.put("error_code", code + "");
+                params.put("error_description", message);
+                MobclickAgent.onEventValue(LoginActivity.this, "login1", params, (int) costTime);
+                MobclickAgent.onEventDuration(LoginActivity.this, "login1", (int) costTime);
+
+            }
+        });
+    }
     @SuppressWarnings("deprecation")
     @SuppressLint("InflateParams")
     private void initView() {
@@ -246,6 +375,13 @@ public class LoginActivity extends Activity {
             popupWindowRegister.dismiss();
         } else {
             super.onBackPressed();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (autoLogin) {
+            return;
         }
     }
 }

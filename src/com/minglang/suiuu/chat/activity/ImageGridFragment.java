@@ -234,7 +234,8 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
 			 }else{
 				 holder=(ViewHolder) convertView.getTag();
 			 }
-			 
+
+
 			// Check the height matches our calculated column width
 			if (holder.imageView.getLayoutParams().height != mItemHeight) {
 				holder.imageView.setLayoutParams(mImageViewLayoutParams);

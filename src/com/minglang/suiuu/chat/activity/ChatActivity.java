@@ -13,7 +13,7 @@
  */
 package com.minglang.suiuu.chat.activity;
 
-import android.app.AlertDialog;
+
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -65,6 +65,7 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
+import com.easemob.chat.EMMessage.ChatType;
 import com.easemob.chat.GroupReomveListener;
 import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.LocationMessageBody;
@@ -87,7 +88,6 @@ import com.minglang.suiuu.chat.utils.ImageUtils;
 import com.minglang.suiuu.chat.utils.SmileUtils;
 import com.minglang.suiuu.chat.widgt.ExpandGridView;
 import com.minglang.suiuu.chat.widgt.PasteEditText;
-import com.easemob.chat.EMMessage.ChatType;
 
 import java.io.File;
 import java.io.FileOutputStream;
