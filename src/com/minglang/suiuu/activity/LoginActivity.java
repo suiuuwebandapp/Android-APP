@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.easemob.EMCallBack;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.chat.DemoApplication;
@@ -89,9 +88,11 @@ public class LoginActivity extends Activity {
         if (DemoHXSDKHelper.getInstance().isLogined()) {
             autoLogin = true;
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            return;
+            finish();
         }
-         setContentView(R.layout.activity_login);
+        Log.i("suiuu","为什么还来这儿");
+        DemoApplication.addActivity(this);
+        setContentView(R.layout.activity_login);
 
         initView();
 
@@ -243,7 +244,7 @@ public class LoginActivity extends Activity {
                     // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
                     // ** manually load all local groups and
                     // conversations in case we are auto login
-                    EMGroupManager.getInstance().loadAllGroups();
+//                    EMGroupManager.getInstance().loadAllGroups();
                     EMChatManager.getInstance().loadAllConversations();
                     //处理好友和群组
 //							processContactsAndGroups();
@@ -262,16 +263,22 @@ public class LoginActivity extends Activity {
                 //更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
                 boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(DemoApplication.currentUserNick.trim());
                 if (!updatenick) {
-                    Log.e("LoginActivity", "update current user nick fail");
+                    Log.i("suiuu", "update current user nick fail");
                 }
                 if (!LoginActivity.this.isFinishing())
                     pd.dismiss();
-
                 // 进入主页面
+                Log.i("suiuu","登录成功了吗111111111111");
+
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                Log.i("suiuu","登录成功了吗22222222222");
+
                 finish();
+                Log.i("suiuu","登录成功了吗33333333333333333");
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                Log.i("suiuu","登录成功了吗4444444444444444444");
+
             }
 
 

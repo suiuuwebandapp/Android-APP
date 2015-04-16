@@ -18,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -182,8 +183,9 @@ public class MainActivity extends FragmentActivity{
     //当前为fragment的第几页
     private int currentIndex = 0;
     private TextView msgCount;
-    public RelativeLayout errorItem;
-    public TextView errorText;
+    private RelativeLayout errorItem;
+    private TextView errorText;
+    private ImageView im_search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,10 +205,14 @@ public class MainActivity extends FragmentActivity{
             return;
         }
 
-        conversationFragment = new ChatAllHistoryFragment();
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Log.i("suiuu","登录成功了吗555555555555555555");
         setContentView(R.layout.activity_main);
+        Log.i("suiuu","登录成功了吗66666666666666666");
+
         initView();
+        Log.i("suiuu","登录成功了吗7777777777777777777777777777");
+        DemoApplication.addActivity(this);
         MobclickAgent.updateOnlineConfig(this);
         if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
             showConflictDialog();
@@ -214,8 +220,9 @@ public class MainActivity extends FragmentActivity{
             showAccountRemovedDialog();
         }
         MobclickAgent.updateOnlineConfig(this);
-
+        Log.i("suiuu","登录成功了吗8888888888888888888888");
         ViewAction();
+        Log.i("suiuu","登录成功了吗9999999999999999999999");
         // 注册一个接收消息的BroadcastReceiver
         msgReceiver = new NewMessageBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
@@ -240,7 +247,7 @@ public class MainActivity extends FragmentActivity{
         // .getOfflineMessageBroadcastAction());
         // registerReceiver(offlineMessageReceiver, offlineMessageIntentFilter);
 
-        // setContactListener监听联系人的变化等
+//        setContactListener监听联系人的变化等
 //        EMContactManager.getInstance().setContactListener(new MyContactListener());
         // 注册一个监听连接状态的listener
         EMChatManager.getInstance().addConnectionListener(new MyConnectionListener());
@@ -248,7 +255,7 @@ public class MainActivity extends FragmentActivity{
 //		EMGroupManager.getInstance().addGroupChangeListener(new MyGroupChangeListener());
         // 通知sdk，UI 已经初始化完毕，注册了相应的receiver和listener, 可以接受broadcast了
         EMChat.getInstance().setAppInited();
-
+        Log.i("suiuu","登录成功了吗100000000011111111111111111111111111111111");
     }
 
 
@@ -590,6 +597,8 @@ public class MainActivity extends FragmentActivity{
     private void initView() {
 
         initNumber();
+        conversationFragment = new ChatAllHistoryFragment();
+        im_search = (ImageView)findViewById(R.id.mainPagerSearch);
         errorItem = (RelativeLayout) findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
         msgCount = (TextView)findViewById(R.id.unread_msg_number);
@@ -640,7 +649,7 @@ public class MainActivity extends FragmentActivity{
             /**************HeadLayout设置Margins*****************/
             Log.i(TAG, "版本测试3333");
             RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
-            RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(titleLayout.getLayoutParams());
+            LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams(titleLayout.getLayoutParams());
             titleLayoutParams.setMargins(0, statusBarHeight, 0, 0);
             titleLayout.setLayoutParams(titleLayoutParams);
         } else {
@@ -695,6 +704,14 @@ public class MainActivity extends FragmentActivity{
         LoadDefaultFragment();
 
         initAnimation();
+        im_search.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                intent.putExtra("userId", "third");
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -1082,5 +1099,19 @@ public class MainActivity extends FragmentActivity{
             conflictBuilder = null;
         }
 
+    }
+    private long exitTime;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                DemoApplication.getInstance().exit();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
