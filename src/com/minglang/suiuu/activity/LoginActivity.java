@@ -330,16 +330,16 @@ public class LoginActivity extends Activity {
                 if (!LoginActivity.this.isFinishing())
                     pd.dismiss();
                 // 进入主页面
-                Log.i("suiuu","登录成功了吗111111111111");
+                Log.i("suiuu", "登录成功了吗111111111111");
 
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                Log.i("suiuu","登录成功了吗22222222222");
+                Log.i("suiuu", "登录成功了吗22222222222");
 
                 finish();
-                Log.i("suiuu","登录成功了吗33333333333333333");
+                Log.i("suiuu", "登录成功了吗33333333333333333");
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                Log.i("suiuu","登录成功了吗4444444444444444444");
+                Log.i("suiuu", "登录成功了吗4444444444444444444");
 
             }
 
