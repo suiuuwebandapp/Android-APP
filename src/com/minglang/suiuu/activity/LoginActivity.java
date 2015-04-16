@@ -112,18 +112,10 @@ public class LoginActivity extends Activity {
             autoLogin = true;
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-<<<<<<< HEAD
         }
-        Log.i("suiuu","为什么还来这儿");
         DemoApplication.addActivity(this);
-=======
-            return;
-        }
->>>>>>> origin/master
         setContentView(R.layout.activity_login);
-
         initView();
-
         ViewAction();
 
     }
