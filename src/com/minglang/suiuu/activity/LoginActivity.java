@@ -8,6 +8,8 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,7 +33,14 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.chat.DemoApplication;
 import com.minglang.suiuu.chat.chat.DemoHXSDKHelper;
 import com.minglang.suiuu.chat.utils.CommonUtils;
+import com.minglang.suiuu.utils.TencentUtil;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,10 +98,16 @@ public class LoginActivity extends Activity {
      */
     private ImageView microBlog_login, qq_login, weChat_login;
 
+    private static Tencent mTencent;
+
+    private static boolean isServerSideLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mTencent = Tencent.createInstance("", this.getApplicationContext());
+
         //		 如果用户名密码都有，直接进入主页面
         if (DemoHXSDKHelper.getInstance().isLogined()) {
             autoLogin = true;
@@ -107,6 +122,20 @@ public class LoginActivity extends Activity {
         ViewAction();
 
     }
+
+    Handler tencentHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            return false;
+        }
+    });
+
+    IUiListener loginListener = new BaseUiListener() {
+        @Override
+        protected void doComplete(JSONObject values) {
+            initOpenidAndToken(values);
+        }
+    };
 
     /**
      * 控件事件
@@ -229,7 +258,10 @@ public class LoginActivity extends Activity {
         qq_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//                if (!mTencent.isSessionValid()) {
+//                    mTencent.login(LoginActivity.this, "all", loginListener);
+//                    isServerSideLogin = false;
+//                }
             }
         });
 
@@ -349,6 +381,9 @@ public class LoginActivity extends Activity {
     @SuppressLint("InflateParams")
     private void initView() {
 
+        /**
+         * ********************************************************************
+         */
         DisplayMetrics dm = getResources().getDisplayMetrics();
 
         float density = dm.density;//屏幕密度（像素比例：0.75, 1.0, 1.5, 2.0）
@@ -406,6 +441,11 @@ public class LoginActivity extends Activity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mTencent.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void onBackPressed() {
 
         if (popupWindowLogin.isShowing()) {
@@ -434,4 +474,61 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
+    /**
+     * QQ第三方登陆相关方法
+     */
+
+    public static void initOpenidAndToken(JSONObject jsonObject) {
+        try {
+            String token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
+            String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
+            String openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
+            if (!TextUtils.isEmpty(token) && !TextUtils.isEmpty(expires)
+                    && !TextUtils.isEmpty(openId)) {
+                mTencent.setAccessToken(token, expires);
+                mTencent.setOpenId(openId);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private class BaseUiListener implements IUiListener {
+
+        @Override
+        public void onComplete(Object response) {
+            if (null == response) {
+                TencentUtil.showResultDialog(LoginActivity.this, "返回为空", "登录失败");
+                return;
+            }
+            JSONObject jsonResponse = (JSONObject) response;
+            if (jsonResponse != null && jsonResponse.length() == 0) {
+                TencentUtil.showResultDialog(LoginActivity.this, "返回为空", "登录失败");
+                return;
+            }
+            TencentUtil.showResultDialog(LoginActivity.this, response.toString(), "登录成功");
+
+            doComplete((JSONObject) response);
+        }
+
+        protected void doComplete(JSONObject values) {
+            Log.d(TAG, values.toString());
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            TencentUtil.toastMessage(LoginActivity.this, "onError: " + uiError.errorDetail);
+            TencentUtil.dismissDialog();
+        }
+
+        @Override
+        public void onCancel() {
+            TencentUtil.toastMessage(LoginActivity.this, "onCancel: ");
+            TencentUtil.dismissDialog();
+            if (isServerSideLogin) {
+                isServerSideLogin = false;
+            }
+        }
+    }
+
 }
