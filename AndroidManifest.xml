@@ -191,6 +191,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >
         </activity>
+        <!-- 显示下载大图页面 -->
+        <activity
+            android:name="com.minglang.suiuu.chat.activity.ShowBigImage"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
         <meta-data android:name="EASEMOB_APPKEY"  android:value="suiuu#suiuu" />
         <!--     	<meta-data android:name="EASEMOB_APPKEY"  android:value="easemob-demo#chatdemoui" /> -->
         <!-- 声明sdk所需的service SDK核心功能-->

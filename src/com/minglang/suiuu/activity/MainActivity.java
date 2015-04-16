@@ -182,6 +182,8 @@ public class MainActivity extends FragmentActivity{
     //当前为fragment的第几页
     private int currentIndex = 0;
     private TextView msgCount;
+    public RelativeLayout errorItem;
+    public TextView errorText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,9 +202,8 @@ public class MainActivity extends FragmentActivity{
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        if (conversationFragment == null) {
-            conversationFragment = new ChatAllHistoryFragment();
-        }
+
+        conversationFragment = new ChatAllHistoryFragment();
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         setContentView(R.layout.activity_main);
         initView();
@@ -525,8 +526,10 @@ public class MainActivity extends FragmentActivity{
             ft.show(conversationFragment);
         } else {
             ft.add(R.id.showLayout, conversationFragment);
+
         }
         currentIndex = 3;
+        msgCount.setVisibility(View.INVISIBLE);
         ft.commit();
     }
 
@@ -587,6 +590,8 @@ public class MainActivity extends FragmentActivity{
     private void initView() {
 
         initNumber();
+        errorItem = (RelativeLayout) findViewById(R.id.rl_error_item);
+        errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
         msgCount = (TextView)findViewById(R.id.unread_msg_number);
         /****************设置状态栏颜色*************/
 
@@ -887,6 +892,7 @@ public class MainActivity extends FragmentActivity{
                 // 当前页面如果为聊天历史页面，刷新此页面
                 if (conversationFragment != null) {
                     conversationFragment.refresh();
+                    msgCount.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -994,7 +1000,7 @@ public class MainActivity extends FragmentActivity{
 
                 @Override
                 public void run() {
-//                    conversationFragment.errorItem.setVisibility(View.GONE);
+                  errorItem.setVisibility(View.GONE);
                 }
 
             });
@@ -1005,7 +1011,6 @@ public class MainActivity extends FragmentActivity{
             final String st1 = getResources().getString(R.string.Less_than_chat_server_connection);
             final String st2 = getResources().getString(R.string.the_current_network);
             runOnUiThread(new Runnable() {
-
                 @Override
                 public void run() {
                     if(error == EMError.USER_REMOVED){
@@ -1015,11 +1020,12 @@ public class MainActivity extends FragmentActivity{
                         // 显示帐号在其他设备登陆dialog
                         showConflictDialog();
                     } else {
-                        conversationFragment.errorItem.setVisibility(View.VISIBLE);
+
+                        errorItem.setVisibility(View.VISIBLE);
                         if (NetUtils.hasNetwork(MainActivity.this))
-                            conversationFragment.errorText.setText(st1);
+                           errorText.setText(st1);
                         else
-                            conversationFragment.errorText.setText(st2);
+                            errorText.setText(st2);
 
                     }
                 }
@@ -1048,5 +1054,33 @@ public class MainActivity extends FragmentActivity{
         int unreadMsgCountTotal = 0;
         unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
         return unreadMsgCountTotal;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 注销广播接收者
+        try {
+            unregisterReceiver(msgReceiver);
+        } catch (Exception e) {
+        }
+        try {
+            unregisterReceiver(ackMessageReceiver);
+        } catch (Exception e) {
+        }
+        try {
+            unregisterReceiver(cmdMessageReceiver);
+        } catch (Exception e) {
+        }
+
+        // try {
+        // unregisterReceiver(offlineMessageReceiver);
+        // } catch (Exception e) {
+        // }
+
+        if (conflictBuilder != null) {
+            conflictBuilder.create().dismiss();
+            conflictBuilder = null;
+        }
+
     }
 }

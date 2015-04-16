@@ -18,11 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.chat.EMChatManager;
@@ -49,10 +45,7 @@ public class ChatAllHistoryFragment extends Fragment {
 	private InputMethodManager inputMethodManager;
 	private ListView listView;
 	private ChatAllHistoryAdapter adapter;
-	private EditText query;
-	private ImageButton clearSearch;
-	public RelativeLayout errorItem;
-	public TextView errorText;
+
 	private boolean hidden;
 	private List<EMConversation> conversationList = new ArrayList<EMConversation>();
 
@@ -68,8 +61,7 @@ public class ChatAllHistoryFragment extends Fragment {
 		if(savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false))
             return;
 		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		errorItem = (RelativeLayout) getView().findViewById(R.id.rl_error_item);
-		errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
+
 		
 		conversationList.addAll(loadConversationsWithRecentChat());
 		listView = (ListView) getView().findViewById(R.id.list);

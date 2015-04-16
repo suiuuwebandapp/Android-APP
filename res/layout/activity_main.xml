@@ -10,7 +10,11 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:background="@color/remindColor">
-
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/titleLayout"
             android:layout_width="match_parent"
@@ -49,12 +53,18 @@
                 android:src="@drawable/icon_search" />
 
         </RelativeLayout>
+            <include
+                android:id="@+id/rl_error_item"
+                layout="@layout/chat_neterror_item"
+                android:visibility="gone" />
+        </LinearLayout>
+
 
         <FrameLayout
             android:id="@+id/showLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/titleLayout"
+            android:layout_below="@+id/ll_title"
             android:layout_alignParentBottom="true"></FrameLayout>
 
         <ImageView
@@ -168,7 +178,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
                     android:background="@drawable/unread_count_bg"
                     android:gravity="center"
                     android:text="7"

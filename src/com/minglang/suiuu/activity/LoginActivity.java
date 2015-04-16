@@ -266,9 +266,11 @@ public class LoginActivity extends Activity {
                 }
                 if (!LoginActivity.this.isFinishing())
                     pd.dismiss();
+
                 // 进入主页面
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
+
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
 
@@ -383,5 +385,11 @@ public class LoginActivity extends Activity {
         if (autoLogin) {
             return;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        popupWindowLogin.dismiss();
     }
 }
