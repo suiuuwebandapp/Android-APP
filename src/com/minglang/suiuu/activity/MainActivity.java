@@ -206,12 +206,9 @@ public class MainActivity extends FragmentActivity{
         }
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Log.i("suiuu","登录成功了吗555555555555555555");
         setContentView(R.layout.activity_main);
-        Log.i("suiuu","登录成功了吗66666666666666666");
 
         initView();
-        Log.i("suiuu","登录成功了吗7777777777777777777777777777");
         DemoApplication.addActivity(this);
         MobclickAgent.updateOnlineConfig(this);
         if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
@@ -220,9 +217,7 @@ public class MainActivity extends FragmentActivity{
             showAccountRemovedDialog();
         }
         MobclickAgent.updateOnlineConfig(this);
-        Log.i("suiuu","登录成功了吗8888888888888888888888");
         ViewAction();
-        Log.i("suiuu","登录成功了吗9999999999999999999999");
         // 注册一个接收消息的BroadcastReceiver
         msgReceiver = new NewMessageBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
@@ -255,7 +250,6 @@ public class MainActivity extends FragmentActivity{
 //		EMGroupManager.getInstance().addGroupChangeListener(new MyGroupChangeListener());
         // 通知sdk，UI 已经初始化完毕，注册了相应的receiver和listener, 可以接受broadcast了
         EMChat.getInstance().setAppInited();
-        Log.i("suiuu","登录成功了吗100000000011111111111111111111111111111111");
     }
 
 

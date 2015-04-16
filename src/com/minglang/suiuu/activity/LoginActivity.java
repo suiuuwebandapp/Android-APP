@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -81,6 +82,13 @@ public class LoginActivity extends Activity {
     private String currentUsername;
     private String currentPassword;
     private boolean progressShow;
+
+    /**
+     * 第三方登陆按钮
+     */
+    private ImageView microBlog_login, qq_login, weChat_login;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,9 +97,14 @@ public class LoginActivity extends Activity {
             autoLogin = true;
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
+<<<<<<< HEAD
         }
         Log.i("suiuu","为什么还来这儿");
         DemoApplication.addActivity(this);
+=======
+            return;
+        }
+>>>>>>> origin/master
         setContentView(R.layout.activity_login);
 
         initView();
@@ -100,6 +113,9 @@ public class LoginActivity extends Activity {
 
     }
 
+    /**
+     * 控件事件
+     */
     private void ViewAction() {
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +142,11 @@ public class LoginActivity extends Activity {
                 currentUsername = popupLoginUserName.getText().toString().trim();
                 currentPassword = popupLoginPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(currentUsername)){
+                if (TextUtils.isEmpty(currentUsername)) {
                     Toast.makeText(LoginActivity.this, R.string.User_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(currentPassword)){
+                if (TextUtils.isEmpty(currentPassword)) {
                     Toast.makeText(LoginActivity.this, R.string.Password_cannot_be_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -188,14 +204,14 @@ public class LoginActivity extends Activity {
                                     public void run() {
                                         if (!LoginActivity.this.isFinishing())
                                             pd.dismiss();
-                                        int errorCode=e.getErrorCode();
-                                        if(errorCode== EMError.NONETWORK_ERROR){
+                                        int errorCode = e.getErrorCode();
+                                        if (errorCode == EMError.NONETWORK_ERROR) {
                                             Toast.makeText(getApplicationContext(), st7, Toast.LENGTH_SHORT).show();
-                                        }else if(errorCode==EMError.USER_ALREADY_EXISTS){
+                                        } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
                                             Toast.makeText(getApplicationContext(), st8, Toast.LENGTH_SHORT).show();
-                                        }else if(errorCode==EMError.UNAUTHORIZED){
+                                        } else if (errorCode == EMError.UNAUTHORIZED) {
                                             Toast.makeText(getApplicationContext(), st9, Toast.LENGTH_SHORT).show();
-                                        }else{
+                                        } else {
                                             Toast.makeText(getApplicationContext(), st10 + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -208,7 +224,29 @@ public class LoginActivity extends Activity {
             }
         });
 
+        microBlog_login.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        qq_login.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        weChat_login.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
+
     //登录方法
     public void login() {
         progressShow = true;
@@ -282,14 +320,13 @@ public class LoginActivity extends Activity {
             }
 
 
-
             @Override
             public void onProgress(int progress, String status) {
             }
 
             @Override
             public void onError(final int code, final String message) {
-                loginFailure2Umeng(start,code,message);
+                loginFailure2Umeng(start, code, message);
                 if (!progressShow) {
                     return;
                 }
@@ -303,11 +340,12 @@ public class LoginActivity extends Activity {
         });
 
     }
+
     private void loginFailure2Umeng(final long start, final int code, final String message) {
         runOnUiThread(new Runnable() {
             public void run() {
                 long costTime = System.currentTimeMillis() - start;
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("status", "failure");
                 params.put("error_code", code + "");
                 params.put("error_description", message);
@@ -317,6 +355,7 @@ public class LoginActivity extends Activity {
             }
         });
     }
+
     @SuppressWarnings("deprecation")
     @SuppressLint("InflateParams")
     private void initView() {
@@ -372,7 +411,9 @@ public class LoginActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT, true);
         popupWindowRegister.setBackgroundDrawable(new BitmapDrawable());
 
-
+        microBlog_login = (ImageView) findViewById(R.id.microBlog_login);
+        qq_login = (ImageView) findViewById(R.id.qq_login);
+        weChat_login = (ImageView) findViewById(R.id.weChat_login);
     }
 
     @Override
@@ -386,6 +427,7 @@ public class LoginActivity extends Activity {
             super.onBackPressed();
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -397,6 +439,10 @@ public class LoginActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        popupWindowLogin.dismiss();
+        if (popupWindowLogin != null) {
+            if (popupWindowLogin.isShowing()) {
+                popupWindowLogin.dismiss();
+            }
+        }
     }
 }
