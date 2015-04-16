@@ -13,12 +13,14 @@
  */
 package com.minglang.suiuu.chat.chat;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
 import com.easemob.EMCallBack;
 import com.minglang.suiuu.chat.bean.User;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -28,7 +30,8 @@ public class DemoApplication extends Application {
 	private static DemoApplication instance;
 	// login user name
 	public final String PREF_USERNAME = "username";
-	
+    /** @description 所有已经启动的activity集合 */
+    private static ArrayList<Activity> activitys = new ArrayList();
 	/**
 	 * 当前用户nickname,为了苹果推送不是userid而是昵称
 	 */
@@ -80,9 +83,9 @@ public class DemoApplication extends Application {
 	 *
 	 * @param contactList
 	 */
-	public void setContactList(Map<String, User> contactList) {
-	    hxSDKHelper.setContactList(contactList);
-	}
+//	public void setContactList(Map<String, User> contactList) {
+//	    hxSDKHelper.setContactList(contactList);
+//	}
 
 	/**
 	 * 获取当前登陆用户名
@@ -128,4 +131,13 @@ public class DemoApplication extends Application {
 		// 先调用sdk logout，在清理app中自己的数据
 	    hxSDKHelper.logout(emCallBack);
 	}
+    public void exit() {
+        for (Activity act : activitys) {
+            act.finish();
+        }
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+    public static void addActivity(Activity act) {
+        activitys.add(act);
+    }
 }
