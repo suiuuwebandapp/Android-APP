@@ -325,22 +325,13 @@ public class LoginActivity extends Activity {
                 //更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
                 boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(DemoApplication.currentUserNick.trim());
                 if (!updatenick) {
-                    Log.i("suiuu", "update current user nick fail");
                 }
                 if (!LoginActivity.this.isFinishing())
                     pd.dismiss();
                 // 进入主页面
-                Log.i("suiuu", "登录成功了吗111111111111");
-
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                Log.i("suiuu", "登录成功了吗22222222222");
-
                 finish();
-                Log.i("suiuu", "登录成功了吗33333333333333333");
-
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                Log.i("suiuu", "登录成功了吗4444444444444444444");
-
             }
 
 
@@ -445,7 +436,7 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mTencent.onActivityResult(requestCode, resultCode, data);
+        //mTencent.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
