@@ -28,11 +28,20 @@ import com.easemob.EMCallBack;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
 import com.easemob.exceptions.EaseMobException;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.chat.DemoApplication;
 import com.minglang.suiuu.chat.chat.DemoHXSDKHelper;
 import com.minglang.suiuu.chat.utils.CommonUtils;
+import com.minglang.suiuu.entity.QQInfo;
+import com.minglang.suiuu.thread.QQThread;
 import com.minglang.suiuu.utils.TencentUtil;
+import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
@@ -86,6 +95,11 @@ public class LoginActivity extends Activity {
     private EditText popupRegisterPassword1;
 
     private Button popupRegisterBtn;
+
+    /**
+     * ***************************分割线***************************
+     */
+
     //判断是否登录
     private boolean autoLogin = false;
     private String currentUsername;
@@ -97,15 +111,23 @@ public class LoginActivity extends Activity {
      */
     private ImageView microBlog_login, qq_login, weChat_login;
 
-    private static Tencent mTencent;
+    private static Tencent tencent;
 
-    private static boolean isServerSideLogin = false;
+    /**
+     * QQ 用户信息类
+     */
+    private UserInfo mInfo;
+
+    /**
+     * 自定义QQ用户信息类
+     */
+    private QQInfo qqInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTencent = Tencent.createInstance("", this.getApplicationContext());
+        tencent = Tencent.createInstance("", this.getApplicationContext());
 
         //		 如果用户名密码都有，直接进入主页面
         if (DemoHXSDKHelper.getInstance().isLogined()) {
@@ -119,20 +141,6 @@ public class LoginActivity extends Activity {
         ViewAction();
 
     }
-
-    Handler tencentHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            return false;
-        }
-    });
-
-    IUiListener loginListener = new BaseUiListener() {
-        @Override
-        protected void doComplete(JSONObject values) {
-            initOpenidAndToken(values);
-        }
-    };
 
     /**
      * 控件事件
@@ -255,9 +263,8 @@ public class LoginActivity extends Activity {
         qq_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!mTencent.isSessionValid()) {
-//                    mTencent.login(LoginActivity.this, "all", loginListener);
-//                    isServerSideLogin = false;
+//                if (!tencent.isSessionValid()) {//检测是否已登录
+//                    tencent.login(LoginActivity.this, "all", loginListener);
 //                }
             }
         });
@@ -436,7 +443,7 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //mTencent.onActivityResult(requestCode, resultCode, data);
+        tencent.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -469,24 +476,129 @@ public class LoginActivity extends Activity {
         }
     }
 
-    /**
-     * QQ第三方登陆相关方法
-     */
+    //↓↓↓QQ登陆的一系列相关方法↓↓↓
 
-    public static void initOpenidAndToken(JSONObject jsonObject) {
+    /**
+     * QQ
+     * <p/>
+     * 异步获取相关用户信息
+     */
+    private Handler qqHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            int what = msg.what;
+            switch (what) {
+                case 1:
+                    qqInfo = (QQInfo) msg.obj;
+                    break;
+            }
+            return false;
+        }
+    });
+
+    /**
+     * QQ
+     * <p/>
+     * 回调接口实例
+     */
+    IUiListener loginListener = new BaseUiListener() {
+        @Override
+        protected void doComplete(JSONObject values) {
+            initOpenidAndToken(values);
+            getUserNickNameAndHeadImage();
+            setQQ2Suiuu();
+        }
+    };
+
+    /**
+     * QQ
+     * <p/>
+     * 把相应数据发送到服务器
+     */
+    private void setQQ2Suiuu() {
+        if (qqInfo.isNUll()) {
+            HttpUtils http = new HttpUtils();
+            RequestParams params = new RequestParams();
+
+            //POST请求、服务器URL、参数、回调接口
+            http.send(HttpRequest.HttpMethod.POST, "", params, new RequestCallBack<Object>() {
+                @Override
+                public void onSuccess(ResponseInfo<Object> objectResponseInfo) {
+
+                }
+
+                @Override
+                public void onFailure(HttpException e, String s) {
+
+                }
+            });
+        }
+    }
+
+    /**
+     * QQ
+     * <p/>
+     * 获取昵称等信息
+     */
+    private void getUserNickNameAndHeadImage() {
+        if (tencent != null && tencent.isSessionValid()) {
+            IUiListener iUiListener = new IUiListener() {
+                @Override
+                public void onComplete(Object o) {
+                    QQThread qqThread = new QQThread(qqHandler, o);
+                    qqThread.start();
+                }
+
+                @Override
+                public void onError(UiError uiError) {
+                    Toast.makeText(LoginActivity.this, "获取信息失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            };
+            mInfo = new UserInfo(LoginActivity.this, tencent.getQQToken());
+            mInfo.getUserInfo(iUiListener);
+        }
+    }
+
+    /**
+     * QQ
+     * <p/>
+     * 相关凭据
+     */
+    private String qq_token;
+    private String qq_expires;
+    private String qq_openId;
+
+    /**
+     * QQ
+     * <p/>
+     * 初始化token，openid等信息
+     *
+     * @param jsonObject
+     */
+    private void initOpenidAndToken(JSONObject jsonObject) {
         try {
-            String token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
-            String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
-            String openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
-            if (!TextUtils.isEmpty(token) && !TextUtils.isEmpty(expires)
-                    && !TextUtils.isEmpty(openId)) {
-                mTencent.setAccessToken(token, expires);
-                mTencent.setOpenId(openId);
+            qq_token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
+            qq_expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
+            qq_openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
+            if (!TextUtils.isEmpty(qq_token) && !TextUtils.isEmpty(qq_expires)
+                    && !TextUtils.isEmpty(qq_openId)) {
+                tencent.setAccessToken(qq_token, qq_expires);
+                tencent.setOpenId(qq_openId);
             }
         } catch (Exception e) {
         }
     }
 
+    /**
+     * QQ
+     * <p/>
+     * 回调接口
+     */
     private class BaseUiListener implements IUiListener {
 
         @Override
@@ -519,10 +631,8 @@ public class LoginActivity extends Activity {
         public void onCancel() {
             TencentUtil.toastMessage(LoginActivity.this, "onCancel: ");
             TencentUtil.dismissDialog();
-            if (isServerSideLogin) {
-                isServerSideLogin = false;
-            }
         }
     }
 
+    //↑↑↑QQ登陆的一系列相关方法↑↑↑
 }
