@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.minglang.suiuu"
-    android:versionCode="1"
-    android:versionName="1.0">
+          package="com.minglang.suiuu"
+          android:versionCode="1"
+          android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="19"/>
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
 
     <application
@@ -47,8 +47,8 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -56,89 +56,86 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.SendPostActivity_One"
             android:label="@string/title_activity_send_post_activity__one"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name=".activity.PersonalActivity"
             android:label="@string/title_activity_personal"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.AttentionActivity"
             android:label="@string/title_activity_attention"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.CollectionActivity"
             android:label="@string/title_activity_collection"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.FansActivity"
             android:label="@string/title_activity_fans"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.SettingActivity"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.PersonSettingActivity"
             android:label="@string/title_activity_person_setting"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.MyAttentionActivity"
             android:label="@string/title_activity_my_attention"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.OtherUserActivity"
             android:label="@string/title_activity_other_user"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name=".activity.NewRemindActivity"
             android:label="@string/title_activity_new_remind"
             android:screenOrientation="portrait"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.HeadImageActivity"
             android:label="@string/title_activity_head_image"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
         <activity
             android:name=".activity.OtherUserTraceActivity"
             android:label="@string/title_activity_other_user_trace"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.TestActivity"
-            android:label="@string/title_activity_test" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.FeedbackActivity"
             android:label="@string/title_activity_feedback"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.ContactUsActivity"
             android:label="@string/title_activity_contact_us"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.SuDetailsActivity"
             android:label="@string/title_activity_suiuu_details"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.CommentsActivity"
             android:label="@string/title_activity_comments"
-            android:theme="@style/FullBleedTheme" />
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.SelectImageActivity"
             android:label="@string/title_activity_select_image"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name=".activity.SelectPictureActivity"
             android:label="@string/title_activity_select_picture"
@@ -189,18 +186,45 @@
             android:theme="@style/horizontal_slide"></activity>
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="suiuu#suiuu" />
+            android:value="suiuu#suiuu"/>
         <!--     	<meta-data android:name="EASEMOB_APPKEY"  android:value="easemob-demo#chatdemoui" /> -->
         <!-- 声明sdk所需的service SDK核心功能-->
-        <service android:name="com.easemob.chat.EMChatService" />
+        <service android:name="com.easemob.chat.EMChatService"/>
         <!-- 百度地图所需的service -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":remote"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="3ecea51f560650b1ed8a4b99808f52e8" />
+            android:value="3ecea51f560650b1ed8a4b99808f52e8"/>
+
+        <!--QQ SDK所需的Activity-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent1104557000"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+
     </application>
 
 </manifest>

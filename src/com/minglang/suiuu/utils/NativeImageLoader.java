@@ -1,14 +1,14 @@
 package com.minglang.suiuu.utils;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 本地图片加载器,采用的是异步解析本地图片，单例模式利用getInstance()获取NativeImageLoader实例
@@ -44,6 +44,13 @@ public class NativeImageLoader {
      * @return
      */
     public static NativeImageLoader getInstance() {
+        if (mInstance == null) {
+            synchronized (NativeImageLoader.class) {
+                if (mInstance == null) {
+                    mInstance = new NativeImageLoader();
+                }
+            }
+        }
         return mInstance;
     }
 
