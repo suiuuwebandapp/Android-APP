@@ -81,12 +81,12 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
-    <orderEntry type="library" exported="" name="locSDK_3.3" level="project" />
     <orderEntry type="library" exported="" name="umeng-analytics-v5.2.4" level="project" />
+    <orderEntry type="library" exported="" name="locSDK_3.3" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="easemobchat_2.1.7" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />
+    <orderEntry type="library" exported="" name="easemobchat_2.1.7" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_v3_2_0" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
     <orderEntry type="library" exported="" name="open_sdk_r4889" level="project" />

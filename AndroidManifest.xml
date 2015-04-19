@@ -12,8 +12,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
-
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -187,6 +185,17 @@
             android:name="com.minglang.suiuu.chat.activity.ShowBigImage"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"></activity>
+        <!-- 自定义的contextmenu -->
+        <activity
+            android:name="com.minglang.suiuu.chat.activity.ContextMenu"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle"></activity>
+        <!-- 转发消息用户列表页面 -->
+        <activity
+            android:name="com.minglang.suiuu.chat.activity.ForwardMessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan"></activity>
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="suiuu#suiuu" />
