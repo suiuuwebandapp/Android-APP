@@ -40,6 +40,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
+    <list default="true" id="0763ee5d-b707-408c-a1e1-15293fb3a257" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/entity/QQInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/thread/QQThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/LoginActivity.java" afterPath="$PROJECT_DIR$/src/com/minglang/suiuu/activity/LoginActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Android-APP.iws" />
@@ -99,7 +103,60 @@
             <state vertical-scroll-proportion="0.0" vertical-offset="8700" max-vertical-offset="30380">
               <caret line="435" column="0" selection-start-line="435" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
               <folding />
-            </state>
+            <state vertical-scroll-proportion="0.52742124" vertical-offset="3118" max-vertical-offset="5124">
+              <caret line="273" column="41" selection-start-line="273" selection-start-column="41" selection-end-line="273" selection-end-column="41" />
+              <folding>
+                <element signature="docComment;field#popupLoginRootView#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#popupRegisterView#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#autoLogin#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#microBlog_login#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#mInfo#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#qqInfo#0;class#LoginActivity#0" expanded="false" />
+                <element signature="method#onCreate#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;method#ViewAction#0;class#LoginActivity#0" expanded="false" />
+                <element signature="e#4597#4629#0" expanded="true" />
+                <element signature="e#4983#5017#0" expanded="true" />
+                <element signature="e#5206#5239#0" expanded="true" />
+                <element signature="e#5412#9611#0" expanded="true" />
+                <element signature="e#5530#5590#0" expanded="true" />
+                <element signature="e#5621#5680#0" expanded="true" />
+                <element signature="e#5711#5778#0" expanded="true" />
+                <element signature="e#5809#5862#0" expanded="true" />
+                <element signature="e#5893#5945#0" expanded="true" />
+                <element signature="e#5982#6040#0" expanded="true" />
+                <element signature="e#6967#7019#0" expanded="true" />
+                <element signature="e#7060#7114#0" expanded="true" />
+                <element signature="e#7155#7228#0" expanded="true" />
+                <element signature="e#7270#7324#0" expanded="true" />
+                <element signature="e#9600#9601#0" expanded="true" />
+                <element signature="method#login#0;class#LoginActivity#0" expanded="false" />
+                <element signature="e#10655#10685#0" expanded="true" />
+                <element signature="e#11339#11370#0" expanded="true" />
+                <element signature="e#12223#12252#0" expanded="true" />
+                <element signature="e#13477#13509#0" expanded="true" />
+                <element signature="method#loginFailure2Umeng#0;class#LoginActivity#0" expanded="false" />
+                <element signature="e#13741#14295#0" expanded="true" />
+                <element signature="e#14284#14285#0" expanded="true" />
+                <element signature="method#initView#0;class#LoginActivity#0" expanded="false" />
+                <element signature="e#17070#17071#0" expanded="true" />
+                <element signature="e#17141#17142#0" expanded="true" />
+                <element signature="method#onBackPressed#0;class#LoginActivity#0" expanded="false" />
+                <element signature="method#onResume#0;class#LoginActivity#0" expanded="false" />
+                <element signature="method#onDestroy#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#qqHandler#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;field#loginListener#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;method#setQQ2Suiuu#0;class#LoginActivity#0" expanded="false" />
+                <element signature="method#setQQ2Suiuu#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;method#getUserNickNameAndHeadImage#0;class#LoginActivity#0" expanded="false" />
+                <element signature="method#getUserNickNameAndHeadImage#0;class#LoginActivity#0" expanded="false" />
+                <element signature="e#19688#19689#0" expanded="true" />
+                <element signature="e#19806#19807#0" expanded="true" />
+                <element signature="docComment;field#qq_token#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;method#initOpenidAndToken#0;class#LoginActivity#0" expanded="false" />
+                <element signature="method#initOpenidAndToken#0;class#LoginActivity#0" expanded="false" />
+                <element signature="docComment;class#BaseUiListener#0;class#LoginActivity#0" expanded="false" />
+                <element signature="class#BaseUiListener#0;class#LoginActivity#0" expanded="false" />
+              </folding>
           </provider>
         </entry>
       </file>
@@ -108,6 +165,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.11806543" vertical-offset="3857" max-vertical-offset="4560">
               <caret line="244" column="38" selection-start-line="244" selection-start-column="38" selection-end-line="244" selection-end-column="38" />
+      <file leaf-file-name="QQThread.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/thread/QQThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1344">
+              <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+              <folding />
               <folding />
             </state>
           </provider>
@@ -118,6 +181,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="16505" max-vertical-offset="29400">
               <caret line="840" column="58" selection-start-line="840" selection-start-column="58" selection-end-line="840" selection-end-column="58" />
+      <file leaf-file-name="QQInfo.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/entity/QQInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="21" max-vertical-offset="1197">
+              <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -888,6 +956,9 @@
         <option value="$PROJECT_DIR$/res/layout/activity_pick_contact_no_checkbox.xml" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/minglang/suiuu/chat/adapter/MessageAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/minglang/suiuu/thread/QQThread.java" />
+        <option value="$PROJECT_DIR$/src/com/minglang/suiuu/entity/QQInfo.java" />
+        <option value="$PROJECT_DIR$/src/com/minglang/suiuu/activity/LoginActivity.java" />
       </list>
     </option>
   </component>
@@ -925,6 +996,7 @@
     <panes>
       <pane id="Scope" />
       <pane id="PackagesPane">
+      <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
@@ -958,6 +1030,58 @@
           </PATH>
         </subPane>
       </pane>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thread" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suiuu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android-APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -968,6 +1092,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -990,6 +1115,10 @@
       <recent name="D:\AndroidProject\Android-APP\res\layout" />
       <recent name="D:\AndroidProject\Android-APP\src\com\minglang\suiuu\chat\activity" />
     </key>
+    <property name="options.lastSelected" value="preferences.sourceCode.General" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -1173,9 +1302,9 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ff4e5ce3-372c-46de-a47f-9d4db1af096f" name="Default" comment="" />
-      <created>1429180437580</created>
-      <updated>1429180437580</updated>
+      <changelist id="0763ee5d-b707-408c-a1e1-15293fb3a257" name="Default" comment="" />
+      <created>1429181584761</created>
+      <updated>1429181584761</updated>
     </task>
     <servers />
   </component>
@@ -1200,6 +1329,19 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24786781" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1210,6 +1352,9 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1230,7 +1375,9 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/activity/LoginActivity.java">
@@ -1293,6 +1440,68 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="8880">
           <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2037" max-vertical-offset="3402">
+          <caret line="144" column="25" selection-start-line="144" selection-start-column="25" selection-end-line="144" selection-end-column="25" />
+          <folding>
+            <element signature="docComment;field#popupLoginRootView#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#popupRegisterView#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#autoLogin#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#microBlog_login#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#mInfo#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#qqInfo#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#onCreate#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#ViewAction#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#4597#4629#0" expanded="true" />
+            <element signature="e#4983#5017#0" expanded="true" />
+            <element signature="e#5206#5239#0" expanded="true" />
+            <element signature="e#5412#9611#0" expanded="true" />
+            <element signature="e#5530#5590#0" expanded="true" />
+            <element signature="e#5621#5680#0" expanded="true" />
+            <element signature="e#5711#5778#0" expanded="true" />
+            <element signature="e#5809#5862#0" expanded="true" />
+            <element signature="e#5893#5945#0" expanded="true" />
+            <element signature="e#5982#6040#0" expanded="true" />
+            <element signature="e#6967#7019#0" expanded="true" />
+            <element signature="e#7060#7114#0" expanded="true" />
+            <element signature="e#7155#7228#0" expanded="true" />
+            <element signature="e#7270#7324#0" expanded="true" />
+            <element signature="e#9600#9601#0" expanded="true" />
+            <element signature="method#login#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#10655#10685#0" expanded="true" />
+            <element signature="e#11339#11370#0" expanded="true" />
+            <element signature="e#12223#12252#0" expanded="true" />
+            <element signature="e#13477#13509#0" expanded="true" />
+            <element signature="method#loginFailure2Umeng#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#13741#14295#0" expanded="true" />
+            <element signature="e#14284#14285#0" expanded="true" />
+            <element signature="method#initView#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#17070#17071#0" expanded="true" />
+            <element signature="e#17141#17142#0" expanded="true" />
+            <element signature="method#onBackPressed#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#onResume#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#qqHandler#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#loginListener#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#setQQ2Suiuu#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#setQQ2Suiuu#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#getUserNickNameAndHeadImage#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#getUserNickNameAndHeadImage#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#19688#19689#0" expanded="true" />
+            <element signature="e#19806#19807#0" expanded="true" />
+            <element signature="docComment;field#qq_token#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#initOpenidAndToken#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#initOpenidAndToken#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;class#BaseUiListener#0;class#LoginActivity#0" expanded="false" />
+            <element signature="class#BaseUiListener#0;class#LoginActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/thread/QQThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="588" max-vertical-offset="1512">
+          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+>>>>>>> origin/master
           <folding />
         </state>
       </provider>
@@ -1329,6 +1538,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="870">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/entity/QQInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="882" max-vertical-offset="1176">
+          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1391,6 +1604,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6465" max-vertical-offset="27800">
           <caret line="435" column="0" selection-start-line="435" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
+    <entry file="file://$PROJECT_DIR$/../../adt-bundle-windows-x86_64-20131030/sdk/sources/android-21/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3325554" vertical-offset="105240" max-vertical-offset="125748">
+          <caret line="5242" column="22" selection-start-line="5242" selection-start-column="22" selection-end-line="5242" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/thread/QQThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1512">
+          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minglang/suiuu/entity/QQInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="21" max-vertical-offset="1197">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34319526" vertical-offset="6073" max-vertical-offset="7938">
+          <caret line="303" column="18" selection-start-line="303" selection-start-column="18" selection-end-line="303" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1462,6 +1703,59 @@
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
             <element signature="e#7036#7075#0" expanded="true" />
+        <state vertical-scroll-proportion="0.52742124" vertical-offset="3118" max-vertical-offset="5124">
+          <caret line="273" column="41" selection-start-line="273" selection-start-column="41" selection-end-line="273" selection-end-column="41" />
+          <folding>
+            <element signature="docComment;field#popupLoginRootView#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#popupRegisterView#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#autoLogin#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#microBlog_login#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#mInfo#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#qqInfo#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#onCreate#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#ViewAction#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#4597#4629#0" expanded="true" />
+            <element signature="e#4983#5017#0" expanded="true" />
+            <element signature="e#5206#5239#0" expanded="true" />
+            <element signature="e#5412#9611#0" expanded="true" />
+            <element signature="e#5530#5590#0" expanded="true" />
+            <element signature="e#5621#5680#0" expanded="true" />
+            <element signature="e#5711#5778#0" expanded="true" />
+            <element signature="e#5809#5862#0" expanded="true" />
+            <element signature="e#5893#5945#0" expanded="true" />
+            <element signature="e#5982#6040#0" expanded="true" />
+            <element signature="e#6967#7019#0" expanded="true" />
+            <element signature="e#7060#7114#0" expanded="true" />
+            <element signature="e#7155#7228#0" expanded="true" />
+            <element signature="e#7270#7324#0" expanded="true" />
+            <element signature="e#9600#9601#0" expanded="true" />
+            <element signature="method#login#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#10655#10685#0" expanded="true" />
+            <element signature="e#11339#11370#0" expanded="true" />
+            <element signature="e#12223#12252#0" expanded="true" />
+            <element signature="e#13477#13509#0" expanded="true" />
+            <element signature="method#loginFailure2Umeng#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#13741#14295#0" expanded="true" />
+            <element signature="e#14284#14285#0" expanded="true" />
+            <element signature="method#initView#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#17070#17071#0" expanded="true" />
+            <element signature="e#17141#17142#0" expanded="true" />
+            <element signature="method#onBackPressed#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#onResume#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#qqHandler#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;field#loginListener#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#setQQ2Suiuu#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#setQQ2Suiuu#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#getUserNickNameAndHeadImage#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#getUserNickNameAndHeadImage#0;class#LoginActivity#0" expanded="false" />
+            <element signature="e#19688#19689#0" expanded="true" />
+            <element signature="e#19806#19807#0" expanded="true" />
+            <element signature="docComment;field#qq_token#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;method#initOpenidAndToken#0;class#LoginActivity#0" expanded="false" />
+            <element signature="method#initOpenidAndToken#0;class#LoginActivity#0" expanded="false" />
+            <element signature="docComment;class#BaseUiListener#0;class#LoginActivity#0" expanded="false" />
+            <element signature="class#BaseUiListener#0;class#LoginActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
