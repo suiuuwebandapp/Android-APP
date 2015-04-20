@@ -23,7 +23,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 
 import com.easemob.chat.EMChatConfig;
@@ -35,6 +34,7 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.photoview.PhotoView;
 import com.minglang.suiuu.chat.task.LoadLocalBigImgTask;
 import com.minglang.suiuu.chat.utils.ImageCache;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +44,6 @@ import java.util.Map;
  * 
  */
 public class ShowBigImage extends BaseActivity {
-
 	private ProgressDialog pd;
 	private PhotoView image;
 	private int default_res = R.drawable.default_image;
@@ -52,20 +51,18 @@ public class ShowBigImage extends BaseActivity {
 	private Bitmap bitmap;
 	private boolean isDownloaded;
 	private ProgressBar loadLocalPb;
-
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_show_big_image);
 		super.onCreate(savedInstanceState);
-
 		image = (PhotoView) findViewById(R.id.image);
 		loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
 		default_res = getIntent().getIntExtra("default_image", R.drawable.default_avatar);
 		Uri uri = getIntent().getParcelableExtra("uri");
 		String remotepath = getIntent().getExtras().getString("remotepath");
 		String secret = getIntent().getExtras().getString("secret");
-		System.err.println("show big image uri:" + uri + " remotepath:" + remotepath);
+		Log.i("suiuu","show big image uri:" + uri + " remotepath:" + remotepath);
 
 		//本地存在，直接显示本地的图片
 		if (uri != null && new File(uri.getPath()).exists()) {
@@ -97,12 +94,12 @@ public class ShowBigImage extends BaseActivity {
 			image.setImageResource(default_res);
 		}
 
-		image.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+		image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 	}
 	
 	/**
@@ -126,7 +123,7 @@ public class ShowBigImage extends BaseActivity {
 	 * 
 	 * @param remoteFilePath
 	 */
-	private void downloadImage(final String remoteFilePath, final Map<String, String> headers) {
+	private void downloadImage(final String remoteFilePath,final Map<String, String> headers) {
 		String str1 = getResources().getString(R.string.Download_the_pictures);
 		pd = new ProgressDialog(this);
 		pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);

@@ -50,7 +50,7 @@ public class MainSliderAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView,ViewGroup parent) {
 
         String str = list.get(position);
 

@@ -207,7 +207,6 @@ public class MainActivity extends FragmentActivity{
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         setContentView(R.layout.activity_main);
-
         initView();
         DemoApplication.addActivity(this);
         MobclickAgent.updateOnlineConfig(this);
@@ -257,7 +256,6 @@ public class MainActivity extends FragmentActivity{
      * 控件行为
      */
     private void ViewAction() {
-
         OnClickListener onClickListener = new OnClickListener() {
 
             @Override
@@ -280,12 +278,10 @@ public class MainActivity extends FragmentActivity{
                         startActivity(nickIntent);
                         mDrawerLayout.closeDrawer(slideLayout);
                         break;
-
                     case R.id.tab1:
                         titleInfo.setText(getResources().getString(R.string.title1));
                         LoadMainFragment();
                         break;
-
                     case R.id.tab2:
                         titleInfo.setText(getResources().getString(R.string.title2));
                         LoadLoopFragment();
@@ -589,7 +585,6 @@ public class MainActivity extends FragmentActivity{
      * 初始化方法
      */
     private void initView() {
-
         initNumber();
         conversationFragment = new ChatAllHistoryFragment();
         im_search = (ImageView)findViewById(R.id.mainPagerSearch);
@@ -597,15 +592,12 @@ public class MainActivity extends FragmentActivity{
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
         msgCount = (TextView)findViewById(R.id.unread_msg_number);
         /****************设置状态栏颜色*************/
-
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(false);
         mTintManager.setTintColor(getResources().getColor(R.color.tr_black));
-
         /***************Activity可控制View设置padding****************/
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerLayout.setFocusableInTouchMode(true);
-
         RelativeLayout mainShowLayout = (RelativeLayout) findViewById(R.id.mainShowLayout);
 //        LinearLayout tabSelect = (LinearLayout) findViewById(R.id.tabSelect);
 

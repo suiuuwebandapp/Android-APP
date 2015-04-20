@@ -1,18 +1,13 @@
 package com.minglang.suiuu.fragment.main;
 
-import com.minglang.suiuu.R;
-import com.minglang.suiuu.adapter.LoopFragmentPagerAdapter;
-import com.minglang.suiuu.fragment.loop.AreaFragment;
-import com.minglang.suiuu.fragment.loop.ThemeFragment;
-
-
 import android.annotation.SuppressLint;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +15,11 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.LoopFragmentPagerAdapter;
+import com.minglang.suiuu.fragment.loop.AreaFragment;
+import com.minglang.suiuu.fragment.loop.ThemeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,10 +84,8 @@ public class LoopFragment extends Fragment {
 
 
     private void ViewAction() {
-
         title0.setOnClickListener(new TitleOnClick(0));
         title1.setOnClickListener(new TitleOnClick(1));
-
         loopViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i2) {
@@ -96,6 +94,7 @@ public class LoopFragment extends Fragment {
 
             @Override
             public void onPageSelected(int i) {
+                sliderView.setPadding(0,0,0,0);
 
                 switch (i){
                     case 0:
@@ -107,9 +106,10 @@ public class LoopFragment extends Fragment {
                         title1.setTextColor(getResources().getColor(R.color.slider_line_color));
                         break;
                 }
-
-                Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
                 currIndex = i;
+                Animation anim = new TranslateAnimation(currIndex == 1? offsetX : tabWidth+offsetX, currIndex==1?tabWidth+offsetX :offsetX, 0, 0);
+                Log.i("suiuu","offsetX = "+offsetX+"tabwidth+offsetX="+tabWidth+offsetX);
+//                Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
                 anim.setFillAfter(true);
                 anim.setDuration(200);
                 sliderView.startAnimation(anim);
@@ -139,6 +139,7 @@ public class LoopFragment extends Fragment {
         title1 = (TextView) rootView.findViewById(R.id.area_title);
 
         sliderView = (ImageView) rootView.findViewById(R.id.slideerView);
+
 //        sliderView.setVisibility(View.INVISIBLE);
         ViewGroup.LayoutParams sliderParams = sliderView.getLayoutParams();
         sliderParams.width = tabWidth;
@@ -172,6 +173,7 @@ public class LoopFragment extends Fragment {
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
+        sliderView.setPadding(offsetX,0,0,0);
 
     }
 

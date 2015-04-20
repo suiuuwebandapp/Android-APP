@@ -32,14 +32,15 @@
             android:text="@string/areas"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
-    </LinearLayout>
 
+    </LinearLayout>
     <ImageView
         android:id="@+id/slideerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
         android:src="@drawable/slider" />
+
 
     <View
         android:layout_width="match_parent"

@@ -13,6 +13,8 @@
  */
 package com.minglang.suiuu.chat.utils;
 
+import android.util.Log;
+
 import com.easemob.util.EMLog;
 import com.easemob.util.PathUtil;
 
@@ -38,7 +40,7 @@ public class ImageUtils {
 	public static String getThumbnailImagePath(String thumbRemoteUrl) {
 		String thumbImageName= thumbRemoteUrl.substring(thumbRemoteUrl.lastIndexOf("/") + 1, thumbRemoteUrl.length());
 		String path =PathUtil.getInstance().getImagePath()+"/"+ "th"+thumbImageName;
-        EMLog.d("msg", "thum image path:" + path);
+        Log.i("suiuu", "thum image path:" + path);
         return path;
     }
 	

@@ -83,9 +83,9 @@ public class DemoApplication extends Application {
 	 *
 	 * @param contactList
 	 */
-//	public void setContactList(Map<String, User> contactList) {
-//	    hxSDKHelper.setContactList(contactList);
-//	}
+	public void setContactList(Map<String, User> contactList) {
+	    hxSDKHelper.setContactList(contactList);
+	}
 
 	/**
 	 * 获取当前登陆用户名

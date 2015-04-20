@@ -27,7 +27,11 @@ import android.widget.Toast;
 import com.easemob.EMCallBack;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMContactManager;
+import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
+import com.easemob.util.EMLog;
+import com.easemob.util.HanziToPinyin;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -35,8 +39,11 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.chat.bean.User;
+import com.minglang.suiuu.chat.chat.Constant;
 import com.minglang.suiuu.chat.chat.DemoApplication;
 import com.minglang.suiuu.chat.chat.DemoHXSDKHelper;
+import com.minglang.suiuu.chat.dao.UserDao;
 import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.entity.QQInfo;
 import com.minglang.suiuu.thread.QQThread;
@@ -50,7 +57,9 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -316,7 +325,9 @@ public class LoginActivity extends Activity {
 //                    EMGroupManager.getInstance().loadAllGroups();
                     EMChatManager.getInstance().loadAllConversations();
                     //处理好友和群组
-//							processContactsAndGroups();
+//					processContactsAndGroups();
+                    //处理好友和群组
+                    processContactsAndGroups();
                 } catch (Exception e) {
                     e.printStackTrace();
                     //取好友或者群聊失败，不让进入主页面
@@ -362,7 +373,73 @@ public class LoginActivity extends Activity {
         });
 
     }
+    private void processContactsAndGroups() throws EaseMobException {
+        // demo中简单的处理成每次登陆都去获取好友username，开发者自己根据情况而定
+        List<String> usernames = EMContactManager.getInstance().getContactUserNames();
+        EMLog.d("roster", "contacts size: " + usernames.size());
+        Map<String, User> userlist = new HashMap<String, User>();
+        for (String username : usernames) {
+            User user = new User();
+            user.setUsername(username);
+            setUserHearder(username, user);
+            userlist.put(username, user);
+        }
+        // 添加user"申请与通知"
+        User newFriends = new User();
+        newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
+        String strChat = getResources().getString(R.string.Application_and_notify);
+        newFriends.setNick(strChat);
 
+        userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
+        // 添加"群聊"
+        User groupUser = new User();
+        String strGroup = getResources().getString(R.string.group_chat);
+        groupUser.setUsername(Constant.GROUP_USERNAME);
+        groupUser.setNick(strGroup);
+        groupUser.setHeader("");
+        userlist.put(Constant.GROUP_USERNAME, groupUser);
+
+        // 存入内存
+        DemoApplication.getInstance().setContactList(userlist);
+        System.out.println("----------------"+userlist.values().toString());
+        // 存入db
+        UserDao dao = new UserDao(LoginActivity.this);
+        List<User> users = new ArrayList<User>(userlist.values());
+        dao.saveContactList(users);
+
+        //获取黑名单列表
+        List<String> blackList = EMContactManager.getInstance().getBlackListUsernamesFromServer();
+        //保存黑名单
+        EMContactManager.getInstance().saveBlackList(blackList);
+
+        // 获取群聊列表(群聊里只有groupid和groupname等简单信息，不包含members),sdk会把群组存入到内存和db中
+        EMGroupManager.getInstance().getGroupsFromServer();
+    }
+    /**
+     * 设置hearder属性，方便通讯中对联系人按header分类显示，以及通过右侧ABCD...字母栏快速定位联系人
+     *
+     * @param username
+     * @param user
+     */
+    protected void setUserHearder(String username, User user) {
+        String headerName = null;
+        if (!TextUtils.isEmpty(user.getNick())) {
+            headerName = user.getNick();
+        } else {
+            headerName = user.getUsername();
+        }
+        if (username.equals(Constant.NEW_FRIENDS_USERNAME)) {
+            user.setHeader("");
+        } else if (Character.isDigit(headerName.charAt(0))) {
+            user.setHeader("#");
+        } else {
+            user.setHeader(HanziToPinyin.getInstance().get(headerName.substring(0, 1)).get(0).target.substring(0, 1).toUpperCase());
+            char header = user.getHeader().toLowerCase().charAt(0);
+            if (header < 'a' || header > 'z') {
+                user.setHeader("#");
+            }
+        }
+    }
     private void loginFailure2Umeng(final long start, final int code, final String message) {
         runOnUiThread(new Runnable() {
             public void run() {
