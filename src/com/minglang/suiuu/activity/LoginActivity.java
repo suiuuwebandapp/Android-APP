@@ -57,7 +57,6 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
-import com.sina.weibo.sdk.openapi.models.User;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
@@ -433,7 +432,7 @@ public class LoginActivity extends Activity {
         // demo中简单的处理成每次登陆都去获取好友username，开发者自己根据情况而定
         List<String> usernames = EMContactManager.getInstance().getContactUserNames();
         EMLog.d("roster", "contacts size: " + usernames.size());
-        Map<String, User> userlist = new HashMap<String, User>();
+        Map<String,User> userlist = new HashMap<>();
         for (String username : usernames) {
             User user = new User();
             user.setUsername(username);
@@ -679,7 +678,7 @@ public class LoginActivity extends Activity {
         @Override
         public void onComplete(String s) {
             if (!TextUtils.isEmpty(s)) {
-                com.sina.weibo.sdk.openapi.models.User user = User.parse(s);
+                com.sina.weibo.sdk.openapi.models.User user = com.sina.weibo.sdk.openapi.models.User.parse(s);
                 if (user != null) {
                     weiboUserName = user.screen_name;
                     weiboImagePath = user.avatar_large;
