@@ -189,7 +189,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.print("ehllofjdlasjfkldsajkfldsaj");
+
         tencent = Tencent.createInstance("1104557000", this.getApplicationContext());
 
         //		 如果用户名密码都有，直接进入主页面
