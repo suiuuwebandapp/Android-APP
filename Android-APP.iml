@@ -82,11 +82,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
     <orderEntry type="library" exported="" name="umeng-analytics-v5.2.4" level="project" />
-<<<<<<< HEAD
     <orderEntry type="library" exported="" name="weibo" level="project" />
-=======
     <orderEntry type="library" exported="" name="locSDK_3.3" level="project" />
->>>>>>> b68bb41e159dea5358c35f2e4cd56bb1005f8978
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.4.0" level="project" />
