@@ -10,6 +10,15 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:background="@color/remindColor">
+
+
+        <FrameLayout
+            android:id="@+id/showLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"></FrameLayout>
+
         <LinearLayout
             android:id="@+id/ll_title"
             android:orientation="vertical"
@@ -58,14 +67,6 @@
                 layout="@layout/chat_neterror_item"
                 android:visibility="gone" />
         </LinearLayout>
-
-
-        <FrameLayout
-            android:id="@+id/showLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/ll_title"
-            android:layout_alignParentBottom="true"></FrameLayout>
 
         <ImageView
             android:layout_width="wrap_content"

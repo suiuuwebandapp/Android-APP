@@ -10,9 +10,8 @@ import android.widget.ListView;
 import com.minglang.suiuu.R;
 
 /**
- *
  * 主题页面
- *
+ * <p/>
  * Created by LZY on 2015/3/17 0017.
  */
 public class ThemeFragment extends Fragment {
@@ -22,14 +21,19 @@ public class ThemeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_theme,null);
+        View rootView = inflater.inflate(R.layout.fragment_theme, null);
 
         initView(rootView);
 
         return rootView;
     }
 
-    private void initView(View rootView){
+    /**
+     * 初始化方法
+     *
+     * @param rootView Fragment的根view
+     */
+    private void initView(View rootView) {
         themeList = (ListView) rootView.findViewById(R.id.themeList);
     }
 

@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/LoopScrollLayout"
+        android:layout_alignParentTop="true">
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.minglang.suiuu.customview.AutoScrollViewPager"
+            android:id="@+id/LoopScrollViewPager"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2.5dp"
         android:layout_marginBottom="2.5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/LoopScrollLayout">
 
         <TextView
             android:id="@+id/theme_title"
@@ -34,33 +50,28 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+
     <ImageView
-        android:id="@+id/slideerView"
+        android:id="@+id/sliderView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
-        android:src="@drawable/slider" />
-
+        android:src="@drawable/slider"
+        android:layout_below="@+id/linearLayout3"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5px"
-        android:background="@color/slider_line_color"/>
+        android:background="@color/slider_line_color"
+        android:id="@+id/view2"
+        android:layout_below="@+id/sliderView"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/loopViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view2">
 
     </android.support.v4.view.ViewPager>
 
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="LoopFragment"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-</LinearLayout>
+</RelativeLayout>
