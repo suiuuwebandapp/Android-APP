@@ -57,7 +57,6 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
 
-
     <application
         android:name="com.minglang.suiuu.chat.chat.DemoApplication"
         android:allowBackup="true"
@@ -66,7 +65,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
             <intent-filter>
@@ -74,6 +73,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullBleedTheme"/>
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
