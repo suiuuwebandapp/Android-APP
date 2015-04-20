@@ -10,14 +10,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/themeList"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
-    <TextView
+    <ImageView
+        android:id="@+id/iv_pc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ThemeFragment"
-        android:id="@+id/textView2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="wrap_content" />
 </RelativeLayout>
