@@ -42,7 +42,7 @@
                 android:id="@+id/microBlog_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_microblog_dark" />
+                android:src="@drawable/icon_microblog_light" />
 
             <ImageView
                 android:id="@+id/qq_login"
@@ -50,13 +50,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/icon_qq_dark" />
+                android:src="@drawable/icon_qq_light" />
 
             <ImageView
                 android:id="@+id/weChat_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_wechat_dark" />
+                android:src="@drawable/icon_wechat_light" />
         </LinearLayout>
 
     </RelativeLayout>

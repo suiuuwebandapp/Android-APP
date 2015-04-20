@@ -47,8 +47,17 @@ import com.minglang.suiuu.chat.dao.UserDao;
 import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.entity.QQInfo;
 import com.minglang.suiuu.thread.QQThread;
-import com.minglang.suiuu.utils.TencentUtil;
-import com.tencent.connect.UserInfo;
+import com.minglang.suiuu.utils.qq.TencentUtil;
+import com.minglang.suiuu.utils.weibo.WeiboAccessTokenKeeper;
+import com.minglang.suiuu.utils.weibo.WeiboConstants;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.openapi.UsersAPI;
+import com.sina.weibo.sdk.openapi.models.ErrorInfo;
+import com.sina.weibo.sdk.openapi.models.User;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
@@ -120,12 +129,58 @@ public class LoginActivity extends Activity {
      */
     private ImageView microBlog_login, qq_login, weChat_login;
 
+    //微博相关类实例
+    /**
+     * 授权认证所需的信息
+     */
+    private AuthInfo authInfo;
+    /**
+     * 微博授权认证回调
+     */
+    private AuthListener authListener = new AuthListener();
+
+    /**
+     * SSO 授权认证实例
+     */
+    private SsoHandler ssoHandler;
+
+    /**
+     * 微博Token
+     */
+    private Oauth2AccessToken accessToken;
+
+    /**
+     * 用户信息接口
+     */
+    private UsersAPI usersAPI;
+
+    /**
+     * 微博 OpenAPI 回调接口。
+     */
+    private WeiboRequestListener weiboRequestListener = new WeiboRequestListener();
+
+    /**
+     * 微博用户名
+     */
+    private String weiboUserName;
+
+    /**
+     * 微博头像地址
+     */
+    private String weiboImagePath;
+
+    /**
+     * 性别
+     */
+    private String weiboGender;
+
+    //QQ相关类实例
     private static Tencent tencent;
 
     /**
      * QQ 用户信息类
      */
-    private UserInfo mInfo;
+    private com.tencent.connect.UserInfo qqUserInfo;
 
     /**
      * 自定义QQ用户信息类
@@ -136,7 +191,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        tencent = Tencent.createInstance("", this.getApplicationContext());
+        tencent = Tencent.createInstance("1104557000", this.getApplicationContext());
 
         //		 如果用户名密码都有，直接进入主页面
         if (DemoHXSDKHelper.getInstance().isLogined()) {
@@ -147,6 +202,7 @@ public class LoginActivity extends Activity {
         DemoApplication.addActivity(this);
         setContentView(R.layout.activity_login);
         initView();
+        initThirdParty();
         ViewAction();
 
     }
@@ -265,16 +321,16 @@ public class LoginActivity extends Activity {
         microBlog_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ssoHandler.authorize(authListener);
             }
         });
 
         qq_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!tencent.isSessionValid()) {//检测是否已登录
-//                    tencent.login(LoginActivity.this, "all", loginListener);
-//                }
+                if (!tencent.isSessionValid()) {//检测是否已登录
+                    tencent.login(LoginActivity.this, "all", loginListener);
+                }
             }
         });
 
@@ -455,6 +511,19 @@ public class LoginActivity extends Activity {
         });
     }
 
+    /**
+     * 初始化第三方相关实例
+     */
+    private void initThirdParty() {
+        authInfo = new AuthInfo(this, WeiboConstants.APP_KEY, WeiboConstants.REDIRECT_URL, WeiboConstants.SCOPE);
+        ssoHandler = new SsoHandler(this, authInfo);
+        if (accessToken != null) {
+            usersAPI = new UsersAPI(this, WeiboConstants.APP_KEY, accessToken);
+        } else {
+            usersAPI = new UsersAPI(this, WeiboConstants.APP_KEY, WeiboAccessTokenKeeper.readAccessToken(this));
+        }
+    }
+
     @SuppressWarnings("deprecation")
     @SuppressLint("InflateParams")
     private void initView() {
@@ -520,6 +589,7 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         tencent.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -553,6 +623,85 @@ public class LoginActivity extends Activity {
         }
     }
 
+    /**
+     * 将第三方相关数据发送到服务器
+     */
+    private void sendData2Service(String path, RequestParams params) {
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.send(HttpRequest.HttpMethod.POST, path, params, new RequestCallBack<Object>() {
+            @Override
+            public void onSuccess(ResponseInfo<Object> objectResponseInfo) {
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+    }
+
+    //↓↓↓微博登陆的一系列相关方法↓↓↓
+
+    /**
+     * 授权结果回调
+     */
+    private class AuthListener implements WeiboAuthListener {
+
+        @Override
+        public void onComplete(Bundle bundle) {
+            accessToken = Oauth2AccessToken.parseAccessToken(bundle);
+            if (accessToken != null && accessToken.isSessionValid()) {
+                WeiboAccessTokenKeeper.writeAccessToken(LoginActivity.this, accessToken);
+
+                long uid = Long.parseLong(accessToken.getUid());
+
+                usersAPI.show(uid, weiboRequestListener);
+            }
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel() {
+            Toast.makeText(LoginActivity.this, "您已取消授权", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 微博 OpenAPI 回调接口。
+     */
+    private class WeiboRequestListener implements com.sina.weibo.sdk.net.RequestListener {
+
+        @Override
+        public void onComplete(String s) {
+            if (!TextUtils.isEmpty(s)) {
+                com.sina.weibo.sdk.openapi.models.User user = User.parse(s);
+                if (user != null) {
+                    weiboUserName = user.screen_name;
+                    weiboImagePath = user.avatar_large;
+                    weiboGender = user.gender;
+
+                    Log.i(TAG, "*******" + user.toString());
+
+                    //Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            ErrorInfo info = ErrorInfo.parse(e.getMessage());
+            Toast.makeText(LoginActivity.this, info.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //↑↑↑微博登陆的一系列相关方法↑↑↑
+
+
     //↓↓↓QQ登陆的一系列相关方法↓↓↓
 
     /**
@@ -567,6 +716,11 @@ public class LoginActivity extends Activity {
             switch (what) {
                 case 1:
                     qqInfo = (QQInfo) msg.obj;
+
+                    Log.i(TAG, "昵称：" + qqInfo.getNickName());
+                    Log.i(TAG, "头像地址：" + qqInfo.getImagePath());
+                    Log.i(TAG, "性别：" + qqInfo.getGender());
+
                     break;
             }
             return false;
@@ -583,34 +737,9 @@ public class LoginActivity extends Activity {
         protected void doComplete(JSONObject values) {
             initOpenidAndToken(values);
             getUserNickNameAndHeadImage();
-            setQQ2Suiuu();
         }
     };
 
-    /**
-     * QQ
-     * <p/>
-     * 把相应数据发送到服务器
-     */
-    private void setQQ2Suiuu() {
-        if (qqInfo.isNUll()) {
-            HttpUtils http = new HttpUtils();
-            RequestParams params = new RequestParams();
-
-            //POST请求、服务器URL、参数、回调接口
-            http.send(HttpRequest.HttpMethod.POST, "", params, new RequestCallBack<Object>() {
-                @Override
-                public void onSuccess(ResponseInfo<Object> objectResponseInfo) {
-
-                }
-
-                @Override
-                public void onFailure(HttpException e, String s) {
-
-                }
-            });
-        }
-    }
 
     /**
      * QQ
@@ -628,7 +757,8 @@ public class LoginActivity extends Activity {
 
                 @Override
                 public void onError(UiError uiError) {
-                    Toast.makeText(LoginActivity.this, "获取信息失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,
+                            "获取信息失败，请稍候再试！", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -636,8 +766,8 @@ public class LoginActivity extends Activity {
 
                 }
             };
-            mInfo = new UserInfo(LoginActivity.this, tencent.getQQToken());
-            mInfo.getUserInfo(iUiListener);
+            qqUserInfo = new com.tencent.connect.UserInfo(LoginActivity.this, tencent.getQQToken());
+            qqUserInfo.getUserInfo(iUiListener);
         }
     }
 
@@ -689,7 +819,7 @@ public class LoginActivity extends Activity {
                 TencentUtil.showResultDialog(LoginActivity.this, "返回为空", "登录失败");
                 return;
             }
-            TencentUtil.showResultDialog(LoginActivity.this, response.toString(), "登录成功");
+            //TencentUtil.showResultDialog(LoginActivity.this, response.toString(), "登录成功");
 
             doComplete((JSONObject) response);
         }
