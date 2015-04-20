@@ -42,7 +42,6 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.bean.User;
 import com.minglang.suiuu.chat.chat.Constant;
 import com.minglang.suiuu.chat.chat.DemoApplication;
-import com.minglang.suiuu.chat.chat.DemoHXSDKHelper;
 import com.minglang.suiuu.chat.dao.UserDao;
 import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.entity.QQInfo;
@@ -193,11 +192,11 @@ public class LoginActivity extends Activity {
         tencent = Tencent.createInstance("1104557000", this.getApplicationContext());
 
         //		 如果用户名密码都有，直接进入主页面
-        if (DemoHXSDKHelper.getInstance().isLogined()) {
-            autoLogin = true;
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }
+//        if (DemoHXSDKHelper.getInstance().isLogined()) {
+//            autoLogin = true;
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            finish();
+//        }
         DemoApplication.addActivity(this);
         setContentView(R.layout.activity_login);
         initView();

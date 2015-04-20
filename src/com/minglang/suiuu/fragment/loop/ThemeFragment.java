@@ -1,10 +1,11 @@
 package com.minglang.suiuu.fragment.loop;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.minglang.suiuu.R;
@@ -17,6 +18,8 @@ import com.minglang.suiuu.R;
 public class ThemeFragment extends Fragment {
 
     private ListView themeList;
+    private ImageView iv_pic;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class ThemeFragment extends Fragment {
      */
     private void initView(View rootView) {
         themeList = (ListView) rootView.findViewById(R.id.themeList);
+        iv_pic = (ImageView)rootView.findViewById(R.id.iv_pc);
     }
 
 }

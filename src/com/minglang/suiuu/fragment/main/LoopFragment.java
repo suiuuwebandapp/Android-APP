@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.LoopFragmentPagerAdapter;
-import com.minglang.suiuu.adapter.LoopScrollPagerAdapter;
-import com.minglang.suiuu.customview.AutoScrollViewPager;
 import com.minglang.suiuu.fragment.loop.AreaFragment;
 import com.minglang.suiuu.fragment.loop.ThemeFragment;
 
@@ -31,12 +28,6 @@ import java.util.List;
  */
 public class LoopFragment extends Fragment {
 
-    private static final String TAG = LoopFragment.class.getSimpleName();
-
-    private AutoScrollViewPager loopScrollViewPager;
-
-    private List<ImageView> imageList = new ArrayList<>();
-    private List<Integer> imageIdList = new ArrayList<>();
     /**
      * tab头对象
      */
@@ -83,8 +74,6 @@ public class LoopFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_loop, null);
 
-        initScreenOrImageLoad();
-
         initView(rootView);
 
         ViewAction();
@@ -104,9 +93,9 @@ public class LoopFragment extends Fragment {
 
             @Override
             public void onPageSelected(int i) {
-                sliderView.setPadding(0, 0, 0, 0);
+                sliderView.setPadding(0,0,0,0);
 
-                switch (i) {
+                switch (i){
                     case 0:
                         title0.setTextColor(getResources().getColor(R.color.slider_line_color));
                         title1.setTextColor(getResources().getColor(R.color.textColor));
@@ -117,9 +106,7 @@ public class LoopFragment extends Fragment {
                         break;
                 }
                 currIndex = i;
-                Animation anim = new TranslateAnimation(currIndex == 1 ? offsetX : tabWidth + offsetX, currIndex == 1 ? tabWidth + offsetX : offsetX, 0, 0);
-                Log.i(TAG, "offsetX = " + offsetX + "tabWidth+offsetX=" + tabWidth + offsetX);
-//                Animation anim = new TranslateAnimation(tabWidth * currIndex + offsetX, tabWidth * i + offsetX, 0, 0);
+                Animation anim = new TranslateAnimation(currIndex == 1? offsetX : tabWidth+offsetX, currIndex==1?tabWidth+offsetX :offsetX, 0, 0);
                 anim.setFillAfter(true);
                 anim.setDuration(200);
                 sliderView.startAnimation(anim);
@@ -132,14 +119,6 @@ public class LoopFragment extends Fragment {
         });
     }
 
-    private void initScreenOrImageLoad() {
-        dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        screenW = dm.widthPixels;// 获取设备宽度
-        tabWidth = screenW / 2;
-    }
-
     /**
      * 初始化方法
      *
@@ -147,48 +126,16 @@ public class LoopFragment extends Fragment {
      */
     private void initView(View rootView) {
 
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        ImageView imageView1 = new ImageView(getActivity());
-        ImageView imageView2 = (ImageView) inflater.inflate(R.layout.image_view_match_parent, null);
-        ImageView imageView3 = (ImageView) inflater.inflate(R.layout.image_view_match_parent, null);
-        ImageView imageView4 = (ImageView) inflater.inflate(R.layout.image_view_match_parent, null);
-        ImageView imageView5 = (ImageView) inflater.inflate(R.layout.image_view_match_parent, null);
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        imageView1.setLayoutParams(params);
-        imageView2.setLayoutParams(params);
-        imageView3.setLayoutParams(params);
-        imageView4.setLayoutParams(params);
-        imageView5.setLayoutParams(params);
-
-        imageList.add(imageView1);
-        imageList.add(imageView2);
-        imageList.add(imageView3);
-        imageList.add(imageView4);
-        imageList.add(imageView5);
-
-        imageIdList.add(R.drawable.scroll1);
-        imageIdList.add(R.drawable.scroll2);
-        imageIdList.add(R.drawable.scroll3);
-        imageIdList.add(R.drawable.scroll4);
-        imageIdList.add(R.drawable.scroll5);
-
-        for (int i = 0; i < 5; i++) {
-            loadImage(imageList.get(i), imageIdList.get(i));
-        }
-
-        loopScrollViewPager = (AutoScrollViewPager) rootView.findViewById(R.id.LoopScrollViewPager);
-        loopScrollViewPager.setInterval(2000);
-        LoopScrollPagerAdapter loopScrollPagerAdapter = new LoopScrollPagerAdapter(getActivity(), imageList);
-        loopScrollViewPager.setAdapter(loopScrollPagerAdapter);
-        loopScrollViewPager.startAutoScroll();
+        screenW = dm.widthPixels;// 获取设备宽度
+        tabWidth = screenW / 2;
 
         title0 = (TextView) rootView.findViewById(R.id.theme_title);
         title1 = (TextView) rootView.findViewById(R.id.area_title);
 
-        sliderView = (ImageView) rootView.findViewById(R.id.sliderView);
+        sliderView = (ImageView) rootView.findViewById(R.id.slideerView);
 
 //        sliderView.setVisibility(View.INVISIBLE);
         ViewGroup.LayoutParams sliderParams = sliderView.getLayoutParams();
@@ -213,10 +160,6 @@ public class LoopFragment extends Fragment {
         initImageView();
     }
 
-    private void loadImage(ImageView imageView, int imageId) {
-        imageView.setBackgroundResource(imageId);
-    }
-
     private void initImageView() {
 
         sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();//获取图片宽度
@@ -227,21 +170,10 @@ public class LoopFragment extends Fragment {
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
-        sliderView.setPadding(offsetX, 0, 0, 0);
+        sliderView.setPadding(offsetX,0,0,0);
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loopScrollViewPager.startAutoScroll();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        loopScrollViewPager.stopAutoScroll();
-    }
 
     class TitleOnClick implements View.OnClickListener {
 
