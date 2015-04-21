@@ -1,5 +1,9 @@
 package com.minglang.suiuu.entity;
 
+import com.minglang.suiuu.utils.ThemeData;
+
+import java.util.List;
+
 /**
  * 圈子-主题数据实体类
  * <p/>
@@ -7,37 +11,64 @@ package com.minglang.suiuu.entity;
  */
 public class ThemeInfo {
 
-    /**
-     * 图片地址
-     */
-    public String imagePath;
+    public String status;
 
-    /**
-     * 标题
-     */
-    public String title;
+    public List<ThemeData> data;
 
-    public String getImagePath() {
-        return imagePath;
+    public String message;
+
+    public String page_list;
+
+    public String pa;
+
+    public String getStatus() {
+        return status;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getTitle() {
-        return title;
+    public List<ThemeData> getData() {
+        return data;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setData(List<ThemeData> data) {
+        this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getPage_list() {
+        return page_list;
+    }
+
+    public void setPage_list(String page_list) {
+        this.page_list = page_list;
+    }
+
+    public String getPa() {
+        return pa;
+    }
+
+    public void setPa(String pa) {
+        this.pa = pa;
     }
 
     @Override
     public String toString() {
         return "ThemeInfo{" +
-                "imagePath='" + imagePath + '\'' +
-                ", title='" + title + '\'' +
+                "status='" + status + '\'' +
+                ", data=" + data +
+                ", message='" + message + '\'' +
+                ", page_list='" + page_list + '\'' +
+                ", pa='" + pa + '\'' +
                 '}';
     }
 }
