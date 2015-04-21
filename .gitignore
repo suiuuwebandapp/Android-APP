@@ -15,3 +15,6 @@ local.properties
 bin/R.txt
 build
 Android-APP.iml
+local.properties
+bin
+gen
