@@ -1,7 +1,10 @@
 package com.minglang.suiuu.fragment.main;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
@@ -21,6 +25,10 @@ import com.minglang.suiuu.adapter.LoopScrollPagerAdapter;
 import com.minglang.suiuu.customview.AutoScrollViewPager;
 import com.minglang.suiuu.fragment.loop.AreaFragment;
 import com.minglang.suiuu.fragment.loop.ThemeFragment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +40,25 @@ public class LoopFragment extends Fragment {
 
     private static final String TAG = LoopFragment.class.getSimpleName();
 
-    private AutoScrollViewPager loopScrollViewPager;
+    private RelativeLayout loopScrollLayout;
 
+    /**
+     * 轮播ViewPager
+     */
+    private AutoScrollViewPager loopScrollViewPager;
+    /**
+     * 轮播图片View列表
+     */
     private List<ImageView> imageList = new ArrayList<>();
+    /**
+     * 轮播图片地址列表
+     */
     private List<String> imageIdList = new ArrayList<>();
+
+    private ImageLoader imageLoader;
+
+    private DisplayImageOptions displayImageOptions;
+
     /**
      * tab头对象
      */
@@ -66,7 +89,15 @@ public class LoopFragment extends Fragment {
 
     private DisplayMetrics dm;
 
-    private int screenW;
+    /**
+     * 设备宽度
+     */
+    private int screenWidth;
+
+    /**
+     * 设备高度
+     */
+    private int screenHeight;
 
     private int currIndex = 1;// 当前页卡编号
 
@@ -134,8 +165,17 @@ public class LoopFragment extends Fragment {
         dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        screenW = dm.widthPixels;// 获取设备宽度
-        tabWidth = screenW / 2;
+        screenWidth = dm.widthPixels;// 获取设备宽度
+        tabWidth = screenWidth / 2;
+
+        screenHeight = dm.heightPixels;
+
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
+        displayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.scroll1)
+                .showImageForEmptyUri(R.drawable.scroll1).showImageOnFail(R.drawable.scroll1)
+                .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
+                .imageScaleType(ImageScaleType.EXACTLY).bitmapConfig(Bitmap.Config.RGB_565).build();
     }
 
     /**
@@ -144,6 +184,12 @@ public class LoopFragment extends Fragment {
      * @param rootView Fragment根View
      */
     private void initView(View rootView) {
+
+        loopScrollLayout = (RelativeLayout) rootView.findViewById(R.id.LoopScrollLayout);
+        ViewGroup.LayoutParams loopLayoutParams = loopScrollLayout.getLayoutParams();
+        loopLayoutParams.height = screenHeight / 3;
+        loopLayoutParams.width = screenWidth;
+        loopScrollLayout.setLayoutParams(loopLayoutParams);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
@@ -188,7 +234,6 @@ public class LoopFragment extends Fragment {
 
         sliderView = (ImageView) rootView.findViewById(R.id.sliderView);
 
-//        sliderView.setVisibility(View.INVISIBLE);
         ViewGroup.LayoutParams sliderParams = sliderView.getLayoutParams();
         sliderParams.width = tabWidth;
         sliderView.setLayoutParams(sliderParams);
@@ -212,7 +257,11 @@ public class LoopFragment extends Fragment {
     }
 
     private void loadImage(ImageView imageView, int imageId) {
-        imageView.setBackgroundResource(imageId);
+        String uri = "drawable://" + imageId;
+//        imageLoader.displayImage(uri, imageView, displayImageOptions);
+        Bitmap bitmap = imageLoader.loadImageSync(uri, displayImageOptions);
+        Drawable drawable = new BitmapDrawable(bitmap);
+        imageView.setBackgroundDrawable(drawable);
     }
 
     private void initImageView() {

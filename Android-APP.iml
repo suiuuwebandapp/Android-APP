@@ -9,14 +9,13 @@
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="debug" />
-        <option name="SELECTED_TEST_ARTIFACT" value="_android_test_" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
         <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
         <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDebugAndroidTest" />
         <option name="SOURCE_GEN_TASK_NAME" value="generateDebugSources" />
         <option name="TEST_SOURCE_GEN_TASK_NAME" value="generateDebugAndroidTestSources" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/res" />
       </configuration>
     </facet>
   </component>
@@ -80,17 +79,18 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
     <orderEntry type="library" exported="" name="locSDK_3.3" level="project" />
-    <orderEntry type="library" exported="" name="umeng-analytics-v5.2.4" level="project" />
-    <orderEntry type="library" exported="" name="weibo" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
-    <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="easemobchat_2.1.7" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />
+    <orderEntry type="library" exported="" name="universal-image-loader-1.9.4-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_v3_2_0" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
+    <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
+    <orderEntry type="library" exported="" name="umeng-analytics-v5.2.4" level="project" />
+    <orderEntry type="library" exported="" name="weibo" level="project" />
+    <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="open_sdk_r4889" level="project" />
   </component>
 </module>

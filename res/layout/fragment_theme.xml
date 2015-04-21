@@ -5,16 +5,12 @@
     tools:context="com.minglang.suiuu.fragment.loop.ThemeFragment">
 
 
-    <ListView
+    <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/themeList"
+        android:id="@+id/themeGridView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/iv_pc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:numColumns="2"
+        android:choiceMode="none"/>
 </RelativeLayout>
