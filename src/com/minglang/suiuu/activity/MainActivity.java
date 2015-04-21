@@ -186,6 +186,14 @@ public class MainActivity extends FragmentActivity{
     private RelativeLayout errorItem;
     private TextView errorText;
     private ImageView im_search;
+    private ImageView iv_theme;
+    private TextView tv_theme_text;
+    private ImageView iv_loop;
+    private TextView tv_loop_text;
+    private ImageView iv_suiuu;
+    private TextView tv_suiuu_text;
+    private ImageView iv_conversation;
+    private TextView tv_conversation_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,8 +258,14 @@ public class MainActivity extends FragmentActivity{
         // 通知sdk，UI 已经初始化完毕，注册了相应的receiver和listener, 可以接受broadcast了
         EMChat.getInstance().setAppInited();
     }
-
-
+    private void adjustAnimation()  {
+        if (isMainIcon) {
+            ask.startAnimation(animationSetHide);
+            pic.startAnimation(animationSetHide);
+            record.startAnimation(animationSetHide);
+            Log.i(TAG, "icon hide");
+        }
+    }
     /**
      * 控件行为
      */
@@ -280,20 +294,40 @@ public class MainActivity extends FragmentActivity{
                         break;
                     case R.id.tab1:
                         titleInfo.setText(getResources().getString(R.string.title1));
+                        adjustAnimation();
+                        changeTheme(true);
+                        changeLoop(false);
+                        changeSuiuu(false);
+                        changeConversation(false);
                         LoadMainFragment();
                         break;
                     case R.id.tab2:
                         titleInfo.setText(getResources().getString(R.string.title2));
+                        adjustAnimation();
+                        changeTheme(false);
+                        changeLoop(true);
+                        changeSuiuu(false);
+                        changeConversation(false);
                         LoadLoopFragment();
                         break;
 
                     case R.id.tab3:
                         titleInfo.setText(getResources().getString(R.string.title3));
+                        adjustAnimation();
+                        changeTheme(false);
+                        changeLoop(false);
+                        changeSuiuu(true);
+                        changeConversation(false);
                         LoadRouteFragment();
                         break;
 
                     case R.id.tab4:
                         titleInfo.setText(getResources().getString(R.string.title4));
+                        adjustAnimation();
+                        changeTheme(false);
+                        changeLoop(false);
+                        changeSuiuu(false);
+                        changeConversation(true);
                         LoadConversationFragment();
                         break;
 
@@ -302,14 +336,12 @@ public class MainActivity extends FragmentActivity{
                             ask.startAnimation(animationSetHide);
                             pic.startAnimation(animationSetHide);
                             record.startAnimation(animationSetHide);
-
                             Log.i(TAG, "icon hide");
 
                         } else {
                             ask.startAnimation(animationSetShow);
                             pic.startAnimation(animationSetShow);
                             record.startAnimation(animationSetShow);
-
                             Log.i(TAG, "icon show");
 
                         }
@@ -666,6 +698,16 @@ public class MainActivity extends FragmentActivity{
         tab2 = (LinearLayout) findViewById(R.id.tab2);
         tab3 = (LinearLayout) findViewById(R.id.tab3);
         tab4 = (LinearLayout) findViewById(R.id.tab4);
+        //初始化底部控件
+        iv_theme = (ImageView) findViewById(R.id.img1);
+        tv_theme_text = (TextView) findViewById(R.id.title1);
+        iv_loop = (ImageView) findViewById(R.id.img2);
+        tv_loop_text = (TextView) findViewById(R.id.title2);
+        iv_suiuu = (ImageView) findViewById(R.id.img3);
+        tv_suiuu_text = (TextView) findViewById(R.id.title3);
+        iv_conversation = (ImageView) findViewById(R.id.img4);
+        tv_conversation_text = (TextView) findViewById(R.id.title4);
+        changeTheme(true);
 
         sendMsg = (ImageButton) findViewById(R.id.sendNewMessage);
 
@@ -700,6 +742,46 @@ public class MainActivity extends FragmentActivity{
         });
     }
 
+    //判断主题
+    private void changeTheme(Boolean isChoice) {
+        if(isChoice) {
+            iv_theme.setImageResource(R.drawable.icon_main2_press);
+            tv_theme_text.setTextColor(getResources().getColor(R.color.login_bg_color));
+        }else {
+            iv_theme.setImageResource(R.drawable.icon_main2);
+            tv_theme_text.setTextColor(getResources().getColor(R.color.textColor));
+        }
+    }
+    //判断圈子
+    private void changeLoop(Boolean isChoice) {
+        if(isChoice) {
+            iv_loop.setImageResource(R.drawable.icon_loop2_press);
+            tv_loop_text.setTextColor(getResources().getColor(R.color.login_bg_color));
+        }else {
+            iv_loop.setImageResource(R.drawable.icon_loop2);
+            tv_loop_text.setTextColor(getResources().getColor(R.color.textColor));
+        }
+    }
+    //判断随游
+    private void changeSuiuu(Boolean isChoice) {
+        if(isChoice) {
+            iv_suiuu.setImageResource(R.drawable.icon_suiuu2_press);
+            tv_suiuu_text.setTextColor(getResources().getColor(R.color.login_bg_color));
+        }else {
+            iv_suiuu.setImageResource(R.drawable.icon_suiuu2);
+            tv_suiuu_text.setTextColor(getResources().getColor(R.color.textColor));
+        }
+    }
+    //判断会话
+    private void changeConversation(Boolean isChoice) {
+        if(isChoice) {
+            iv_conversation.setImageResource(R.drawable.icon_conversation2_press);
+            tv_conversation_text.setTextColor(getResources().getColor(R.color.login_bg_color));
+        }else {
+            iv_conversation.setImageResource(R.drawable.icon_conversation2);
+            tv_conversation_text.setTextColor(getResources().getColor(R.color.textColor));
+        }
+    }
     /**
      * 初始化动画
      */
