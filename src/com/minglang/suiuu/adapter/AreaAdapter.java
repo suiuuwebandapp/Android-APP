@@ -20,11 +20,11 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import java.util.List;
 
 /**
- * 圈子-主题 数据适配器
+ * 圈子-地区 数据适配器
  * <p/>
  * Created by Administrator on 2015/4/21.
  */
-public class ThemeAdapter extends BaseAdapter {
+public class AreaAdapter extends BaseAdapter {
 
     private Context context;
 
@@ -36,7 +36,7 @@ public class ThemeAdapter extends BaseAdapter {
 
     private DisplayImageOptions displayImageOptions;
 
-    public ThemeAdapter(Context context, LoopInfo loopInfo, List<LoopData> list) {
+    public AreaAdapter(Context context, LoopInfo loopInfo, List<LoopData> list) {
         this.context = context;
         this.loopInfo = loopInfo;
         this.list = list;
@@ -74,9 +74,9 @@ public class ThemeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = ViewHolder.get(context, convertView, parent, R.layout.item_theme_grid, position);
-        ImageView imageView = holder.getView(R.id.item_theme_image);
-        TextView title = holder.getView(R.id.item_theme_title);
+        ViewHolder holder = ViewHolder.get(context, convertView, parent, R.layout.item_area_grid, position);
+        ImageView imageView = holder.getView(R.id.item_area_image);
+        TextView title = holder.getView(R.id.item_area_title);
 
         LoopData loopData = list.get(position);
 

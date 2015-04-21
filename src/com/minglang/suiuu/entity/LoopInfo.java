@@ -1,6 +1,6 @@
 package com.minglang.suiuu.entity;
 
-import com.minglang.suiuu.utils.ThemeData;
+import com.minglang.suiuu.utils.LoopData;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  * <p/>
  * Created by Administrator on 2015/4/21.
  */
-public class ThemeInfo {
+public class LoopInfo {
 
     public String status;
 
-    public List<ThemeData> data;
+    public List<LoopData> data;
 
     public String message;
 
@@ -29,11 +29,11 @@ public class ThemeInfo {
         this.status = status;
     }
 
-    public List<ThemeData> getData() {
+    public List<LoopData> getData() {
         return data;
     }
 
-    public void setData(List<ThemeData> data) {
+    public void setData(List<LoopData> data) {
         this.data = data;
     }
 

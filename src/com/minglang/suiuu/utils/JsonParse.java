@@ -1,7 +1,7 @@
 package com.minglang.suiuu.utils;
 
 import com.google.gson.Gson;
-import com.minglang.suiuu.entity.ThemeInfo;
+import com.minglang.suiuu.entity.LoopInfo;
 
 /**
  * JSON数据解析类
@@ -14,10 +14,10 @@ public class JsonParse {
 
     private static Gson gson = new Gson();
 
-    public static ThemeInfo parseThemeData(String string) {
-        ThemeInfo themeInfo;
-        themeInfo = gson.fromJson(string, ThemeInfo.class);
-        return themeInfo;
+    public static LoopInfo parseLoopResult(String string) {
+        LoopInfo loopInfo;
+        loopInfo = gson.fromJson(string, LoopInfo.class);
+        return loopInfo;
     }
 
 }

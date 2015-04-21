@@ -3,7 +3,7 @@ package com.minglang.suiuu.utils;
 /**
  * Created by Administrator on 2015/4/21.
  */
-public class ThemeData {
+public class LoopData {
 
     public String cId;
 
