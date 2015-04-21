@@ -22,6 +22,7 @@ dependencies {
     compile files('libs/weibo.jar')
     compile files('libs/weibosdkcore.jar')
     compile files('libs/xUtils-2.6.14.jar')
+    compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
 }
 
 android {
