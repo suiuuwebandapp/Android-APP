@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
-import com.minglang.suiuu.entity.LoopInfo;
+import com.minglang.suiuu.entity.Loop;
 import com.minglang.suiuu.utils.LoopData;
 import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,7 +28,7 @@ public class ThemeAdapter extends BaseAdapter {
 
     private Context context;
 
-    private LoopInfo loopInfo;
+    private Loop loopInfo;
 
     private List<LoopData> list;
 
@@ -36,7 +36,7 @@ public class ThemeAdapter extends BaseAdapter {
 
     private DisplayImageOptions displayImageOptions;
 
-    public ThemeAdapter(Context context, LoopInfo loopInfo, List<LoopData> list) {
+    public ThemeAdapter(Context context, Loop loopInfo, List<LoopData> list) {
         this.context = context;
         this.loopInfo = loopInfo;
         this.list = list;

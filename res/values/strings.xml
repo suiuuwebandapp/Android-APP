@@ -91,6 +91,7 @@
     <string name="comment">评论</string>
 
     <string name="complete">完成</string>
+    <string name="Singapore_n">新加坡新加坡新加坡新加坡新加坡新加坡</string>
 
 <!--关于聊天-->
 
@@ -369,5 +370,6 @@
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="title_activity_select_image">SelectImageActivity</string>
     <string name="title_activity_select_picture">SelectPictureActivity</string>
+    <string name="title_activity_loop_details">LoopDetailsActivity</string>
 
 </resources>

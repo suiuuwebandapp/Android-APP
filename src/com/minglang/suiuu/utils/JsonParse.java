@@ -1,7 +1,8 @@
 package com.minglang.suiuu.utils;
 
 import com.google.gson.Gson;
-import com.minglang.suiuu.entity.LoopInfo;
+import com.minglang.suiuu.entity.Loop;
+import com.minglang.suiuu.entity.LoopDetails;
 
 /**
  * JSON数据解析类
@@ -14,10 +15,28 @@ public class JsonParse {
 
     private static Gson gson = new Gson();
 
-    public static LoopInfo parseLoopResult(String string) {
-        LoopInfo loopInfo;
-        loopInfo = gson.fromJson(string, LoopInfo.class);
-        return loopInfo;
+    /**
+     * 解析圈子Json数据
+     *
+     * @param string 圈子Json字符串
+     * @return
+     */
+    public static Loop parseLoopResult(String string) {
+        Loop loop;
+        loop = gson.fromJson(string, Loop.class);
+        return loop;
+    }
+
+    /**
+     * 解析圈子详情页Json数据
+     *
+     * @param string 圈子详情页Json字符串
+     * @return
+     */
+    public static LoopDetails parseLoopDetailsResult(String string) {
+        LoopDetails loopDetails;
+        loopDetails = gson.fromJson(string, LoopDetails.class);
+        return loopDetails;
     }
 
 }

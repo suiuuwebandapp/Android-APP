@@ -18,7 +18,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AreaAdapter;
-import com.minglang.suiuu.entity.LoopInfo;
+import com.minglang.suiuu.entity.Loop;
 import com.minglang.suiuu.utils.JsonParse;
 import com.minglang.suiuu.utils.LoopData;
 
@@ -111,7 +111,7 @@ public class AreaFragment extends Fragment {
             @Override
             public void onSuccess(ResponseInfo<String> objectResponseInfo) {
                 String str = objectResponseInfo.result;
-                LoopInfo loopInfo = JsonParse.parseLoopResult(str);
+                Loop loopInfo = JsonParse.parseLoopResult(str);
                 if (Integer.parseInt(loopInfo.getStatus()) == 1) {
                     list = loopInfo.getData();
                     if (list != null && list.size() > 0) {
