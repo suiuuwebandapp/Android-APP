@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -16,6 +17,7 @@ import com.minglang.suiuu.adapter.LoopDetailsAdapter;
 import com.minglang.suiuu.entity.LoopDetails;
 import com.minglang.suiuu.entity.LoopDetailsData;
 import com.minglang.suiuu.utils.SuHttpRequest;
+
 
 import java.util.List;
 
@@ -47,10 +49,12 @@ public class LoopDetailsActivity extends Activity {
     }
 
     private void getInternetServiceData() {
+
         RequestParams params = new RequestParams();
 
         suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", loopDetailsRequestCallBack);
         suHttpRequest.setParams(params);
+
     }
 
     /**
