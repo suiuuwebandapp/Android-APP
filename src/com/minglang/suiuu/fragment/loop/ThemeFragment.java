@@ -19,7 +19,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.ThemeAdapter;
 import com.minglang.suiuu.entity.Loop;
-import com.minglang.suiuu.utils.JsonParse;
+import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.LoopData;
 
 import java.util.List;
@@ -106,12 +106,11 @@ public class ThemeFragment extends Fragment {
     private void getInternetServiceData() {
         HttpUtils http = new HttpUtils();
         RequestParams params = new RequestParams();
-
         http.send(HttpRequest.HttpMethod.POST, "", params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> objectResponseInfo) {
                 String str = objectResponseInfo.result;
-                Loop loopInfo = JsonParse.parseLoopResult(str);
+               Loop loopInfo =  JsonUtil.getInstance().fromJSON(Loop.class,str);
                 if (Integer.parseInt(loopInfo.getStatus()) == 1) {
                     list = loopInfo.getData();
                     if (list != null && list.size() > 0) {

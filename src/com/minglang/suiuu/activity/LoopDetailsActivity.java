@@ -6,17 +6,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.LoopDetailsAdapter;
 import com.minglang.suiuu.entity.LoopDetails;
 import com.minglang.suiuu.entity.LoopDetailsData;
-import com.minglang.suiuu.utils.JsonParse;
 
 import java.util.List;
 
@@ -44,27 +37,7 @@ public class LoopDetailsActivity extends Activity {
     }
 
     private void getInternetServiceData() {
-        HttpUtils httpUtils = new HttpUtils();
-        RequestParams params = new RequestParams();
 
-        httpUtils.send(HttpRequest.HttpMethod.POST, "", params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> objectResponseInfo) {
-                String str = objectResponseInfo.result;
-                loopDetails = JsonParse.parseLoopDetailsResult(str);
-                if (loopDetails != null) {
-                    list = loopDetails.getData();
-
-                    loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, loopDetails, list);
-                    loopDetailsGridView.setAdapter(loopDetailsAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-
-            }
-        });
     }
 
     /**
