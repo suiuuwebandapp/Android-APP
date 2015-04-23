@@ -27,7 +27,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -103,7 +102,7 @@ public class MainActivity extends FragmentActivity{
     /**
      * 跳转发送新帖子
      */
-    private ImageButton sendMsg;
+    private ImageView sendMsg;
 
     private FragmentManager fm;
 
@@ -709,7 +708,7 @@ public class MainActivity extends FragmentActivity{
         tv_conversation_text = (TextView) findViewById(R.id.title4);
         changeTheme(true);
 
-        sendMsg = (ImageButton) findViewById(R.id.sendNewMessage);
+        sendMsg = (ImageView) findViewById(R.id.sendNewMessage);
 
         mListView = (ListView) findViewById(R.id.drawerList);
 

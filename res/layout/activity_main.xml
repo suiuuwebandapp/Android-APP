@@ -73,7 +73,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_main_pic"
             android:id="@+id/main_pic"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="-20dp"
+            android:layout_marginRight="15dp"
             android:layout_above="@+id/tabSelect"
             android:visibility="invisible"
             android:layout_toLeftOf="@+id/main_record"
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_main_record"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/main_record"
             android:visibility="invisible"
             android:layout_above="@+id/tabSelect" />
@@ -94,7 +95,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_main_ask"
             android:id="@+id/main_ask"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="-20dp"
+            android:layout_marginLeft="15dp"
             android:visibility="invisible"
             android:layout_above="@+id/tabSelect"
             android:layout_toRightOf="@+id/main_record"
@@ -105,9 +107,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:background="@color/tr_write2"
+            android:background="@drawable/main_guide_line"
             android:orientation="horizontal">
+
 
             <LinearLayout
                 android:id="@+id/tab1"
@@ -125,6 +127,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:paddingLeft="20dp"
                 android:id="@+id/tab2"
                 style="@style/tabLayout">
 
@@ -139,14 +142,17 @@
                     android:text="@string/title2" />
             </LinearLayout>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/sendNewMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_edit2" />
+                android:layout_weight="0.2"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/icon_edit2" />
 
             <LinearLayout
                 android:id="@+id/tab3"
+                android:paddingRight="20dp"
                 style="@style/tabLayout">
 
                 <ImageView
@@ -192,6 +198,7 @@
                     android:id="@+id/title4"
                     style="@style/titleText"
                     android:text="@string/title4" />
+
             </LinearLayout>
 
         </LinearLayout>
