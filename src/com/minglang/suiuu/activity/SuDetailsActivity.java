@@ -192,7 +192,7 @@ public class SuDetailsActivity extends Activity {
 
         praise = (TextView) findViewById(R.id.SuDetailsPraise);
 
-        collection = (TextView) findViewById(R.id.SuDetailsCollection);
+        collection = (TextView) findViewById(R.id.loop_article_collection);
 
         slideLayout = (RelativeLayout) findViewById(R.id.SuDetailsSlideLayout);
 

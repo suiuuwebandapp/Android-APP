@@ -113,6 +113,6 @@ public class LoopDetailsAdapter extends BaseAdapter {
         String praise_str = loopDetailsData.getaSupportCount();
         praise.setText(praise_str);
 
-        return null;
+        return holder.getConvertView();
     }
 }

@@ -134,11 +134,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullBleedTheme" />
         <activity
-            android:name=".activity.HeadImageActivity"
-            android:label="@string/title_activity_head_image"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
-        <activity
             android:name=".activity.OtherUserTraceActivity"
             android:label="@string/title_activity_other_user_trace"
             android:screenOrientation="portrait" />
@@ -265,6 +260,10 @@
         <activity
             android:name=".activity.LoopDetailsActivity"
             android:label="@string/title_activity_loop_details" >
+        </activity>
+        <activity
+            android:name=".activity.LoopArticleActivity"
+            android:label="@string/title_activity_loop_article" >
         </activity>
     </application>
 
