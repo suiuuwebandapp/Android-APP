@@ -107,7 +107,6 @@ public class AreaFragment extends Fragment {
      */
     private void getInternetServiceData() {
         RequestParams params = new RequestParams();
-
         SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", areaRequestCallback);
         suHttpRequest.setParams(params);
     }

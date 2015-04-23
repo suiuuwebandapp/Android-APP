@@ -51,7 +51,6 @@ public class LoopDetailsActivity extends Activity {
     private void getInternetServiceData() {
 
         RequestParams params = new RequestParams();
-
         SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", loopDetailsRequestCallBack);
         suHttpRequest.setParams(params);
 
