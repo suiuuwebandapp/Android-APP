@@ -2,24 +2,14 @@ package com.minglang.suiuu.fragment.loop;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AreaAdapter;
-import com.minglang.suiuu.entity.Loop;
-import com.minglang.suiuu.utils.JsonParse;
 import com.minglang.suiuu.utils.LoopData;
 
 import java.util.List;
@@ -104,31 +94,7 @@ public class AreaFragment extends Fragment {
      * 从网络获取数据
      */
     private void getInternetServiceData() {
-        HttpUtils http = new HttpUtils();
-        RequestParams params = new RequestParams();
 
-        http.send(HttpRequest.HttpMethod.POST, "", params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> objectResponseInfo) {
-                String str = objectResponseInfo.result;
-                Loop loopInfo = JsonParse.parseLoopResult(str);
-                if (Integer.parseInt(loopInfo.getStatus()) == 1) {
-                    list = loopInfo.getData();
-                    if (list != null && list.size() > 0) {
-                        areaAdapter = new AreaAdapter(getActivity(), loopInfo, list);
-                        areaGridView.setAdapter(areaAdapter);
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Log.i(TAG, "Message:" + e.getMessage());
-                Log.i(TAG, "Information:" + s);
-            }
-        });
     }
 
     /**
