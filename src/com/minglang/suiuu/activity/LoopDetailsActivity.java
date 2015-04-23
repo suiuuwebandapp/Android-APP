@@ -38,6 +38,7 @@ public class LoopDetailsActivity extends Activity {
 
     private SuHttpRequest suHttpRequest;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class LoopDetailsActivity extends Activity {
     private void getInternetServiceData() {
 
         RequestParams params = new RequestParams();
-
+        
         suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", loopDetailsRequestCallBack);
         suHttpRequest.setParams(params);
 
