@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 import com.lidroid.xutils.exception.HttpException;
@@ -16,6 +17,7 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.LoopDetailsAdapter;
 import com.minglang.suiuu.entity.LoopDetails;
 import com.minglang.suiuu.entity.LoopDetailsData;
+import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.SuHttpRequest;
 
 
@@ -36,8 +38,6 @@ public class LoopDetailsActivity extends Activity {
 
     private LoopDetailsAdapter loopDetailsAdapter;
 
-    private SuHttpRequest suHttpRequest;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class LoopDetailsActivity extends Activity {
 
         RequestParams params = new RequestParams();
 
-        suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", loopDetailsRequestCallBack);
+        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", loopDetailsRequestCallBack);
         suHttpRequest.setParams(params);
 
     }
@@ -81,12 +81,18 @@ public class LoopDetailsActivity extends Activity {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
-
+            String str = responseInfo.result;
+            loopDetails = JsonUtil.getInstance().fromJSON(LoopDetails.class, str);
+            if (loopDetails != null) {
+                list = loopDetails.getData();
+                loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, loopDetails, list);
+                loopDetailsGridView.setAdapter(loopDetailsAdapter);
+            }
         }
 
         @Override
         public void onFailure(HttpException error, String msg) {
-
+            Toast.makeText(LoopDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -8,20 +8,39 @@ import com.lidroid.xutils.http.client.HttpRequest;
 
 
 /**
+ * 封装网络请求方法
+ * <p/>
  * Created by Administrator on 2015/4/23.
  */
 public class SuHttpRequest {
 
     private static SuHttpRequest suHttpRequest;
 
+    /**
+     * 网络请求核心类
+     */
     private HttpUtils httpUtils = new HttpUtils();
 
+    /**
+     * 网络请求类型
+     * <p/>
+     * GET、POST等
+     */
     private static HttpRequest.HttpMethod httpMethod;
 
+    /**
+     * 请求参数
+     */
     private static RequestParams params;
 
+    /**
+     * 请求URL地址
+     */
     private static String httpPath;
 
+    /**
+     * 网络请求回调接口
+     */
     private static RequestCallBack<String> requestCallBack;
 
     private HttpHandler<String> httpHandler;
@@ -54,7 +73,6 @@ public class SuHttpRequest {
     public RequestParams getParams() {
         return params;
     }
-
 
     public RequestCallBack<String> getRequestCallBack() {
         return requestCallBack;

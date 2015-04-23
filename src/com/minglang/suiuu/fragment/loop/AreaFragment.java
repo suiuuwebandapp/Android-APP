@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -19,8 +18,9 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AreaAdapter;
 import com.minglang.suiuu.entity.Loop;
-import com.minglang.suiuu.utils.JsonParse;
+import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.LoopData;
+import com.minglang.suiuu.utils.SuHttpRequest;
 
 import java.util.List;
 
@@ -40,6 +40,8 @@ public class AreaFragment extends Fragment {
     private AreaAdapter areaAdapter;
 
     private List<LoopData> list;
+
+    private AreaRequestCallback areaRequestCallback = new AreaRequestCallback();
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -104,31 +106,10 @@ public class AreaFragment extends Fragment {
      * 从网络获取数据
      */
     private void getInternetServiceData() {
-        HttpUtils http = new HttpUtils();
         RequestParams params = new RequestParams();
 
-        http.send(HttpRequest.HttpMethod.POST, "", params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> objectResponseInfo) {
-                String str = objectResponseInfo.result;
-                Loop loopInfo = JsonParse.parseLoopResult(str);
-                if (Integer.parseInt(loopInfo.getStatus()) == 1) {
-                    list = loopInfo.getData();
-                    if (list != null && list.size() > 0) {
-                        areaAdapter = new AreaAdapter(getActivity(), loopInfo, list);
-                        areaGridView.setAdapter(areaAdapter);
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Log.i(TAG, "Message:" + e.getMessage());
-                Log.i(TAG, "Information:" + s);
-            }
-        });
+        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", areaRequestCallback);
+        suHttpRequest.setParams(params);
     }
 
     /**
@@ -138,6 +119,33 @@ public class AreaFragment extends Fragment {
      */
     private void initView(View rootView) {
         areaGridView = (GridView) rootView.findViewById(R.id.areaGridView);
+    }
+
+    class AreaRequestCallback extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            String str = responseInfo.result;
+            Loop loop = JsonUtil.getInstance().fromJSON(Loop.class, str);
+            if (loop != null) {
+                if (Integer.parseInt(loop.getStatus()) == 1) {
+                    list = loop.getData();
+                    areaAdapter = new AreaAdapter(getActivity(), loop, list);
+                    areaGridView.setAdapter(areaAdapter);
+                } else {
+                    Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(HttpException error, String msg) {
+
+            Log.i(TAG, error.getMessage());
+            Log.i(TAG, msg);
+
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
