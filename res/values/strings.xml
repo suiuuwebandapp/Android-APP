@@ -1,4 +1,4 @@
-﻿﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">随游</string>
@@ -36,7 +36,7 @@
     <string name="route">路线</string>
 
     <string name="attention">关注</string>
-	<string name="MyAttention">我的关注</string>
+    <string name="MyAttention">我的关注</string>
 
     <string name="fans">粉丝</string>
     <string name="thirdParty">绑定的第三方账号</string>
@@ -93,16 +93,16 @@
     <string name="complete">完成</string>
     <string name="Singapore_n">新加坡新加坡新加坡新加坡新加坡新加坡</string>
     <string name="Jeju_Island">济州岛</string>
-
     <string name="editor">修改</string>
     <string name="search_question">写下你的问题</string>
     <string name="question_description">问题的描叙</string>
     <string name="show_location">显示你的位置</string>
 <!--关于聊天-->
-
+    <string name="show_comments">显示评论</string>
+    <string name="article_temp">文章内容在此显示</string>
+    <string name="share">分享</string>
     <string name="text_ack_msg">已读</string>
     <string name="text_delivered_msg">送达</string>
-
     <string name="button_pushtotalk">按住说话</string>
     <string name="button_send">发送</string>
     <string name="attach_smile">表情</string>
