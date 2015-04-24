@@ -411,7 +411,7 @@ public class MainActivity extends FragmentActivity{
         ask.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(MainActivity.this,SelectPictureActivity.class);
+                Intent intent = new Intent(MainActivity.this,AskQuestionActivity.class);
                 startActivity(intent);
             }
         });
@@ -419,7 +419,8 @@ public class MainActivity extends FragmentActivity{
         pic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "pic");
+                Intent intent =new Intent(MainActivity.this,SelectPictureActivity.class);
+                startActivity(intent);
             }
         });
 

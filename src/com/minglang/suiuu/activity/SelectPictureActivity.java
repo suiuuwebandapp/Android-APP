@@ -298,8 +298,8 @@ public class SelectPictureActivity extends Activity {
         currentImageFolder = imageAll;
         mDirPaths.add(imageAll);
 
-        back = (ImageView) findViewById(R.id.selectPictureBack);
-        complete = (TextView) findViewById(R.id.selectPictureComplete);
+        back = (ImageView) findViewById(R.id.iv_top_back);
+        complete = (TextView) findViewById(R.id.tv_top_right);
 
         selectImage = (GridView) findViewById(R.id.selectPicture);
         allPicture = (TextView) findViewById(R.id.selectPictureAll);

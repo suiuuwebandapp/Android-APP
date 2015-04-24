@@ -12,6 +12,31 @@
 
     <dimen name="sub_action_button_size">36dp</dimen>
     <dimen name="sub_action_button_content_margin">6dp</dimen>
+    <dimen name="layout_10dp">10dp</dimen>
+    <dimen name="layout_12dp">12dp</dimen>
+    <dimen name="layout_15dp">15dp</dimen>
+    <dimen name="layout_18dp">18dp</dimen>
+    <dimen name="layout_20dp">20dp</dimen>
+    <dimen name="layout_5dp">5dp</dimen>
+    <dimen name="layout_8dp">8dp</dimen>
+    <dimen name="layout_16dp">16dp</dimen>
+    <dimen name="layout_30dp">30dp</dimen>
+    <dimen name="layout_25dp">25dp</dimen>
+    <dimen name="layout_50dp">50dp</dimen>
+    <dimen name="layout_510dp">510dp</dimen>
+    <dimen name="layout_200dp">200dp</dimen>
+    <dimen name="layout_100dp">100dp</dimen>
+
+
+
+
+    <dimen name="layout_200sp">200sp</dimen>
+    <dimen name="layout_10sp">10sp</dimen>
+    <dimen name="layout_15sp">15sp</dimen>
+
+
+
+
 
      <!--关于chat-->
 

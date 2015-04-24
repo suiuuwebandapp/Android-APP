@@ -511,7 +511,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 					more(more);
 					sendLocationMsg(latitude, longitude, "", locationAddress);
 				} else {
-					String st = getResources().getString(R.string.unable_to_get_loaction);
+					String st = getResources().getString(R.string.unable_to_get_location);
 					Toast.makeText(this, st, Toast.LENGTH_SHORT).show();
 				}
 				// 重发消息
