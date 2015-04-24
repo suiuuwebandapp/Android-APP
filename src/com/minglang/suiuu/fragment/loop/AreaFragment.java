@@ -19,7 +19,7 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AreaAdapter;
 import com.minglang.suiuu.entity.Loop;
 import com.minglang.suiuu.utils.JsonUtil;
-import com.minglang.suiuu.utils.LoopData;
+import com.minglang.suiuu.entity.LoopData;
 import com.minglang.suiuu.utils.SuHttpRequest;
 
 import java.util.List;

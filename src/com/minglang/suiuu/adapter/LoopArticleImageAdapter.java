@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.minglang.suiuu.R;
-import com.minglang.suiuu.entity.Loop;
-import com.minglang.suiuu.entity.LoopData;
 import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -20,33 +17,31 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import java.util.List;
 
 /**
- * 圈子-地区 数据适配器
+ * 圈子文章内图片适配器
  * <p/>
- * Created by Administrator on 2015/4/21.
+ * Created by Administrator on 2015/4/24.
  */
-public class AreaAdapter extends BaseAdapter {
+public class LoopArticleImageAdapter extends BaseAdapter {
 
     private Context context;
 
-    private Loop loopInfo;
-
-    private List<LoopData> list;
+    private List<Object> list;
 
     private ImageLoader imageLoader;
 
-    private DisplayImageOptions displayImageOptions;
+    private DisplayImageOptions options;
 
-    public AreaAdapter(Context context, Loop loopInfo, List<LoopData> list) {
+    public LoopArticleImageAdapter(Context context, List<Object> list) {
         this.context = context;
-        this.loopInfo = loopInfo;
         this.list = list;
 
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
-        displayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.scroll1)
-                .showImageForEmptyUri(R.drawable.scroll1).showImageOnFail(R.drawable.scroll1)
+
+        options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_suiuu_image)
+                .showImageForEmptyUri(R.drawable.default_suiuu_image).showImageOnFail(R.drawable.default_suiuu_image)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).build();
+                .imageScaleType(ImageScaleType.NONE_SAFE).bitmapConfig(Bitmap.Config.RGB_565).build();
     }
 
     @Override
@@ -74,15 +69,10 @@ public class AreaAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = ViewHolder.get(context, convertView, parent, R.layout.item_area_grid, position);
-        ImageView imageView = holder.getView(R.id.item_area_image);
-        TextView title = holder.getView(R.id.item_area_title);
-
-        LoopData loopData = list.get(position);
-
-        imageLoader.displayImage(loopData.getCpic(), imageView, displayImageOptions);
-        title.setText(loopData.getcName());
-
+        ViewHolder holder = ViewHolder.get(context, convertView, parent, R.layout.item_loop_article_image, position);
+        Object object = list.get(position);
+        ImageView imageView = holder.getView(R.id.item_loop_article_imageView);
+        imageLoader.displayImage(object.toString(), imageView, options);
         return holder.getConvertView();
     }
 }

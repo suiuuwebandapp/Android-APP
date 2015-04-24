@@ -3,8 +3,6 @@ package com.minglang.suiuu.fragment.main;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -183,6 +181,7 @@ public class LoopFragment extends Fragment {
      *
      * @param rootView Fragment根View
      */
+    @SuppressLint("InflateParams")
     private void initView(View rootView) {
 
         loopScrollLayout = (RelativeLayout) rootView.findViewById(R.id.LoopScrollLayout);
@@ -258,10 +257,10 @@ public class LoopFragment extends Fragment {
 
     private void loadImage(ImageView imageView, int imageId) {
         String uri = "drawable://" + imageId;
-//        imageLoader.displayImage(uri, imageView, displayImageOptions);
-        Bitmap bitmap = imageLoader.loadImageSync(uri, displayImageOptions);
-        Drawable drawable = new BitmapDrawable(bitmap);
-        imageView.setBackgroundDrawable(drawable);
+        imageLoader.displayImage(uri, imageView, displayImageOptions);
+//        Bitmap bitmap = imageLoader.loadImageSync(uri, displayImageOptions);
+//        Drawable drawable = new BitmapDrawable(bitmap);
+//        imageView.setBackgroundDrawable(drawable);
     }
 
     private void initImageView() {

@@ -1,7 +1,5 @@
 package com.minglang.suiuu.entity;
 
-import com.minglang.suiuu.utils.LoopData;
-
 import java.util.List;
 
 /**

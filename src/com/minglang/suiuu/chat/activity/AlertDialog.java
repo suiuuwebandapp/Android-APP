@@ -35,7 +35,7 @@ public class AlertDialog extends BaseActivity {
 	private int position;
 	private ImageView imageView;
 	private EditText editText;
-	private boolean isEditextShow;
+	private boolean isEditTextShow;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +51,11 @@ public class AlertDialog extends BaseActivity {
 		String title = getIntent().getStringExtra("title");
 		position = getIntent().getIntExtra("position", -1);
 		//是否显示取消标题
-		boolean isCanceTitle=getIntent().getBooleanExtra("titleIsCancel", false);
+		boolean isCancelTitle=getIntent().getBooleanExtra("titleIsCancel", false);
 		//是否显示取消按钮
-		boolean isCanceShow = getIntent().getBooleanExtra("cancel", false);
+		boolean isCancelShow = getIntent().getBooleanExtra("cancel", false);
 		//是否显示文本编辑框
-		isEditextShow = getIntent().getBooleanExtra("editTextShow",false);
+		isEditTextShow = getIntent().getBooleanExtra("editTextShow",false);
 		//转发复制的图片的path
 		String path = getIntent().getStringExtra("forwardImage");
 		//
@@ -65,17 +65,17 @@ public class AlertDialog extends BaseActivity {
 		    ((TextView)findViewById(R.id.alert_message)).setText(msg);
 		if(title != null)
 			mTextView.setText(title);
-		if(isCanceTitle){
+		if(isCancelTitle){
 			mTextView.setVisibility(View.GONE);
 		}
-		if(isCanceShow)
+		if(isCancelShow)
 			mButton.setVisibility(View.VISIBLE);
 		if(path != null){
 			 //优先拿大图，没有去取缩略图
 			if(!new File(path).exists())
 				path = DownloadImageTask.getThumbnailImagePath(path);
 		    imageView.setVisibility(View.VISIBLE);
-		    ((TextView)findViewById(R.id.alert_message)).setVisibility(View.GONE);
+		    (findViewById(R.id.alert_message)).setVisibility(View.GONE);
 		    if(ImageCache.getInstance().get(path) != null){
 		        imageView.setImageBitmap(ImageCache.getInstance().get(path));
 		    }else{
@@ -85,7 +85,7 @@ public class AlertDialog extends BaseActivity {
 		    }
 		    
 		}
-		if(isEditextShow){
+		if(isEditTextShow){
 			editText.setVisibility(View.VISIBLE);
 			editText.setText(edit_text);
 		}
