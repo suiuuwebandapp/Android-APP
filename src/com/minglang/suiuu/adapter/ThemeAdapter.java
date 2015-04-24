@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.entity.Loop;
-import com.minglang.suiuu.utils.LoopData;
+import com.minglang.suiuu.entity.LoopData;
 import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;

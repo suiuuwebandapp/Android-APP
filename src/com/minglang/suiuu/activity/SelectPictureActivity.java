@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.BaseHolderAdapter;
 import com.minglang.suiuu.adapter.SelectPictureAdapter;
-import com.minglang.suiuu.customview.BasePopupWindowForListView;
+import com.minglang.suiuu.popupwindow.BasePopupWindowForListView;
 import com.minglang.suiuu.entity.ImageFolder;
 import com.minglang.suiuu.entity.ImageItem;
 import com.minglang.suiuu.utils.ViewHolder;

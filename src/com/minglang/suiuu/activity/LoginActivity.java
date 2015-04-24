@@ -565,7 +565,7 @@ public class LoginActivity extends Activity {
          * ***************************分割线***************************
          */
 
-        popupRegisterView = LayoutInflater.from(this).inflate(R.layout.popip_register, null);
+        popupRegisterView = LayoutInflater.from(this).inflate(R.layout.popup_register, null);
 
         popupRegisterUserName = (EditText) popupRegisterView.findViewById(R.id.registerUserInfo);
         popupRegisterPassword1 = (EditText) popupRegisterView.findViewById(R.id.registerPassword1);

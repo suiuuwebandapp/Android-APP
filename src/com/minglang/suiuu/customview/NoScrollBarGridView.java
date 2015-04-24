@@ -2,23 +2,23 @@ package com.minglang.suiuu.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ScrollView;
+import android.widget.GridView;
 
 /**
  * 重写ScrollView，隐藏滚动条
  * <p/>
  * Created by Administrator on 2015/4/23.
  */
-public class NoScrollBarView extends ScrollView {
-    public NoScrollBarView(Context context) {
+public class NoScrollBarGridView extends GridView {
+    public NoScrollBarGridView(Context context) {
         super(context);
     }
 
-    public NoScrollBarView(Context context, AttributeSet attrs) {
+    public NoScrollBarGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public NoScrollBarView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NoScrollBarGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

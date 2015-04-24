@@ -1,7 +1,4 @@
-package com.minglang.suiuu.customview;
-
-import java.util.List;
-
+package com.minglang.suiuu.popupwindow;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +9,8 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.BaseHolderAdapter;
 import com.minglang.suiuu.entity.ImageFolder;
 import com.minglang.suiuu.utils.ViewHolder;
+
+import java.util.List;
 
 public class ListImageDirPopupWindow extends
 		BasePopupWindowForListView<ImageFolder> {

@@ -96,6 +96,8 @@
     <string name="search_question">写下你的问题</string>
     <string name="question_description">问题的描叙</string>
     <string name="show_location">显示你的位置</string>
+
+    <string name="sure_delete">确认删除</string>
 <!--关于聊天-->
     <string name="show_comments">显示评论</string>
     <string name="article_temp">文章内容在此显示</string>

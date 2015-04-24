@@ -1,4 +1,4 @@
-package com.minglang.suiuu.utils;
+package com.minglang.suiuu.entity;
 
 /**
  * Created by Administrator on 2015/4/21.

@@ -1,15 +1,22 @@
 package com.minglang.suiuu.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
-import com.minglang.suiuu.customview.NoScrollBarView;
+import com.minglang.suiuu.adapter.LoopArticleImageAdapter;
+import com.minglang.suiuu.customview.NoScrollBarGridView;
 
 /**
  * 具体某个地区/主题下的某个帖子
+ * <p/>
+ * 网络部分未完成
  */
 public class LoopArticleActivity extends Activity {
 
@@ -49,6 +56,16 @@ public class LoopArticleActivity extends Activity {
     private TextView userLocation;
 
     /**
+     * 修改
+     */
+    private TextView editor;
+
+    /**
+     * 删除
+     */
+    private TextView delete;
+
+    /**
      * 文章内容
      */
     private TextView articleContent;
@@ -56,7 +73,7 @@ public class LoopArticleActivity extends Activity {
     /**
      * 展示图片的GridView
      */
-    private NoScrollBarView noScrollBarView;
+    private NoScrollBarGridView noScrollBarGridView;
 
     /**
      * 展示评论
@@ -73,6 +90,11 @@ public class LoopArticleActivity extends Activity {
      */
     private TextView comments;
 
+    /**
+     * 图片适配器
+     */
+    private LoopArticleImageAdapter imageAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,10 +102,86 @@ public class LoopArticleActivity extends Activity {
 
         initView();
 
+        ViewAction();
+
     }
 
     private void ViewAction() {
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
+        praise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        editor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(LoopArticleActivity.this).setTitle(getResources().
+                        getString(R.string.sure_delete))
+                        .setNegativeButton(getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton(getResources().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).create().show();
+            }
+        });
+
+        noScrollBarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+        showComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     /**
@@ -100,8 +198,11 @@ public class LoopArticleActivity extends Activity {
         userName = (TextView) findViewById(R.id.loop_article_user_name);
         userLocation = (TextView) findViewById(R.id.loop_article_user_location);
 
+        editor = (TextView) findViewById(R.id.loop_article_editor);
+        delete = (TextView) findViewById(R.id.loop_article_delete);
+
         articleContent = (TextView) findViewById(R.id.loop_article_content);
-        noScrollBarView = (NoScrollBarView) findViewById(R.id.loop_article_grid);
+        noScrollBarGridView = (NoScrollBarGridView) findViewById(R.id.loop_article_grid);
         showComments = (TextView) findViewById(R.id.loop_article_show_comment);
 
         share = (TextView) findViewById(R.id.loop_article_share);
