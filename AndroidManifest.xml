@@ -156,12 +156,22 @@
         <activity
             android:name=".activity.SelectPictureActivity"
             android:label="@string/title_activity_select_picture"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+            android:theme="@style/FullBleedTheme"
+           />
         <!--随问的页面-->
         <activity
             android:name=".activity.AskQuestionActivity"
             android:label="AskQuestionActivity"
+            android:theme="@style/FullBleedTheme"
+             />
+        <!--随拍的展示页面-->
+        <activity
+            android:name=".activity.EasyTackPhotoActivity"
+            android:label="EasyTackPhotoActivity"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+
+
+
         <!-- 聊天页面 -->
         <activity
             android:name=".chat.activity.ChatActivity"

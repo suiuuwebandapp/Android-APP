@@ -96,6 +96,11 @@
     <string name="search_question">写下你的问题</string>
     <string name="question_description">问题的描叙</string>
     <string name="show_location">显示你的位置</string>
+    <string name="image_theme">想个标题吧</string>
+    <string name="activity_description">活动描述</string>
+    <string name="picture_description">图片描述</string>
+    <string name="choice_picture">请至少选择一张图片</string>
+
 <!--关于聊天-->
     <string name="show_comments">显示评论</string>
     <string name="article_temp">文章内容在此显示</string>

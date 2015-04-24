@@ -32,6 +32,7 @@ import com.easemob.util.ImageUtils;
 import com.easemob.util.PathUtil;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.photoview.PhotoView;
+import com.minglang.suiuu.chat.photoview.PhotoViewAttacher;
 import com.minglang.suiuu.chat.task.LoadLocalBigImgTask;
 import com.minglang.suiuu.chat.utils.ImageCache;
 
@@ -54,53 +55,73 @@ public class ShowBigImage extends BaseActivity {
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_show_big_image);
-		super.onCreate(savedInstanceState);
-		image = (PhotoView) findViewById(R.id.image);
-		loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
-		default_res = getIntent().getIntExtra("default_image", R.drawable.default_avatar);
-		Uri uri = getIntent().getParcelableExtra("uri");
-		String remotepath = getIntent().getExtras().getString("remotepath");
-		String secret = getIntent().getExtras().getString("secret");
-		Log.i("suiuu","show big image uri:" + uri + " remotepath:" + remotepath);
+        setContentView(R.layout.activity_show_big_image);
+        super.onCreate(savedInstanceState);
+        bitmap = null;
+        image = (PhotoView) findViewById(R.id.image);
+        loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
+        default_res = getIntent().getIntExtra("default_image", R.drawable.default_avatar);
+        Uri uri = getIntent().getParcelableExtra("uri");
+        String remotepath = getIntent().getExtras().getString("remotepath");
+        String secret = getIntent().getExtras().getString("secret");
+        String path = getIntent().getExtras().getString("path");
+        Log.i("suiuu", "show big image uri:" + uri + " remotepath:" + remotepath);
 
-		//本地存在，直接显示本地的图片
-		if (uri != null && new File(uri.getPath()).exists()) {
-			System.err.println("showbigimage file exists. directly show it");
-			DisplayMetrics metrics = new DisplayMetrics();
-			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			// int screenWidth = metrics.widthPixels;
-			// int screenHeight =metrics.heightPixels;
-			bitmap = ImageCache.getInstance().get(uri.getPath());
-			if (bitmap == null) {
-				LoadLocalBigImgTask task = new LoadLocalBigImgTask(this, uri.getPath(), image, loadLocalPb, ImageUtils.SCALE_IMAGE_WIDTH,
-						ImageUtils.SCALE_IMAGE_HEIGHT);
-				if (android.os.Build.VERSION.SDK_INT > 10) {
-					task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-				} else {
-					task.execute();
-				}
-			} else {
-				image.setImageBitmap(bitmap);
-			}
-		} else if (remotepath != null) { //去服务器下载图片
-			System.err.println("download remote image");
-			Map<String, String> maps = new HashMap<String, String>();
-			if (!TextUtils.isEmpty(secret)) {
-				maps.put("share-secret", secret);
-			}
-			downloadImage(remotepath, maps);
-		} else {
-			image.setImageResource(default_res);
-		}
+        //传过路径显示图片
+        if (path != null) {
+            Log.i("suiuu", path);
+            DisplayMetrics metrics1 = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics1);
+            bitmap = ImageCache.getInstance().get(path);
 
-		image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+                Log.i("suiuu", "why bitmap is not null");
+                LoadLocalBigImgTask task = new LoadLocalBigImgTask(this, path, image, loadLocalPb, ImageUtils.SCALE_IMAGE_WIDTH,
+                        ImageUtils.SCALE_IMAGE_HEIGHT);
+                if (android.os.Build.VERSION.SDK_INT > 10) {
+                    task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    task.execute();
+                }
+
+        }
+            //本地存在，直接显示本地的图片
+            if (uri != null && new File(uri.getPath()).exists()) {
+                System.err.println("showbigimage file exists. directly show it");
+                DisplayMetrics metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                // int screenWidth = metrics.widthPixels;
+                // int screenHeight =metrics.heightPixels;
+                bitmap = ImageCache.getInstance().get(uri.getPath());
+                if (bitmap == null) {
+                    LoadLocalBigImgTask task = new LoadLocalBigImgTask(this, uri.getPath(), image, loadLocalPb, ImageUtils.SCALE_IMAGE_WIDTH,
+                            ImageUtils.SCALE_IMAGE_HEIGHT);
+                    if (android.os.Build.VERSION.SDK_INT > 10) {
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        task.execute();
+                    }
+                } else {
+                    image.setImageBitmap(bitmap);
+                }
+            } else if (remotepath != null) { //去服务器下载图片
+                System.err.println("download remote image");
+                Map<String, String> maps = new HashMap<String, String>();
+                if (!TextUtils.isEmpty(secret)) {
+                    maps.put("share-secret", secret);
+                }
+                downloadImage(remotepath, maps);
+            } else {
+                image.setImageResource(default_res);
             }
-        });
-	}
+
+            image.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                @Override
+                public void onPhotoTap(View view, float x, float y) {
+                    finish();
+                }
+            });
+        }
+
 	
 	/**
 	 * 通过远程URL，确定下本地下载后的localurl

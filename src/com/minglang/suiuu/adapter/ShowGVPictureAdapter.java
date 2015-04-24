@@ -1,7 +1,6 @@
 package com.minglang.suiuu.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,7 +12,7 @@ import com.minglang.suiuu.R;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/4/23.
+ * 随问和随记公用的gridview的Adapter
  */
 public class ShowGVPictureAdapter extends BaseAdapter {
     private Context context;
@@ -47,9 +46,8 @@ public class ShowGVPictureAdapter extends BaseAdapter {
         BitmapUtils bitmapUtils = new BitmapUtils(context);
         View view = View.inflate(context, R.layout.adapter_show_picture, null);
         iv_picture = (ImageView)view.findViewById(R.id.iv_picture);
-        Log.i("suiuu","lai到这儿了吗");
         if(position>=list.size()) {
-            iv_picture.setImageResource(R.drawable.icon_suiuu2);
+            iv_picture.setImageResource(R.drawable.btn_add_picture);
         }else {
             bitmapUtils.display(iv_picture, list.get(position));
         }

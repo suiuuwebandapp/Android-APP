@@ -26,6 +26,8 @@
     <dimen name="layout_510dp">510dp</dimen>
     <dimen name="layout_200dp">200dp</dimen>
     <dimen name="layout_100dp">100dp</dimen>
+    <dimen name="layout_150dp">150dp</dimen>
+    <dimen name="layout_120dp">120dp</dimen>
 
 
 

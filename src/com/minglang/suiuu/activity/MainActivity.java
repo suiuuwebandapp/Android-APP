@@ -420,6 +420,7 @@ public class MainActivity extends FragmentActivity{
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(MainActivity.this,SelectPictureActivity.class);
+                intent.putExtra("state",1);
                 startActivity(intent);
             }
         });
@@ -427,7 +428,9 @@ public class MainActivity extends FragmentActivity{
         record.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "record");
+                Intent intent = new Intent(MainActivity.this,AskQuestionActivity.class);
+                intent.putExtra("record",1);
+                startActivity(intent);
             }
         });
 

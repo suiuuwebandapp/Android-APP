@@ -71,7 +71,7 @@ public class SelectPictureActivity extends Activity {
     /**
      * 已选择的图片
      */
-    private List<String> selectedPicture = new ArrayList<>();
+    private ArrayList<String> selectedPicture = new ArrayList<>();
 
     private Context context = this;
 
@@ -103,7 +103,8 @@ public class SelectPictureActivity extends Activity {
     private SelectPictureAdapter selectPictureAdapter;
 
     private ListPictureDirPopupWindow listPictureDirPopupWindow;
-
+    private static final int result = 9;
+    private  int state = 0;
     public SelectPictureActivity() {
     }
 
@@ -111,7 +112,7 @@ public class SelectPictureActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_picture);
-
+        state = this.getIntent().getIntExtra("state",0);
         initView();
 
         initPopupWindow();
@@ -142,6 +143,22 @@ public class SelectPictureActivity extends Activity {
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(1 == state) {
+                    if(selectedPicture.size() < 1) {
+                        Toast.makeText(SelectPictureActivity.this,R.string.choice_picture,Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent intent = new Intent(SelectPictureActivity.this, EasyTackPhotoActivity.class);
+                        intent.putStringArrayListExtra("pictureMessage", selectedPicture);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else {
+                Log.i("suiuu","有数据了吧dfkdjjjjjjjjjj");
+                Intent intent = new Intent();
+                intent.putStringArrayListExtra("pictureMessage",selectedPicture);
+                setResult(result,intent);
+                finish();
+                }
 
             }
         });
