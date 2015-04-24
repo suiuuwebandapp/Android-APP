@@ -239,6 +239,16 @@ public class LoginActivity extends Activity {
             }
         });
 
+//        popupLoginBtn.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                finish();
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//                return false;
+//            }
+//        });
+
 
         popupRegisterBtn.setOnClickListener(new OnClickListener() {
 
