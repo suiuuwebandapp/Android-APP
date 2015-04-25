@@ -32,7 +32,6 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
 import com.easemob.util.EMLog;
 import com.easemob.util.HanziToPinyin;
-import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -46,6 +45,9 @@ import com.minglang.suiuu.chat.dao.UserDao;
 import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.entity.QQInfo;
 import com.minglang.suiuu.thread.QQThread;
+import com.minglang.suiuu.utils.HttpServicePath;
+import com.minglang.suiuu.utils.MD5Utils;
+import com.minglang.suiuu.utils.SuHttpRequest;
 import com.minglang.suiuu.utils.qq.TencentUtil;
 import com.minglang.suiuu.utils.weibo.WeiboAccessTokenKeeper;
 import com.minglang.suiuu.utils.weibo.WeiboConstants;
@@ -64,6 +66,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -157,20 +160,6 @@ public class LoginActivity extends Activity {
      */
     private WeiboRequestListener weiboRequestListener = new WeiboRequestListener();
 
-    /**
-     * 微博用户名
-     */
-    private String weiboUserName;
-
-    /**
-     * 微博头像地址
-     */
-    private String weiboImagePath;
-
-    /**
-     * 性别
-     */
-    private String weiboGender;
 
     //QQ相关类实例
     private static Tencent tencent;
@@ -184,6 +173,11 @@ public class LoginActivity extends Activity {
      * 自定义QQ用户信息类
      */
     private QQInfo qqInfo;
+
+    /**
+     * 第三方登陆类型
+     */
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +196,6 @@ public class LoginActivity extends Activity {
         initView();
         initThirdParty();
         ViewAction();
-
     }
 
     /**
@@ -245,6 +238,16 @@ public class LoginActivity extends Activity {
                 login();
             }
         });
+
+//        popupLoginBtn.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                finish();
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//                return false;
+//            }
+//        });
 
 
         popupRegisterBtn.setOnClickListener(new OnClickListener() {
@@ -319,6 +322,7 @@ public class LoginActivity extends Activity {
         microBlog_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                type = "3";
                 ssoHandler.authorize(authListener);
             }
         });
@@ -326,6 +330,7 @@ public class LoginActivity extends Activity {
         qq_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                type = "1";
                 if (!tencent.isSessionValid()) {//检测是否已登录
                     tencent.login(LoginActivity.this, "all", loginListener);
                 }
@@ -335,7 +340,7 @@ public class LoginActivity extends Activity {
         weChat_login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                type = "2";
             }
         });
 
@@ -427,15 +432,16 @@ public class LoginActivity extends Activity {
         });
 
     }
+
     private void processContactsAndGroups() throws EaseMobException {
         // demo中简单的处理成每次登陆都去获取好友username，开发者自己根据情况而定
         List<String> usernames = EMContactManager.getInstance().getContactUserNames();
         EMLog.d("roster", "contacts size: " + usernames.size());
-        Map<String,User> userlist = new HashMap<>();
+        Map<String, User> userlist = new HashMap<>();
         for (String username : usernames) {
             User user = new User();
             user.setUsername(username);
-            setUserHearder(username, user);
+            setUserHeader(username, user);
             userlist.put(username, user);
         }
         // 添加user"申请与通知"
@@ -455,7 +461,7 @@ public class LoginActivity extends Activity {
 
         // 存入内存
         DemoApplication.getInstance().setContactList(userlist);
-        System.out.println("----------------"+userlist.values().toString());
+        System.out.println("----------------" + userlist.values().toString());
         // 存入db
         UserDao dao = new UserDao(LoginActivity.this);
         List<User> users = new ArrayList<User>(userlist.values());
@@ -469,14 +475,15 @@ public class LoginActivity extends Activity {
         // 获取群聊列表(群聊里只有groupid和groupname等简单信息，不包含members),sdk会把群组存入到内存和db中
         EMGroupManager.getInstance().getGroupsFromServer();
     }
+
     /**
-     * 设置hearder属性，方便通讯中对联系人按header分类显示，以及通过右侧ABCD...字母栏快速定位联系人
+     * 设置header属性，方便通讯中对联系人按header分类显示，以及通过右侧ABCD...字母栏快速定位联系人
      *
      * @param username
      * @param user
      */
-    protected void setUserHearder(String username, User user) {
-        String headerName = null;
+    protected void setUserHeader(String username, User user) {
+        String headerName;
         if (!TextUtils.isEmpty(user.getNick())) {
             headerName = user.getNick();
         } else {
@@ -494,6 +501,7 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     private void loginFailure2Umeng(final long start, final int code, final String message) {
         runOnUiThread(new Runnable() {
             public void run() {
@@ -621,25 +629,28 @@ public class LoginActivity extends Activity {
         }
     }
 
-    /**
-     * 将第三方相关数据发送到服务器
-     */
-    private void sendData2Service(String path, RequestParams params) {
-        HttpUtils httpUtils = new HttpUtils();
-        httpUtils.send(HttpRequest.HttpMethod.POST, path, params, new RequestCallBack<Object>() {
-            @Override
-            public void onSuccess(ResponseInfo<Object> objectResponseInfo) {
-
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-
-            }
-        });
-    }
-
     //↓↓↓微博登陆的一系列相关方法↓↓↓
+
+
+    /**
+     * 微博用户UID
+     */
+    private String WeiBoUserID;
+
+    /**
+     * 微博用户名
+     */
+    private String WeiBoUserName;
+
+    /**
+     * 微博头像地址
+     */
+    private String WeiBoImagePath;
+
+    /**
+     * 性别
+     */
+    private String WeiBoGender;
 
     /**
      * 授权结果回调
@@ -679,13 +690,53 @@ public class LoginActivity extends Activity {
             if (!TextUtils.isEmpty(s)) {
                 com.sina.weibo.sdk.openapi.models.User user = com.sina.weibo.sdk.openapi.models.User.parse(s);
                 if (user != null) {
-                    weiboUserName = user.screen_name;
-                    weiboImagePath = user.avatar_large;
-                    weiboGender = user.gender;
+                    WeiBoUserID = user.id;
+                    WeiBoUserName = user.screen_name;
+                    WeiBoImagePath = user.avatar_large;
+                    WeiBoGender = user.gender;
 
-                    Log.i(TAG, "*******" + user.toString());
+//                    Log.i(TAG, "*******" + user.toString());
+//
+//                    Toast.makeText(LoginActivity.this, user.id, Toast.LENGTH_SHORT).show();
 
-                    //Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_SHORT).show();
+                    SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                            HttpServicePath.ThirdPartyPath, new WeiBoRequestCallBack());
+
+                    String code;
+
+                    switch (WeiBoGender) {
+                        case "男":
+                            code = "1";
+                            break;
+                        case "女":
+                            code = "0";
+                            break;
+                        default:
+                            code = "2";
+                            break;
+                    }
+
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("openId", WeiBoUserID);
+                    params.addBodyParameter("nickname", WeiBoUserName);
+                    params.addBodyParameter("sex", code);
+                    params.addBodyParameter("headImg", WeiBoImagePath);
+                    params.addBodyParameter("type", type);
+
+                    String sign = null;
+                    try {
+                        sign = MD5Utils.getMD5(WeiBoUserID + type + HttpServicePath.ConfusedCode);
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    params.addBodyParameter("sign", sign);
+
+
+                    Log.i(TAG, "openID:" + WeiBoUserID + ",nickName:" + WeiBoUserName + ",sex:" + code +
+                            ",headImage:" + WeiBoImagePath + ",type:" + type + ",sign:" + sign);
+
+                    httpRequest.setParams(params);
+                    httpRequest.requestNetworkData();
                 }
             }
         }
@@ -696,6 +747,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(LoginActivity.this, info.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
     //↑↑↑微博登陆的一系列相关方法↑↑↑
 
@@ -715,9 +767,46 @@ public class LoginActivity extends Activity {
                 case 1:
                     qqInfo = (QQInfo) msg.obj;
 
-                    Log.i(TAG, "昵称：" + qqInfo.getNickName());
-                    Log.i(TAG, "头像地址：" + qqInfo.getImagePath());
-                    Log.i(TAG, "性别：" + qqInfo.getGender());
+                    String nickName = qqInfo.getNickName();
+                    String headImagePath = qqInfo.getImagePath();
+                    String gender = qqInfo.getGender();
+
+                    String code;
+                    switch (gender) {
+                        case "男":
+                            code = "1";
+                            break;
+                        case "女":
+                            code = "0";
+                            break;
+                        default:
+                            code = "2";
+                            break;
+                    }
+
+                    SuHttpRequest http = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                            HttpServicePath.ThirdPartyPath, new QQRequestCallBack());
+
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("openId", qq_openId);
+                    params.addBodyParameter("nickname", nickName);
+                    params.addBodyParameter("sex", code);
+                    params.addBodyParameter("headImg", headImagePath);
+                    params.addBodyParameter("type", type);
+
+                    String sign = null;
+                    try {
+                        sign = MD5Utils.getMD5(qq_openId + type + HttpServicePath.ConfusedCode);
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    params.addBodyParameter("sign", sign);
+
+                    Log.i(TAG, "openID:" + qq_openId + ",nickName:" + nickName + ",sex:" + code +
+                            ",headImage:" + headImagePath + ",type:" + type + ",sign:" + sign);
+
+                    http.setParams(params);
+                    http.requestNetworkData();
 
                     break;
             }
@@ -795,7 +884,7 @@ public class LoginActivity extends Activity {
                 tencent.setAccessToken(qq_token, qq_expires);
                 tencent.setOpenId(qq_openId);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -840,4 +929,35 @@ public class LoginActivity extends Activity {
     }
 
     //↑↑↑QQ登陆的一系列相关方法↑↑↑
+
+    /**
+     * 发送QQ相关信息到服务器的回调接口
+     */
+    class QQRequestCallBack extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            Log.i(TAG, responseInfo.result);
+        }
+
+        @Override
+        public void onFailure(HttpException error, String msg) {
+            Log.i(TAG, msg);
+        }
+    }
+
+    class WeiBoRequestCallBack extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            Log.i(TAG, responseInfo.result);
+        }
+
+        @Override
+        public void onFailure(HttpException error, String msg) {
+
+        }
+    }
+
+
 }
