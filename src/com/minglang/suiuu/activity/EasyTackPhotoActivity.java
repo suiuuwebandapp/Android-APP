@@ -3,7 +3,6 @@ package com.minglang.suiuu.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -47,7 +46,6 @@ public class EasyTackPhotoActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("suiuu","laillllllllllllllllllllllllllllllllllll");
         if (data != null && resultCode == 9) {
             picList = data.getStringArrayListExtra("pictureMessage");
             lv_picture_description.setAdapter(new EasyTackPhotoAdapter(this,picList));
