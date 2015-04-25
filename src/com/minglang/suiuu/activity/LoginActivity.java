@@ -44,10 +44,14 @@ import com.minglang.suiuu.chat.chat.DemoApplication;
 import com.minglang.suiuu.chat.dao.UserDao;
 import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.entity.QQInfo;
+import com.minglang.suiuu.entity.RequestData;
+import com.minglang.suiuu.entity.UserBack;
 import com.minglang.suiuu.thread.QQThread;
 import com.minglang.suiuu.utils.HttpServicePath;
+import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.MD5Utils;
 import com.minglang.suiuu.utils.SuHttpRequest;
+import com.minglang.suiuu.utils.SuiuuInformation;
 import com.minglang.suiuu.utils.qq.TencentUtil;
 import com.minglang.suiuu.utils.weibo.WeiboAccessTokenKeeper;
 import com.minglang.suiuu.utils.weibo.WeiboConstants;
@@ -158,7 +162,7 @@ public class LoginActivity extends Activity {
     /**
      * 微博 OpenAPI 回调接口。
      */
-    private WeiboRequestListener weiboRequestListener = new WeiboRequestListener();
+    private WeiBoRequestListener weiboRequestListener = new WeiBoRequestListener();
 
 
     //QQ相关类实例
@@ -464,7 +468,7 @@ public class LoginActivity extends Activity {
         System.out.println("----------------" + userlist.values().toString());
         // 存入db
         UserDao dao = new UserDao(LoginActivity.this);
-        List<User> users = new ArrayList<User>(userlist.values());
+        List<User> users = new ArrayList<>(userlist.values());
         dao.saveContactList(users);
 
         //获取黑名单列表
@@ -479,8 +483,8 @@ public class LoginActivity extends Activity {
     /**
      * 设置header属性，方便通讯中对联系人按header分类显示，以及通过右侧ABCD...字母栏快速定位联系人
      *
-     * @param username
-     * @param user
+     * @param username 用户名
+     * @param user     用户
      */
     protected void setUserHeader(String username, User user) {
         String headerName;
@@ -631,7 +635,6 @@ public class LoginActivity extends Activity {
 
     //↓↓↓微博登陆的一系列相关方法↓↓↓
 
-
     /**
      * 微博用户UID
      */
@@ -683,7 +686,7 @@ public class LoginActivity extends Activity {
     /**
      * 微博 OpenAPI 回调接口。
      */
-    private class WeiboRequestListener implements com.sina.weibo.sdk.net.RequestListener {
+    private class WeiBoRequestListener implements com.sina.weibo.sdk.net.RequestListener {
 
         @Override
         public void onComplete(String s) {
@@ -694,10 +697,6 @@ public class LoginActivity extends Activity {
                     WeiBoUserName = user.screen_name;
                     WeiBoImagePath = user.avatar_large;
                     WeiBoGender = user.gender;
-
-//                    Log.i(TAG, "*******" + user.toString());
-//
-//                    Toast.makeText(LoginActivity.this, user.id, Toast.LENGTH_SHORT).show();
 
                     SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
                             HttpServicePath.ThirdPartyPath, new WeiBoRequestCallBack());
@@ -735,6 +734,9 @@ public class LoginActivity extends Activity {
                     Log.i(TAG, "openID:" + WeiBoUserID + ",nickName:" + WeiBoUserName + ",sex:" + code +
                             ",headImage:" + WeiBoImagePath + ",type:" + type + ",sign:" + sign);
 
+                    SuiuuInformation.WriteInformation(LoginActivity.this, new RequestData(WeiBoUserID, WeiBoUserName,
+                            code, WeiBoImagePath, type));
+
                     httpRequest.setParams(params);
                     httpRequest.requestNetworkData();
                 }
@@ -767,8 +769,8 @@ public class LoginActivity extends Activity {
                 case 1:
                     qqInfo = (QQInfo) msg.obj;
 
-                    String nickName = qqInfo.getNickName();
-                    String headImagePath = qqInfo.getImagePath();
+                    String qqNickName = qqInfo.getNickName();
+                    String qqImagePath = qqInfo.getImagePath();
                     String gender = qqInfo.getGender();
 
                     String code;
@@ -788,22 +790,24 @@ public class LoginActivity extends Activity {
                             HttpServicePath.ThirdPartyPath, new QQRequestCallBack());
 
                     RequestParams params = new RequestParams();
-                    params.addBodyParameter("openId", qq_openId);
-                    params.addBodyParameter("nickname", nickName);
+                    params.addBodyParameter("openId", qqOpenId);
+                    params.addBodyParameter("nickname", qqNickName);
                     params.addBodyParameter("sex", code);
-                    params.addBodyParameter("headImg", headImagePath);
+                    params.addBodyParameter("headImg", qqImagePath);
                     params.addBodyParameter("type", type);
 
                     String sign = null;
                     try {
-                        sign = MD5Utils.getMD5(qq_openId + type + HttpServicePath.ConfusedCode);
+                        sign = MD5Utils.getMD5(qqOpenId + type + HttpServicePath.ConfusedCode);
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
                     }
                     params.addBodyParameter("sign", sign);
 
-                    Log.i(TAG, "openID:" + qq_openId + ",nickName:" + nickName + ",sex:" + code +
-                            ",headImage:" + headImagePath + ",type:" + type + ",sign:" + sign);
+                    Log.i(TAG, "openID:" + qqOpenId + ",nickName:" + qqNickName + ",sex:" + code +
+                            ",headImage:" + qqImagePath + ",type:" + type + ",sign:" + sign);
+
+                    SuiuuInformation.WriteInformation(LoginActivity.this, new RequestData(qqOpenId, qqNickName, code, qqImagePath, type));
 
                     http.setParams(params);
                     http.requestNetworkData();
@@ -865,7 +869,7 @@ public class LoginActivity extends Activity {
      */
     private String qq_token;
     private String qq_expires;
-    private String qq_openId;
+    private String qqOpenId;
 
     /**
      * QQ
@@ -878,11 +882,11 @@ public class LoginActivity extends Activity {
         try {
             qq_token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
             qq_expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
-            qq_openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
+            qqOpenId = jsonObject.getString(Constants.PARAM_OPEN_ID);
             if (!TextUtils.isEmpty(qq_token) && !TextUtils.isEmpty(qq_expires)
-                    && !TextUtils.isEmpty(qq_openId)) {
+                    && !TextUtils.isEmpty(qqOpenId)) {
                 tencent.setAccessToken(qq_token, qq_expires);
-                tencent.setOpenId(qq_openId);
+                tencent.setOpenId(qqOpenId);
             }
         } catch (Exception ignored) {
         }
@@ -937,7 +941,14 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
-            Log.i(TAG, responseInfo.result);
+            String str = responseInfo.result;
+            Log.i(TAG, str);
+            UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+            if (userBack.status.equals("1")) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("backData", userBack);
+                startActivity(intent);
+            }
         }
 
         @Override
@@ -946,11 +957,21 @@ public class LoginActivity extends Activity {
         }
     }
 
+    /**
+     * 发送微博相关信息到服务器的回调接口
+     */
     class WeiBoRequestCallBack extends RequestCallBack<String> {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
-            Log.i(TAG, responseInfo.result);
+            String str = responseInfo.result;
+            Log.i(TAG, str);
+            UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+            if (userBack.status.equals("1")) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("backData", userBack);
+                startActivity(intent);
+            }
         }
 
         @Override
