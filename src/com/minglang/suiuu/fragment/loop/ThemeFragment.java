@@ -1,6 +1,7 @@
 package com.minglang.suiuu.fragment.loop;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,11 +18,14 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.activity.LoopDetailsActivity;
 import com.minglang.suiuu.adapter.ThemeAdapter;
 import com.minglang.suiuu.entity.Loop;
-import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.entity.LoopData;
+import com.minglang.suiuu.utils.HttpServicePath;
+import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.SuHttpRequest;
+import com.minglang.suiuu.utils.SuiuuInformation;
 
 import java.util.List;
 
@@ -36,7 +40,7 @@ public class ThemeFragment extends Fragment {
 
     private static final String TAG = ThemeFragment.class.getSimpleName();
 
-    private ThemeRequestCallback themeRequestCallback;
+    private ThemeRequestCallback themeRequestCallback = new ThemeRequestCallback();
 
     private GridView themeGridView;
 
@@ -83,9 +87,10 @@ public class ThemeFragment extends Fragment {
     }
 
     @Override
+    @SuppressLint("InflateParams")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        @SuppressLint("InflateParams") View rootView = inflater.inflate(R.layout.fragment_theme, null);
+        View rootView = inflater.inflate(R.layout.fragment_theme, null);
 
         initView(rootView);
         ViewAction();
@@ -98,7 +103,10 @@ public class ThemeFragment extends Fragment {
         themeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                String loopID = list.get(position).getcId();
+                Intent intent = new Intent(getActivity(), LoopDetailsActivity.class);
+                intent.putExtra("loopID", loopID);
+                startActivity(intent);
             }
         });
     }
@@ -107,10 +115,16 @@ public class ThemeFragment extends Fragment {
      * 从网络获取数据
      */
     private void getInternetServiceData() {
-        RequestParams params = new RequestParams();
+        String str = SuiuuInformation.ReadVerification(getActivity());
 
-        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", themeRequestCallback);
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("app_suiuu_sign", str);
+        params.addBodyParameter("type", "1");
+
+        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                HttpServicePath.LoopDataPath, themeRequestCallback);
         suHttpRequest.setParams(params);
+        suHttpRequest.requestNetworkData();
     }
 
     /**
@@ -123,6 +137,7 @@ public class ThemeFragment extends Fragment {
     }
 
     class ThemeRequestCallback extends RequestCallBack<String> {
+
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
             String str = responseInfo.result;

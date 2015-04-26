@@ -1,21 +1,25 @@
 package com.minglang.suiuu.entity;
 
-/**
- * Created by Administrator on 2015/4/22.
- */
-public class LoopDetailsData {
+import java.util.List;
 
-    public String cId;
+/**
+ * 圈子文章列表Data部分数据实体类
+ * <p/>
+ * Created by Administrator on 2015/4/25.
+ */
+public class LoopArticleData {
 
     public String articleId;
 
+    public String cId;
+
     public String aTitle;
+
+    public String aContent;
 
     public String aImg;
 
     public String aCmtCount;
-
-    public String aContent;
 
     public String aSupportCount;
 
@@ -33,13 +37,7 @@ public class LoopDetailsData {
 
     public String headImg;
 
-    public String getcId() {
-        return cId;
-    }
-
-    public void setcId(String cId) {
-        this.cId = cId;
-    }
+    public List<LoopArticleCommentList> commentList;
 
     public String getArticleId() {
         return articleId;
@@ -49,12 +47,28 @@ public class LoopDetailsData {
         this.articleId = articleId;
     }
 
+    public String getcId() {
+        return cId;
+    }
+
+    public void setcId(String cId) {
+        this.cId = cId;
+    }
+
     public String getaTitle() {
         return aTitle;
     }
 
     public void setaTitle(String aTitle) {
         this.aTitle = aTitle;
+    }
+
+    public String getaContent() {
+        return aContent;
+    }
+
+    public void setaContent(String aContent) {
+        this.aContent = aContent;
     }
 
     public String getaImg() {
@@ -71,14 +85,6 @@ public class LoopDetailsData {
 
     public void setaCmtCount(String aCmtCount) {
         this.aCmtCount = aCmtCount;
-    }
-
-    public String getaContent() {
-        return aContent;
-    }
-
-    public void setaContent(String aContent) {
-        this.aContent = aContent;
     }
 
     public String getaSupportCount() {
@@ -145,15 +151,23 @@ public class LoopDetailsData {
         this.headImg = headImg;
     }
 
+    public List<LoopArticleCommentList> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<LoopArticleCommentList> commentList) {
+        this.commentList = commentList;
+    }
+
     @Override
     public String toString() {
-        return "LoopDetailsData{" +
-                "cId='" + cId + '\'' +
-                ", articleId='" + articleId + '\'' +
+        return "LoopArticleData{" +
+                "articleId='" + articleId + '\'' +
+                ", cId='" + cId + '\'' +
                 ", aTitle='" + aTitle + '\'' +
+                ", aContent='" + aContent + '\'' +
                 ", aImg='" + aImg + '\'' +
                 ", aCmtCount='" + aCmtCount + '\'' +
-                ", aContent='" + aContent + '\'' +
                 ", aSupportCount='" + aSupportCount + '\'' +
                 ", aCreateUserSign='" + aCreateUserSign + '\'' +
                 ", aCreateTime='" + aCreateTime + '\'' +
@@ -162,6 +176,7 @@ public class LoopDetailsData {
                 ", aAddr='" + aAddr + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", headImg='" + headImg + '\'' +
+                ", commentList=" + commentList +
                 '}';
     }
 }

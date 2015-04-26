@@ -1,5 +1,7 @@
 package com.minglang.suiuu.fragment.loop;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,11 +18,14 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.activity.LoopDetailsActivity;
 import com.minglang.suiuu.adapter.AreaAdapter;
 import com.minglang.suiuu.entity.Loop;
+import com.minglang.suiuu.utils.HttpServicePath;
 import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.entity.LoopData;
 import com.minglang.suiuu.utils.SuHttpRequest;
+import com.minglang.suiuu.utils.SuiuuInformation;
 
 import java.util.List;
 
@@ -35,13 +40,13 @@ public class AreaFragment extends Fragment {
 
     private static final String TAG = AreaFragment.class.getSimpleName();
 
+    private AreaRequestCallback areaRequestCallback = new AreaRequestCallback();
+
     private GridView areaGridView;
 
     private AreaAdapter areaAdapter;
 
     private List<LoopData> list;
-
-    private AreaRequestCallback areaRequestCallback = new AreaRequestCallback();
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,22 +87,26 @@ public class AreaFragment extends Fragment {
     }
 
     @Override
+    @SuppressLint("InflateParams")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_area, null);
 
         initView(rootView);
-
+        ViewAction();
         //getInternetServiceData();
 
         return rootView;
     }
 
-    private void ViewAtion() {
+    private void ViewAction() {
         areaGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                String loopID = list.get(position).getcId();
+                Intent intent = new Intent(getActivity(), LoopDetailsActivity.class);
+                intent.putExtra("loopID", loopID);
+                startActivity(intent);
             }
         });
     }
@@ -106,9 +115,16 @@ public class AreaFragment extends Fragment {
      * 从网络获取数据
      */
     private void getInternetServiceData() {
+        String str = SuiuuInformation.ReadVerification(getActivity());
+
         RequestParams params = new RequestParams();
-        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST, "", areaRequestCallback);
+        params.addBodyParameter("app_suiuu_sign", str);
+        params.addBodyParameter("type", "1");
+
+        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                HttpServicePath.LoopDataPath, areaRequestCallback);
         suHttpRequest.setParams(params);
+        suHttpRequest.requestNetworkData();
     }
 
     /**

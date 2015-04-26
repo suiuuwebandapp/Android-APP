@@ -12,6 +12,8 @@ public class HttpServicePath {
      */
     public static String ConfusedCode = "sui@uu~9527&*";
 
+    public static String key = "app_suiuu_sign";
+
     /**
      * 服务器地址
      */
@@ -36,4 +38,29 @@ public class HttpServicePath {
      * sign 信息混淆（sign = md5 openId+type+混淆码）
      */
     public static String ThirdPartyPath = RootPath + "/app-login/access-login";
+
+    /**
+     * 圈子数据
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:type(1为主题页面，2为地区页面) 统一参数key{@link #key}
+     */
+    public static String LoopDataPath = RootPath + "circle/get-circle";
+
+    /**
+     * 圈子内容地址
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:圈子ID circleId、统一参数key{@link #key}
+     */
+    public static String LoopDetailsPath = RootPath + "circle/get-article-by-circle-id";
+
+    /**
+     * 圈子文章请求地址
+     * 请求方式:POST
+     * 请求参数: 文章id articleId、统一参数key{@link #key}
+     */
+    public static String LoopArticlePath = RootPath + "circle/get-article-by-circle-id";
 }

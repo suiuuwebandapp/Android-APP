@@ -941,10 +941,13 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
+
             String str = responseInfo.result;
-            Log.i(TAG, str);
             UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+
             if (userBack.status.equals("1")) {
+                SuiuuInformation.WriteVerification(LoginActivity.this, userBack.message);
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("backData", userBack);
                 startActivity(intent);
@@ -964,10 +967,13 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
+
             String str = responseInfo.result;
-            Log.i(TAG, str);
             UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+
             if (userBack.status.equals("1")) {
+                SuiuuInformation.WriteVerification(LoginActivity.this, userBack.message);
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("backData", userBack);
                 startActivity(intent);
@@ -976,7 +982,7 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onFailure(HttpException error, String msg) {
-
+            Log.i(TAG, msg);
         }
     }
 

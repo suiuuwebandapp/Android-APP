@@ -4,14 +4,29 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.LoopArticleImageAdapter;
 import com.minglang.suiuu.customview.NoScrollBarGridView;
+import com.minglang.suiuu.entity.LoopArticle;
+import com.minglang.suiuu.entity.LoopArticleCommentList;
+import com.minglang.suiuu.entity.LoopArticleData;
+import com.minglang.suiuu.utils.HttpServicePath;
+import com.minglang.suiuu.utils.JsonUtil;
+import com.minglang.suiuu.utils.SuHttpRequest;
+import com.minglang.suiuu.utils.SuiuuInformation;
+
+import java.util.List;
 
 /**
  * 具体某个地区/主题下的某个帖子
@@ -19,6 +34,8 @@ import com.minglang.suiuu.customview.NoScrollBarGridView;
  * 网络部分未完成
  */
 public class LoopArticleActivity extends Activity {
+
+    private static final String TAG = LoopArticleActivity.class.getSimpleName();
 
     /**
      * 返回键
@@ -95,10 +112,26 @@ public class LoopArticleActivity extends Activity {
      */
     private LoopArticleImageAdapter imageAdapter;
 
+    private String articleId;
+
+    /**
+     * 验证信息
+     */
+    private String Verification;
+
+    private LoopArticle loopArticle;
+
+    private LoopArticleData loopArticleData;
+
+    private List<LoopArticleCommentList> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loop_article);
+
+        articleId = getIntent().getStringExtra("articleId");
+        Verification = SuiuuInformation.ReadVerification(this);
 
         initView();
 
@@ -179,9 +212,19 @@ public class LoopArticleActivity extends Activity {
         comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
+    }
+
+    private void getInternetServiceData() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("articleId", articleId);
+        params.addBodyParameter(HttpServicePath.key, Verification);
+
+        SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                HttpServicePath.LoopArticlePath, new LoopArticleRequestCallBack());
+        httpRequest.setParams(params);
+        httpRequest.requestNetworkData();
     }
 
     /**
@@ -207,6 +250,21 @@ public class LoopArticleActivity extends Activity {
 
         share = (TextView) findViewById(R.id.loop_article_share);
         comments = (TextView) findViewById(R.id.loop_article_comments);
+    }
+
+    class LoopArticleRequestCallBack extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            loopArticle = JsonUtil.getInstance().fromJSON(LoopArticle.class, responseInfo.result);
+            loopArticleData = loopArticle.getData();
+            list = loopArticleData.getCommentList();
+        }
+
+        @Override
+        public void onFailure(HttpException error, String msg) {
+            Log.i(TAG, msg);
+        }
     }
 
 }

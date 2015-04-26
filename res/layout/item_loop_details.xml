@@ -4,95 +4,96 @@
                 android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/item_loop_details_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TwentyThree"
-        android:id="@+id/item_loop_details_comments"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="16sp"
-        android:drawablePadding="5dp"
-        android:drawableLeft="@drawable/icon_reply"
-        android:drawableStart="@drawable/icon_reply"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:drawableLeft="@drawable/icon_reply"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/icon_reply"
+        android:text="@string/TwentyThree"
+        android:textSize="16sp"/>
 
     <TextView
+        android:id="@+id/item_loop_details_praise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TwentyThree"
-        android:id="@+id/item_loop_details_praise"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
-        android:textSize="16sp"
-        android:drawablePadding="5dp"
-        android:drawableLeft="@drawable/icon_praise"
-        android:drawableStart="@drawable/icon_praise"
+        android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/item_loop_details_comments"
         android:layout_toStartOf="@+id/item_loop_details_comments"
-        android:layout_alignParentBottom="true"/>
+        android:drawableLeft="@drawable/icon_praise"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/icon_praise"
+        android:text="@string/TwentyThree"
+        android:textSize="16sp"/>
 
     <TextView
+        android:id="@+id/item_loop_details_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Singapore_n"
-        android:id="@+id/item_loop_details_title"
         android:layout_above="@+id/item_loop_details_praise"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:singleLine="true"
-        android:textSize="20sp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:singleLine="true"
+        android:text="@string/Singapore_n"
+        android:textSize="20sp"/>
 
     <RelativeLayout
+        android:id="@+id/item_loop_details_image_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/item_loop_details_title"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/item_loop_details_image_layout"
-        android:layout_above="@+id/item_loop_details_title">
+        android:layout_centerHorizontal="true">
 
         <ImageView
+            android:id="@+id/item_loop_details_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/item_loop_details_image"
-            android:background="@drawable/default_other_user_loop_image"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_other_user_loop_image"/>
 
-        <ImageView
+        <com.minglang.suiuu.customview.CircleImageView
+            android:id="@+id/item_loop_details_head_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_loop_details_head_image"
-            android:background="@drawable/user_head_image_bg"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/user_head_image_bg"/>
 
         <TextView
+            android:id="@+id/item_loop_details_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/item_loop_details_user_name"
-            android:singleLine="true"
-            android:textSize="18sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/item_loop_details_head_image"
             android:layout_toRightOf="@+id/item_loop_details_head_image"
-            android:layout_toEndOf="@+id/item_loop_details_head_image"/>
+            android:singleLine="true"
+            android:text="New Text"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 </RelativeLayout>
