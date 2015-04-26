@@ -21,7 +21,7 @@ public class Utils {
 
     private Context context;
 
-    private Utils(Context context) {
+    public Utils(Context context) {
         this.context = context;
     }
 
@@ -40,7 +40,7 @@ public class Utils {
      * @param dpValue dp数值
      * @return
      */
-    public int dip2px(float dpValue) {
+    public  int dip2px(float dpValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }

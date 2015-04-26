@@ -64,6 +64,7 @@
             android:background="@color/white"
             android:layout_alignBottom="@id/et_question_description"></GridView>
         <TextView
+            android:id="@+id/tv_show_your_location"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_5dp"

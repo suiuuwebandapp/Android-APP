@@ -163,7 +163,13 @@
             android:name=".activity.AskQuestionActivity"
             android:label="AskQuestionActivity"
             android:theme="@style/FullBleedTheme"
-             />
+            />
+        <!--通用设置的页面-->
+        <activity
+            android:name=".activity.NormalSettingActivity"
+            android:label="NormalSettingActivity"
+            android:theme="@style/FullBleedTheme"
+            />
         <!--随拍的展示页面-->
         <activity
             android:name=".activity.EasyTackPhotoActivity"

@@ -63,6 +63,8 @@ public class SettingActivity extends Activity {
                         break;
 
                     case 1:
+                        startActivity(new Intent(SettingActivity.this,NormalSettingActivity.class));
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         break;
 
                     case 2:
@@ -106,7 +108,7 @@ public class SettingActivity extends Activity {
             settingLayout.setPadding(0, statusBarHeight, 0, 0);
         }
 
-        settingBack = (ImageView) findViewById(R.id.settingBack);
+        settingBack = (ImageView) findViewById(R.id.iv_top_back);
         settingList = (ListView) findViewById(R.id.settingList);
 
         stringList = new ArrayList<>();

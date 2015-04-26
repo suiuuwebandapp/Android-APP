@@ -56,6 +56,7 @@ import com.minglang.suiuu.chat.utils.CommonUtils;
 import com.minglang.suiuu.fragment.main.LoopFragment;
 import com.minglang.suiuu.fragment.main.MainFragment;
 import com.minglang.suiuu.fragment.main.RouteFragment;
+import com.minglang.suiuu.utils.ConstantUtil;
 import com.minglang.suiuu.utils.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -193,6 +194,9 @@ public class MainActivity extends FragmentActivity{
     private TextView tv_suiuu_text;
     private ImageView iv_conversation;
     private TextView tv_conversation_text;
+    private RelativeLayout titileLayout;
+    private int statusHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -215,7 +219,17 @@ public class MainActivity extends FragmentActivity{
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         setContentView(R.layout.activity_main);
         initView();
-        DemoApplication.addActivity(this);
+        Log.i("suiuu",  statusBarHeight+ "statuheight");
+        if(isNavigationBar) {
+            if(isKITKAT) {
+                ConstantUtil.topHeight = titileLayout.getLayoutParams().height+statusBarHeight;
+                Log.i("suiuu","有按键,4.4");
+
+            }
+        }else {
+            ConstantUtil.topHeight = titileLayout.getLayoutParams().height;
+            Log.i("suiuu","无按键,4.4");
+        }
         MobclickAgent.updateOnlineConfig(this);
         if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
             showConflictDialog();
@@ -584,6 +598,13 @@ public class MainActivity extends FragmentActivity{
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
+//        //状态栏高度
+//        Rect rect= new Rect();
+//        this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+//        statusHeight = rect.top;
+//        statusHeight = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getHeight();
+//        Log.i("suiuu","zhangtailan"+statusHeight);
+//        Log.i("suiuu","zhangtailan2"+getWindow().findViewById(Window.ID_ANDROID_CONTENT).getHeight());
         /**
          屏幕高度
          */
@@ -626,6 +647,7 @@ public class MainActivity extends FragmentActivity{
         errorItem = (RelativeLayout) findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
         msgCount = (TextView)findViewById(R.id.unread_msg_number);
+        titileLayout = (RelativeLayout) findViewById(R.id.titleLayout);
         /****************设置状态栏颜色*************/
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(false);

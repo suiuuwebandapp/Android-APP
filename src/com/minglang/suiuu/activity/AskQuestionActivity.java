@@ -9,9 +9,12 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.ShowGVPictureAdapter;
+import com.minglang.suiuu.chat.activity.BaiduMapActivity;
 import com.minglang.suiuu.chat.activity.ShowBigImage;
 
 import java.util.ArrayList;
@@ -20,13 +23,15 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2015/4/23.
  */
+
 public class AskQuestionActivity extends Activity {
     private GridView gv_show_picture;
     private ArrayList<String> listPicture;
     private ImageView iv_top_back;
     private EditText et_search_question;
     private EditText et_question_description;
-
+    private TextView tv_show_your_location;
+    private static final int REQUEST_CODE_MAP = 8;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,13 @@ public class AskQuestionActivity extends Activity {
                 finish();
             }
         });
+        tv_show_your_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(AskQuestionActivity.this, BaiduMapActivity.class), REQUEST_CODE_MAP);
+
+            }
+        });
     }
 
     public void initView() {
@@ -66,6 +78,7 @@ public class AskQuestionActivity extends Activity {
         iv_top_back = (ImageView) findViewById(R.id.iv_top_back);
         et_search_question = (EditText) findViewById(R.id.search_question);
         et_question_description = (EditText) findViewById(R.id.et_question_description);
+        tv_show_your_location = (TextView) findViewById(R.id.tv_show_your_location);
 
     }
 
@@ -79,6 +92,17 @@ public class AskQuestionActivity extends Activity {
                 Log.i("suiuu", string);
             }
             gv_show_picture.setAdapter(new ShowGVPictureAdapter(this, listPicture));
+        }else if(data != null && requestCode == REQUEST_CODE_MAP) {
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longitude = data.getDoubleExtra("longitude", 0);
+            String locationAddress = data.getStringExtra("address");
+            Log.i("suiuu",locationAddress+"logcation");
+            if (locationAddress != null && !locationAddress.equals("")) {
+                tv_show_your_location.setText(locationAddress);
+            } else {
+                String st = getResources().getString(R.string.unable_to_get_location);
+                Toast.makeText(this, st, Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
