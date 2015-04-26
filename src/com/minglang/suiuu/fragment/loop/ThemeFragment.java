@@ -1,6 +1,7 @@
 package com.minglang.suiuu.fragment.loop;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -40,13 +41,19 @@ public class ThemeFragment extends Fragment {
 
     private static final String TAG = ThemeFragment.class.getSimpleName();
 
+    /**
+     * 网络请求回调接口
+     */
     private ThemeRequestCallback themeRequestCallback = new ThemeRequestCallback();
 
     private GridView themeGridView;
 
-    private ThemeAdapter themeAdapter;
-
+    /**
+     * 数据集合
+     */
     private List<LoopData> list;
+
+    private ProgressDialog progressDialog;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,11 +101,14 @@ public class ThemeFragment extends Fragment {
 
         initView(rootView);
         ViewAction();
-        //getInternetServiceData();
+        getInternetServiceData();
 
         return rootView;
     }
 
+    /**
+     * 控件动作
+     */
     private void ViewAction() {
         themeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -115,10 +125,14 @@ public class ThemeFragment extends Fragment {
      * 从网络获取数据
      */
     private void getInternetServiceData() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
+
         String str = SuiuuInformation.ReadVerification(getActivity());
 
         RequestParams params = new RequestParams();
-        params.addBodyParameter("app_suiuu_sign", str);
+        params.addBodyParameter(HttpServicePath.key, str);
         params.addBodyParameter("type", "1");
 
         SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
@@ -133,9 +147,19 @@ public class ThemeFragment extends Fragment {
      * @param rootView Fragment根view
      */
     private void initView(View rootView) {
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage(getResources().getString(R.string.load_wait));
+
         themeGridView = (GridView) rootView.findViewById(R.id.themeGridView);
     }
 
+    /**
+     * 网络请求回调接口
+     */
     class ThemeRequestCallback extends RequestCallBack<String> {
 
         @Override
@@ -145,12 +169,17 @@ public class ThemeFragment extends Fragment {
             if (loop != null) {
                 if (Integer.parseInt(loop.getStatus()) == 1) {
                     list = loop.getData();
-                    themeAdapter = new ThemeAdapter(getActivity(), loop, list);
+                    ThemeAdapter themeAdapter = new ThemeAdapter(getActivity(), loop, list);
                     themeGridView.setAdapter(themeAdapter);
                 } else {
                     Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();
                 }
             }
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
         }
 
         @Override
@@ -158,6 +187,10 @@ public class ThemeFragment extends Fragment {
 
             Log.i(TAG, error.getMessage());
             Log.i(TAG, msg);
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
 
             Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         }

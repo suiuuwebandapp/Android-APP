@@ -63,4 +63,13 @@ public class HttpServicePath {
      * 请求参数: 文章id articleId、统一参数key{@link #key}
      */
     public static String LoopArticlePath = RootPath + "circle/get-article-by-circle-id";
+
+    /**
+     * 删除文章网络接口
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:文章ID articleId、统一参数key{@link #key}
+     */
+    public static String DeleteAtriclePath = RootPath + "circle/delete-article";
 }

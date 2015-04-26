@@ -25,13 +25,13 @@ public class LoopArticleImageAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<Object> list;
+    private List<String> list;
 
     private ImageLoader imageLoader;
 
     private DisplayImageOptions options;
 
-    public LoopArticleImageAdapter(Context context, List<Object> list) {
+    public LoopArticleImageAdapter(Context context, List<String> list) {
         this.context = context;
         this.list = list;
 
@@ -70,9 +70,9 @@ public class LoopArticleImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = ViewHolder.get(context, convertView, parent, R.layout.item_loop_article_image, position);
-        Object object = list.get(position);
+        String str = list.get(position);
         ImageView imageView = holder.getView(R.id.item_loop_article_imageView);
-        imageLoader.displayImage(object.toString(), imageView, options);
+        imageLoader.displayImage(str, imageView, options);
         return holder.getConvertView();
     }
 }

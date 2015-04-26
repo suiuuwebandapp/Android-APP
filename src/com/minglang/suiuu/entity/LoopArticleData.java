@@ -21,6 +21,8 @@ public class LoopArticleData {
 
     public String aCmtCount;
 
+    public String aImgList;
+
     public String aSupportCount;
 
     public String aCreateUserSign;
@@ -85,6 +87,14 @@ public class LoopArticleData {
 
     public void setaCmtCount(String aCmtCount) {
         this.aCmtCount = aCmtCount;
+    }
+
+    public String getaImgList() {
+        return aImgList;
+    }
+
+    public void setaImgList(String aImgList) {
+        this.aImgList = aImgList;
     }
 
     public String getaSupportCount() {
@@ -168,6 +178,7 @@ public class LoopArticleData {
                 ", aContent='" + aContent + '\'' +
                 ", aImg='" + aImg + '\'' +
                 ", aCmtCount='" + aCmtCount + '\'' +
+                ", aImgList='" + aImgList + '\'' +
                 ", aSupportCount='" + aSupportCount + '\'' +
                 ", aCreateUserSign='" + aCreateUserSign + '\'' +
                 ", aCreateTime='" + aCreateTime + '\'' +

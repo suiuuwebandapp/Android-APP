@@ -1,8 +1,10 @@
 package com.minglang.suiuu.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -41,15 +43,22 @@ public class LoopDetailsActivity extends Activity {
      */
     private String Verification;
 
+    /**
+     * 数据显示控件
+     */
     private GridView loopDetailsGridView;
 
+    /**
+     * 网络请求回调接口
+     */
     private LoopDetailsRequestCallBack loopDetailsRequestCallBack = new LoopDetailsRequestCallBack();
 
-    private LoopDetails loopDetails;
-
+    /**
+     * 内部数据集合
+     */
     private List<LoopDetailsData> list;
 
-    private LoopDetailsAdapter loopDetailsAdapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +69,20 @@ public class LoopDetailsActivity extends Activity {
         Verification = SuiuuInformation.ReadVerification(this);
 
         initView();
-
         ViewAction();
+        getInternetServiceData();
     }
 
     /**
      * 网络数据请求
      */
     private void getInternetServiceData() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
 
         RequestParams params = new RequestParams();
-        params.addBodyParameter("app_suiuu_sign", Verification);
+        params.addBodyParameter(HttpServicePath.key, Verification);
         params.addBodyParameter("circleId", loopID);
 
         SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
@@ -103,6 +115,12 @@ public class LoopDetailsActivity extends Activity {
      * 初始化方法
      */
     private void initView() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage(getResources().getString(R.string.load_wait));
+
         loopDetailsGridView = (GridView) findViewById(R.id.loopDetailsGridView);
     }
 
@@ -111,17 +129,35 @@ public class LoopDetailsActivity extends Activity {
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
             String str = responseInfo.result;
-            loopDetails = JsonUtil.getInstance().fromJSON(LoopDetails.class, str);
+            LoopDetails loopDetails = JsonUtil.getInstance().fromJSON(LoopDetails.class, str);
             if (loopDetails != null) {
-                list = loopDetails.getData();
-                loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, loopDetails, list);
-                loopDetailsGridView.setAdapter(loopDetailsAdapter);
+                if (loopDetails.getStatus().equals("1")) {
+                    list = loopDetails.getData();
+                    LoopDetailsAdapter loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, loopDetails, list);
+                    loopDetailsGridView.setAdapter(loopDetailsAdapter);
+                } else {
+                    Toast.makeText(LoopDetailsActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(LoopDetailsActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
         }
 
         @Override
         public void onFailure(HttpException error, String msg) {
-            Toast.makeText(LoopDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+            Log.i(TAG, msg);
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+            Toast.makeText(LoopDetailsActivity.this, "获取数据失败！", Toast.LENGTH_SHORT).show();
         }
     }
 

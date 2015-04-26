@@ -24,7 +24,7 @@
                 android:layout_height="200dp">
 
                 <ImageView
-                    android:id="@+id/loop_article_head_image"
+                    android:id="@+id/loop_article_cover_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/scroll2"/>
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <com.minglang.suiuu.customview.CircleImageView
                         android:id="@+id/loop_article_user_head_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

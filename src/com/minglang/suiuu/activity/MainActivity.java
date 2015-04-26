@@ -67,7 +67,7 @@ import java.util.List;
 /**
  * 应用程序主界面
  */
-public class MainActivity extends FragmentActivity{
+public class MainActivity extends FragmentActivity {
     protected NotificationManager notificationManager;
     private static final int notifiId = 11;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -194,21 +194,20 @@ public class MainActivity extends FragmentActivity{
     private TextView tv_suiuu_text;
     private ImageView iv_conversation;
     private TextView tv_conversation_text;
-    private RelativeLayout titileLayout;
-    private int statusHeight;
+    private RelativeLayout titleLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-        if(savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)){
+        if (savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) {
             // 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
             // 三个fragment里加的判断同理
             DemoApplication.getInstance().logout(null);
             finish();
             startActivity(new Intent(this, LoginActivity.class));
             return;
-        }else if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false)) {
+        } else if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false)) {
             // 防止被T后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
             // 三个fragment里加的判断同理
             finish();
@@ -219,21 +218,24 @@ public class MainActivity extends FragmentActivity{
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         setContentView(R.layout.activity_main);
         initView();
-        Log.i("suiuu",  statusBarHeight+ "statuheight");
-        if(isNavigationBar) {
-            if(isKITKAT) {
-                ConstantUtil.topHeight = titileLayout.getLayoutParams().height+statusBarHeight;
-                Log.i("suiuu","有按键,4.4");
+        if (isNavigationBar) {
+            if (isKITKAT) {
+                ConstantUtil.topHeight = titleLayout.getLayoutParams().height + statusBarHeight;
+                Log.i("suiuu", "有按键,4.4");
 
             }
-        }else {
-            ConstantUtil.topHeight = titileLayout.getLayoutParams().height;
-            Log.i("suiuu","无按键,4.4");
+        } else {
+            ConstantUtil.topHeight = titleLayout.getLayoutParams().height;
+            Log.i("suiuu", "无按键,4.4");
         }
+        initRegisterAllBroadcastReceiver();
+    }
+
+    private void initRegisterAllBroadcastReceiver() {
         MobclickAgent.updateOnlineConfig(this);
-        if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
+        if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow) {
             showConflictDialog();
-        }else if(getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow){
+        } else if (getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow) {
             showAccountRemovedDialog();
         }
         MobclickAgent.updateOnlineConfig(this);
@@ -255,7 +257,6 @@ public class MainActivity extends FragmentActivity{
         registerReceiver(cmdMessageReceiver, cmdMessageIntentFilter);
 
 
-
         // 注册一个离线消息的BroadcastReceiver
         // IntentFilter offlineMessageIntentFilter = new
         // IntentFilter(EMChatManager.getInstance()
@@ -271,14 +272,15 @@ public class MainActivity extends FragmentActivity{
         // 通知sdk，UI 已经初始化完毕，注册了相应的receiver和listener, 可以接受broadcast了
         EMChat.getInstance().setAppInited();
     }
-    private void adjustAnimation()  {
+
+    private void adjustAnimation() {
         if (isMainIcon) {
             ask.startAnimation(animationSetHide);
             pic.startAnimation(animationSetHide);
             record.startAnimation(animationSetHide);
-            Log.i(TAG, "icon hide");
         }
     }
+
     /**
      * 控件行为
      */
@@ -349,14 +351,10 @@ public class MainActivity extends FragmentActivity{
                             ask.startAnimation(animationSetHide);
                             pic.startAnimation(animationSetHide);
                             record.startAnimation(animationSetHide);
-                            Log.i(TAG, "icon hide");
-
                         } else {
                             ask.startAnimation(animationSetShow);
                             pic.startAnimation(animationSetShow);
                             record.startAnimation(animationSetShow);
-                            Log.i(TAG, "icon show");
-
                         }
                         break;
                 }
@@ -425,7 +423,7 @@ public class MainActivity extends FragmentActivity{
         ask.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,AskQuestionActivity.class);
+                Intent intent = new Intent(MainActivity.this, AskQuestionActivity.class);
                 startActivity(intent);
             }
         });
@@ -433,8 +431,8 @@ public class MainActivity extends FragmentActivity{
         pic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(MainActivity.this,SelectPictureActivity.class);
-                intent.putExtra("state",1);
+                Intent intent = new Intent(MainActivity.this, SelectPictureActivity.class);
+                intent.putExtra("state", 1);
                 startActivity(intent);
             }
         });
@@ -442,8 +440,8 @@ public class MainActivity extends FragmentActivity{
         record.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,AskQuestionActivity.class);
-                intent.putExtra("record",1);
+                Intent intent = new Intent(MainActivity.this, AskQuestionActivity.class);
+                intent.putExtra("record", 1);
                 startActivity(intent);
             }
         });
@@ -598,13 +596,7 @@ public class MainActivity extends FragmentActivity{
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
-//        //状态栏高度
-//        Rect rect= new Rect();
-//        this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
-//        statusHeight = rect.top;
-//        statusHeight = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getHeight();
-//        Log.i("suiuu","zhangtailan"+statusHeight);
-//        Log.i("suiuu","zhangtailan2"+getWindow().findViewById(Window.ID_ANDROID_CONTENT).getHeight());
+
         /**
          屏幕高度
          */
@@ -643,11 +635,11 @@ public class MainActivity extends FragmentActivity{
     private void initView() {
         initNumber();
         conversationFragment = new ChatAllHistoryFragment();
-        im_search = (ImageView)findViewById(R.id.mainPagerSearch);
+        im_search = (ImageView) findViewById(R.id.mainPagerSearch);
         errorItem = (RelativeLayout) findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
-        msgCount = (TextView)findViewById(R.id.unread_msg_number);
-        titileLayout = (RelativeLayout) findViewById(R.id.titleLayout);
+        msgCount = (TextView) findViewById(R.id.unread_msg_number);
+        titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
         /****************设置状态栏颜色*************/
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(false);
@@ -676,7 +668,7 @@ public class MainActivity extends FragmentActivity{
 //                RelativeLayout.LayoutParams tabSelectParams = new RelativeLayout.LayoutParams(tabSelect.getLayoutParams());
 //                tabSelectParams.setMargins(0, screenHeight - navigationBarHeight - statusBarHeight, 0, 0);
 //                tabSelect.setLayoutParams(tabSelectParams);
-                Log.i(TAG, "4.4以下，有虚拟按键");
+            Log.i(TAG, "4.4以下，有虚拟按键");
 //            }
         } else {
             if (isKITKAT) {
@@ -769,44 +761,48 @@ public class MainActivity extends FragmentActivity{
 
     //判断主题
     private void changeTheme(Boolean isChoice) {
-        if(isChoice) {
+        if (isChoice) {
             iv_theme.setImageResource(R.drawable.icon_main2_press);
             tv_theme_text.setTextColor(getResources().getColor(R.color.login_bg_color));
-        }else {
+        } else {
             iv_theme.setImageResource(R.drawable.icon_main2);
             tv_theme_text.setTextColor(getResources().getColor(R.color.textColor));
         }
     }
+
     //判断圈子
     private void changeLoop(Boolean isChoice) {
-        if(isChoice) {
+        if (isChoice) {
             iv_loop.setImageResource(R.drawable.icon_loop2_press);
             tv_loop_text.setTextColor(getResources().getColor(R.color.login_bg_color));
-        }else {
+        } else {
             iv_loop.setImageResource(R.drawable.icon_loop2);
             tv_loop_text.setTextColor(getResources().getColor(R.color.textColor));
         }
     }
+
     //判断随游
     private void changeSuiuu(Boolean isChoice) {
-        if(isChoice) {
+        if (isChoice) {
             iv_suiuu.setImageResource(R.drawable.icon_suiuu2_press);
             tv_suiuu_text.setTextColor(getResources().getColor(R.color.login_bg_color));
-        }else {
+        } else {
             iv_suiuu.setImageResource(R.drawable.icon_suiuu2);
             tv_suiuu_text.setTextColor(getResources().getColor(R.color.textColor));
         }
     }
+
     //判断会话
     private void changeConversation(Boolean isChoice) {
-        if(isChoice) {
+        if (isChoice) {
             iv_conversation.setImageResource(R.drawable.icon_conversation2_press);
             tv_conversation_text.setTextColor(getResources().getColor(R.color.login_bg_color));
-        }else {
+        } else {
             iv_conversation.setImageResource(R.drawable.icon_conversation2);
             tv_conversation_text.setTextColor(getResources().getColor(R.color.textColor));
         }
     }
+
     /**
      * 初始化动画
      */
@@ -815,8 +811,10 @@ public class MainActivity extends FragmentActivity{
         Animation animHide = new AlphaAnimation(1.0f, 0.0f);
         Animation animShow = new AlphaAnimation(0.0f, 1.0f);
 
-        Animation animNarrow = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
-        Animation animBoost = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
+        Animation animNarrow = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f,
+                Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
+        Animation animBoost = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_PARENT);
 
         animationSetHide = new AnimationSet(true);
         animationSetHide.setDuration(500);
@@ -869,18 +867,21 @@ public class MainActivity extends FragmentActivity{
             finish();
         }
     }
+
     //账号被移除
     private boolean isCurrentAccountRemoved = false;
     private boolean isAccountRemovedDialogShow;
     private android.app.AlertDialog.Builder accountRemovedBuilder;
     private android.app.AlertDialog.Builder conflictBuilder;
     private boolean isConflictDialogShow;
+
     /**
      * 检查当前用户是否被删除
      */
-    public boolean getCurrentAccountRemoved(){
+    public boolean getCurrentAccountRemoved() {
         return isCurrentAccountRemoved;
     }
+
     /**
      * 帐号被移除的dialog
      */
@@ -950,19 +951,19 @@ public class MainActivity extends FragmentActivity{
         }
 
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow){
+        if (getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow) {
             showConflictDialog();
-        }else if(getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow){
+        } else if (getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow) {
             showAccountRemovedDialog();
         }
     }
+
     /**
      * 新消息广播接收者
-     *
-     *
      */
     private class NewMessageBroadcastReceiver extends BroadcastReceiver {
         @Override
@@ -1008,6 +1009,7 @@ public class MainActivity extends FragmentActivity{
 
         }
     }
+
     /**
      * 消息回执BroadcastReceiver
      */
@@ -1059,7 +1061,7 @@ public class MainActivity extends FragmentActivity{
 
             //获取扩展属性 此处省略
 //			message.getStringAttribute("");
-            EMLog.d(TAG, String.format("透传消息：action:%s,message:%s", action,message.toString()));
+            EMLog.d(TAG, String.format("透传消息：action:%s,message:%s", action, message.toString()));
             String st9 = getResources().getString(R.string.receive_the_passthrough);
             Toast.makeText(MainActivity.this, st9 + action, Toast.LENGTH_SHORT).show();
         }
@@ -1068,12 +1070,13 @@ public class MainActivity extends FragmentActivity{
     /**
      * 当应用在前台时，如果当前消息不是属于当前会话，在状态栏提示一下
      * 如果不需要，注释掉即可
-     * @param message
+     *
+     * @param message 消息
      */
     protected void notifyNewMessage(EMMessage message) {
         //如果是设置了不提醒只显示数目的群组(这个是app里保存这个数据的，demo里不做判断)
-        //以及设置了setShowNotificationInbackgroup:false(设为false后，后台时sdk也发送广播)
-        if(!EasyUtils.isAppRunningForeground(this)){
+        //以及设置了setShowNotificationInBackGroup:false(设为false后，后台时sdk也发送广播)
+        if (!EasyUtils.isAppRunningForeground(this)) {
             return;
         }
 
@@ -1083,12 +1086,12 @@ public class MainActivity extends FragmentActivity{
 
         String ticker = CommonUtils.getMessageDigest(message, this);
         String st = getResources().getString(R.string.expression);
-        if(message.getType() == Type.TXT)
+        if (message.getType() == Type.TXT)
             ticker = ticker.replaceAll("\\[.{2,3}\\]", st);
         //设置状态栏提示
-        mBuilder.setTicker(message.getFrom()+": " + ticker);
+        mBuilder.setTicker(message.getFrom() + ": " + ticker);
 
-        //必须设置pendingintent，否则在2.3的机器上会有bug
+        //必须设置PendingIntent，否则在2.3的机器上会有bug
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, notifiId, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -1098,9 +1101,9 @@ public class MainActivity extends FragmentActivity{
         notificationManager.notify(notifiId, notification);
         notificationManager.cancel(notifiId);
     }
+
     /**
      * 连接监听listener
-     *
      */
     private class MyConnectionListener implements EMConnectionListener {
 
@@ -1110,7 +1113,7 @@ public class MainActivity extends FragmentActivity{
 
                 @Override
                 public void run() {
-                  errorItem.setVisibility(View.GONE);
+                    errorItem.setVisibility(View.GONE);
                 }
 
             });
@@ -1123,17 +1126,17 @@ public class MainActivity extends FragmentActivity{
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(error == EMError.USER_REMOVED){
+                    if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
                         showAccountRemovedDialog();
-                    }else if (error == EMError.CONNECTION_CONFLICT) {
+                    } else if (error == EMError.CONNECTION_CONFLICT) {
                         // 显示帐号在其他设备登陆dialog
                         showConflictDialog();
                     } else {
 
                         errorItem.setVisibility(View.VISIBLE);
                         if (NetUtils.hasNetwork(MainActivity.this))
-                           errorText.setText(st1);
+                            errorText.setText(st1);
                         else
                             errorText.setText(st2);
 
@@ -1143,6 +1146,7 @@ public class MainActivity extends FragmentActivity{
             });
         }
     }
+
     /**
      * 刷新未读消息数
      */
@@ -1155,6 +1159,7 @@ public class MainActivity extends FragmentActivity{
             msgCount.setVisibility(View.INVISIBLE);
         }
     }
+
     /**
      * 获取未读消息数
      *
@@ -1165,21 +1170,25 @@ public class MainActivity extends FragmentActivity{
         unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
         return unreadMsgCountTotal;
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // 注销广播接收者
         try {
             unregisterReceiver(msgReceiver);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            Log.e(TAG, ignored.getMessage());
         }
         try {
             unregisterReceiver(ackMessageReceiver);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            Log.e(TAG, ignored.getMessage());
         }
         try {
             unregisterReceiver(cmdMessageReceiver);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            Log.e(TAG, ignored.getMessage());
         }
 
         // try {
@@ -1193,7 +1202,9 @@ public class MainActivity extends FragmentActivity{
         }
 
     }
+
     private long exitTime;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {

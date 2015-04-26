@@ -83,6 +83,8 @@ public class LoginActivity extends Activity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
+    private static final String HUANXINPASSWORD = "suIuu9Q5E2T7";
+
     private Button loginBtn;
 
     private Button registerBtn;
@@ -123,10 +125,22 @@ public class LoginActivity extends Activity {
      * ***************************分割线***************************
      */
 
+    /**
+     * 用户名
+     */
+    private String suiuuUserName;
+
+    /**
+     * 密码
+     */
+    private String suiuuPassword;
+
     //判断是否登录
     private boolean autoLogin = false;
-    private String currentUsername;
-    private String currentPassword;
+    /**
+     * 环信用户名
+     */
+    private String huanXinUsername;
     private boolean progressShow;
 
     /**
@@ -183,6 +197,8 @@ public class LoginActivity extends Activity {
      */
     private String type;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,14 +226,16 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindowLogin.showAtLocation(popupLoginRootView, Gravity.CENTER_HORIZONTAL, 0, 0);
+                popupWindowLogin.showAtLocation(popupLoginRootView,
+                        Gravity.CENTER_HORIZONTAL, 0, 0);
             }
         });
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindowRegister.showAtLocation(popupRegisterView, Gravity.CENTER_HORIZONTAL, 0, 0);
+                popupWindowRegister.showAtLocation(popupRegisterView,
+                        Gravity.CENTER_HORIZONTAL, 0, 0);
             }
         });
 
@@ -228,31 +246,23 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                currentUsername = popupLoginUserName.getText().toString().trim();
-                currentPassword = popupLoginPassword.getText().toString().trim();
+                suiuuUserName = popupLoginUserName.getText().toString().trim();
+                suiuuPassword = popupLoginPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(currentUsername)) {
-                    Toast.makeText(LoginActivity.this, R.string.User_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(huanXinUsername)) {
+                    Toast.makeText(LoginActivity.this,
+                            getResources().getString(R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(currentPassword)) {
-                    Toast.makeText(LoginActivity.this, R.string.Password_cannot_be_empty, Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(suiuuPassword)) {
+                    Toast.makeText(LoginActivity.this,
+                            getResources().getString(R.string.Password_cannot_be_empty), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                login();
+
+                suiuuLogin(suiuuUserName, suiuuPassword);
             }
         });
-
-//        popupLoginBtn.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                finish();
-//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//                return false;
-//            }
-//        });
-
 
         popupRegisterBtn.setOnClickListener(new OnClickListener() {
 
@@ -311,7 +321,8 @@ public class LoginActivity extends Activity {
                                         } else if (errorCode == EMError.UNAUTHORIZED) {
                                             Toast.makeText(getApplicationContext(), st9, Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(getApplicationContext(), st10 + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), st10 + e.getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -350,8 +361,52 @@ public class LoginActivity extends Activity {
 
     }
 
-    //登录方法
-    public void login() {
+    /**
+     * 登陆到服务器
+     *
+     * @param userName 用户名
+     * @param password 密码
+     */
+    private void suiuuLogin(String userName, String password) {
+
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("username ", userName);
+        params.addBodyParameter("password", password);
+
+        SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                HttpServicePath.SelfLoginPath, new LoginRequestCallBack());
+        httpRequest.setParams(params);
+        httpRequest.requestNetworkData();
+    }
+
+    /**
+     * 登陆回调接口
+     */
+    private class LoginRequestCallBack extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            String str = responseInfo.result;
+            UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+            if (userBack != null) {
+                if (userBack.getStatus().equals("1")) {
+                    SuiuuInformation.WriteVerification(LoginActivity.this, userBack.getMessage());
+                    huanXinUsername = userBack.getData().getUserSign();
+                    huanXinLogin();
+                } else {
+                    Toast.makeText(LoginActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(HttpException error, String msg) {
+            Log.e(TAG, msg);
+        }
+    }
+
+    //环信登录方法
+    public void huanXinLogin() {
         progressShow = true;
         final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
         pd.setCanceledOnTouchOutside(false);
@@ -361,82 +416,103 @@ public class LoginActivity extends Activity {
                 progressShow = false;
             }
         });
-        pd.setMessage(getString(R.string.Is_landing));
+        pd.setMessage(getResources().getString(R.string.Is_landing));
         pd.show();
 
         final long start = System.currentTimeMillis();
         // 调用sdk登陆方法登陆聊天服务器
-        EMChatManager.getInstance().login(currentUsername, currentPassword, new EMCallBack() {
-
-            @Override
-            public void onSuccess() {
-                if (!progressShow) {
-                    return;
-                }
-                // 登陆成功，保存用户名密码
-                DemoApplication.getInstance().setUserName(currentUsername);
-                DemoApplication.getInstance().setPassword(currentPassword);
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        pd.setMessage(getString(R.string.list_is_for));
-                    }
-                });
-                try {
-                    // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
-                    // ** manually load all local groups and
-                    // conversations in case we are auto login
-//                    EMGroupManager.getInstance().loadAllGroups();
-                    EMChatManager.getInstance().loadAllConversations();
-                    //处理好友和群组
-//					processContactsAndGroups();
-                    //处理好友和群组
-                    processContactsAndGroups();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //取好友或者群聊失败，不让进入主页面
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            pd.dismiss();
-                            DemoApplication.getInstance().logout(null);
-                            Toast.makeText(getApplicationContext(), R.string.login_failure_failed, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    return;
-                }
-                //更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
-                boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(DemoApplication.currentUserNick.trim());
-                if (!updatenick) {
-                }
-                if (!LoginActivity.this.isFinishing())
-                    pd.dismiss();
-                // 进入主页面
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-
-
-            @Override
-            public void onProgress(int progress, String status) {
-            }
-
-            @Override
-            public void onError(final int code, final String message) {
-                loginFailure2Umeng(start, code, message);
-                if (!progressShow) {
-                    return;
-                }
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        pd.dismiss();
-                        Toast.makeText(getApplicationContext(), getString(R.string.Login_failed) + message, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        EMChatManager.getInstance().login(huanXinUsername, HUANXINPASSWORD, new suiuuEmCallback(pd, start));
 
     }
 
+    /**
+     * 重写环信回调接口
+     */
+    private class suiuuEmCallback implements EMCallBack {
+
+        private ProgressDialog pd;
+        private long start;
+
+        private suiuuEmCallback(ProgressDialog pd, long start) {
+            this.pd = pd;
+            this.start = start;
+        }
+
+        @Override
+        public void onSuccess() {
+            if (!progressShow) {
+                return;
+            }
+            // 登陆成功，保存用户名密码
+            DemoApplication.getInstance().setUserName(huanXinUsername);
+            DemoApplication.getInstance().setPassword(HUANXINPASSWORD);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    pd.setMessage(getResources().getString(R.string.list_is_for));
+                }
+            });
+            try {
+                // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
+                // ** manually load all local groups and
+                // conversations in case we are auto login
+//                    EMGroupManager.getInstance().loadAllGroups();
+                EMChatManager.getInstance().loadAllConversations();
+                //处理好友和群组
+//					processContactsAndGroups();
+                //处理好友和群组
+                processContactsAndGroups();
+            } catch (Exception e) {
+                e.printStackTrace();
+                //取好友或者群聊失败，不让进入主页面
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        pd.dismiss();
+                        DemoApplication.getInstance().logout(null);
+                        Toast.makeText(getApplicationContext(),
+                                getResources().getString(R.string.login_failure_failed), Toast.LENGTH_LONG).show();
+                    }
+                });
+                return;
+            }
+            //更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
+            boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(DemoApplication.currentUserNick.trim());
+            if (!updatenick) {
+            }
+            if (!LoginActivity.this.isFinishing()) {
+                pd.dismiss();
+            }
+            // 进入主页面
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+
+        @Override
+        public void onError(int code, final String message) {
+            loginFailure2Umeng(start, code, message);
+            if (!progressShow) {
+                return;
+            }
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    pd.dismiss();
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.Login_failed) + message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public void onProgress(int i, String s) {
+
+        }
+    }
+
+    /**
+     * 环信相关方法
+     *
+     * @throws EaseMobException
+     */
     private void processContactsAndGroups() throws EaseMobException {
         // demo中简单的处理成每次登陆都去获取好友username，开发者自己根据情况而定
         List<String> usernames = EMContactManager.getInstance().getContactUserNames();
@@ -538,9 +614,6 @@ public class LoginActivity extends Activity {
     @SuppressLint("InflateParams")
     private void initView() {
 
-        /**
-         * ********************************************************************
-         */
         DisplayMetrics dm = getResources().getDisplayMetrics();
 
         float density = dm.density;//屏幕密度（像素比例：0.75, 1.0, 1.5, 2.0）
@@ -551,9 +624,14 @@ public class LoginActivity extends Activity {
         Log.i(TAG, "像素比例:" + String.valueOf(density));
         Log.i(TAG, "每寸像素:" + String.valueOf(densityDPI));
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage(getResources().getString(R.string.login_wait));
+
         loginBtn = (Button) findViewById(R.id.loginBtn);
         registerBtn = (Button) findViewById(R.id.registerBtn);
-
 
         /**
          * ***************************分割线***************************
@@ -692,54 +770,7 @@ public class LoginActivity extends Activity {
         public void onComplete(String s) {
             if (!TextUtils.isEmpty(s)) {
                 com.sina.weibo.sdk.openapi.models.User user = com.sina.weibo.sdk.openapi.models.User.parse(s);
-                if (user != null) {
-                    WeiBoUserID = user.id;
-                    WeiBoUserName = user.screen_name;
-                    WeiBoImagePath = user.avatar_large;
-                    WeiBoGender = user.gender;
-
-                    SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
-                            HttpServicePath.ThirdPartyPath, new WeiBoRequestCallBack());
-
-                    String code;
-
-                    switch (WeiBoGender) {
-                        case "男":
-                            code = "1";
-                            break;
-                        case "女":
-                            code = "0";
-                            break;
-                        default:
-                            code = "2";
-                            break;
-                    }
-
-                    RequestParams params = new RequestParams();
-                    params.addBodyParameter("openId", WeiBoUserID);
-                    params.addBodyParameter("nickname", WeiBoUserName);
-                    params.addBodyParameter("sex", code);
-                    params.addBodyParameter("headImg", WeiBoImagePath);
-                    params.addBodyParameter("type", type);
-
-                    String sign = null;
-                    try {
-                        sign = MD5Utils.getMD5(WeiBoUserID + type + HttpServicePath.ConfusedCode);
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    }
-                    params.addBodyParameter("sign", sign);
-
-
-                    Log.i(TAG, "openID:" + WeiBoUserID + ",nickName:" + WeiBoUserName + ",sex:" + code +
-                            ",headImage:" + WeiBoImagePath + ",type:" + type + ",sign:" + sign);
-
-                    SuiuuInformation.WriteInformation(LoginActivity.this, new RequestData(WeiBoUserID, WeiBoUserName,
-                            code, WeiBoImagePath, type));
-
-                    httpRequest.setParams(params);
-                    httpRequest.requestNetworkData();
-                }
+                setWeiBoData2Service(user);
             }
         }
 
@@ -750,11 +781,130 @@ public class LoginActivity extends Activity {
         }
     }
 
+    /**
+     * 发送微博相关数据到服务器
+     *
+     * @param user 相关数据实体类
+     */
+    private void setWeiBoData2Service(com.sina.weibo.sdk.openapi.models.User user) {
+        if (user != null) {
+
+            if (progressDialog != null) {
+                progressDialog.show();
+            }
+
+            WeiBoUserID = user.id;
+            WeiBoUserName = user.screen_name;
+            WeiBoImagePath = user.avatar_large;
+            WeiBoGender = user.gender;
+
+            SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                    HttpServicePath.ThirdPartyPath, new WeiBoRequestCallBack());
+
+            String code;
+
+            switch (WeiBoGender) {
+                case "男":
+                    code = "1";
+                    break;
+                case "女":
+                    code = "0";
+                    break;
+                default:
+                    code = "2";
+                    break;
+            }
+
+            RequestParams params = new RequestParams();
+            params.addBodyParameter("openId", WeiBoUserID);
+            params.addBodyParameter("nickname", WeiBoUserName);
+            params.addBodyParameter("sex", code);
+            params.addBodyParameter("headImg", WeiBoImagePath);
+            params.addBodyParameter("type", type);
+
+            String sign = null;
+            try {
+                sign = MD5Utils.getMD5(WeiBoUserID + type + HttpServicePath.ConfusedCode);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            params.addBodyParameter("sign", sign);
+
+
+            Log.i(TAG, "openID:" + WeiBoUserID + ",nickName:" + WeiBoUserName + ",sex:" + code +
+                    ",headImage:" + WeiBoImagePath + ",type:" + type + ",sign:" + sign);
+
+            SuiuuInformation.WriteInformation(LoginActivity.this, new RequestData(WeiBoUserID, WeiBoUserName,
+                    code, WeiBoImagePath, type));
+
+            httpRequest.setParams(params);
+            httpRequest.requestNetworkData();
+        } else {
+            Toast.makeText(LoginActivity.this, "数据获取失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     //↑↑↑微博登陆的一系列相关方法↑↑↑
 
 
     //↓↓↓QQ登陆的一系列相关方法↓↓↓
+
+    /**
+     * 发送QQ相关信息到服务器
+     */
+    private void setQQData2Service() {
+        if (qqInfo != null) {
+
+            if (progressDialog != null) {
+                progressDialog.show();
+            }
+
+            String qqNickName = qqInfo.getNickName();
+            String qqImagePath = qqInfo.getImagePath();
+            String gender = qqInfo.getGender();
+
+            String code;
+            switch (gender) {
+                case "男":
+                    code = "1";
+                    break;
+                case "女":
+                    code = "0";
+                    break;
+                default:
+                    code = "2";
+                    break;
+            }
+
+            SuHttpRequest http = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+                    HttpServicePath.ThirdPartyPath, new QQRequestCallBack());
+
+            RequestParams params = new RequestParams();
+            params.addBodyParameter("openId", qqOpenId);
+            params.addBodyParameter("nickname", qqNickName);
+            params.addBodyParameter("sex", code);
+            params.addBodyParameter("headImg", qqImagePath);
+            params.addBodyParameter("type", type);
+
+            String sign = null;
+            try {
+                sign = MD5Utils.getMD5(qqOpenId + type + HttpServicePath.ConfusedCode);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            params.addBodyParameter("sign", sign);
+
+            Log.i(TAG, "openID:" + qqOpenId + ",nickName:" + qqNickName + ",sex:" + code +
+                    ",headImage:" + qqImagePath + ",type:" + type + ",sign:" + sign);
+
+            SuiuuInformation.WriteInformation(LoginActivity.this, new RequestData(qqOpenId, qqNickName, code, qqImagePath, type));
+
+            http.setParams(params);
+            http.requestNetworkData();
+        } else {
+            Toast.makeText(LoginActivity.this, "获取信息失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     /**
      * QQ
@@ -768,50 +918,7 @@ public class LoginActivity extends Activity {
             switch (what) {
                 case 1:
                     qqInfo = (QQInfo) msg.obj;
-
-                    String qqNickName = qqInfo.getNickName();
-                    String qqImagePath = qqInfo.getImagePath();
-                    String gender = qqInfo.getGender();
-
-                    String code;
-                    switch (gender) {
-                        case "男":
-                            code = "1";
-                            break;
-                        case "女":
-                            code = "0";
-                            break;
-                        default:
-                            code = "2";
-                            break;
-                    }
-
-                    SuHttpRequest http = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
-                            HttpServicePath.ThirdPartyPath, new QQRequestCallBack());
-
-                    RequestParams params = new RequestParams();
-                    params.addBodyParameter("openId", qqOpenId);
-                    params.addBodyParameter("nickname", qqNickName);
-                    params.addBodyParameter("sex", code);
-                    params.addBodyParameter("headImg", qqImagePath);
-                    params.addBodyParameter("type", type);
-
-                    String sign = null;
-                    try {
-                        sign = MD5Utils.getMD5(qqOpenId + type + HttpServicePath.ConfusedCode);
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    }
-                    params.addBodyParameter("sign", sign);
-
-                    Log.i(TAG, "openID:" + qqOpenId + ",nickName:" + qqNickName + ",sex:" + code +
-                            ",headImage:" + qqImagePath + ",type:" + type + ",sign:" + sign);
-
-                    SuiuuInformation.WriteInformation(LoginActivity.this, new RequestData(qqOpenId, qqNickName, code, qqImagePath, type));
-
-                    http.setParams(params);
-                    http.requestNetworkData();
-
+                    setQQData2Service();
                     break;
             }
             return false;
@@ -876,7 +983,7 @@ public class LoginActivity extends Activity {
      * <p/>
      * 初始化token，openid等信息
      *
-     * @param jsonObject
+     * @param jsonObject 接口返回的Json数据
      */
     private void initOpenidAndToken(JSONObject jsonObject) {
         try {
@@ -889,6 +996,7 @@ public class LoginActivity extends Activity {
                 tencent.setOpenId(qqOpenId);
             }
         } catch (Exception ignored) {
+            Log.e(TAG, ignored.getMessage());
         }
     }
 
@@ -942,21 +1050,37 @@ public class LoginActivity extends Activity {
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
 
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
             String str = responseInfo.result;
             UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
 
-            if (userBack.status.equals("1")) {
-                SuiuuInformation.WriteVerification(LoginActivity.this, userBack.message);
+            if (userBack != null) {
+                if (userBack.status.equals("1")) {
+                    SuiuuInformation.WriteVerification(LoginActivity.this, userBack.getMessage());
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("backData", userBack);
-                startActivity(intent);
+                    huanXinUsername = userBack.getData().getUserSign();
+                    huanXinLogin();
+                } else {
+                    Toast.makeText(LoginActivity.this, "数据获取失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
+
         }
 
         @Override
         public void onFailure(HttpException error, String msg) {
             Log.i(TAG, msg);
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+            Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -968,21 +1092,36 @@ public class LoginActivity extends Activity {
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
 
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
             String str = responseInfo.result;
             UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
 
-            if (userBack.status.equals("1")) {
-                SuiuuInformation.WriteVerification(LoginActivity.this, userBack.message);
+            if (userBack != null) {
+                if (userBack.status.equals("1")) {
+                    SuiuuInformation.WriteVerification(LoginActivity.this, userBack.getMessage());
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("backData", userBack);
-                startActivity(intent);
+                    huanXinUsername = userBack.getData().getUserSign();
+                    huanXinLogin();
+                } else {
+                    Toast.makeText(LoginActivity.this, "数据获取失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         public void onFailure(HttpException error, String msg) {
             Log.i(TAG, msg);
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+            Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
         }
     }
 
