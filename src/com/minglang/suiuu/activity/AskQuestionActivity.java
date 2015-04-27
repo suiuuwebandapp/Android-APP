@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.OSSService;
+import com.alibaba.sdk.android.oss.OSSServiceProvider;
+import com.alibaba.sdk.android.oss.storage.OSSBucket;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.ShowGVPictureAdapter;
 import com.minglang.suiuu.chat.activity.BaiduMapActivity;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2015/4/23.
+ * 随问和随记的页面
  */
 
 public class AskQuestionActivity extends Activity {
@@ -32,6 +36,9 @@ public class AskQuestionActivity extends Activity {
     private EditText et_question_description;
     private TextView tv_show_your_location;
     private static final int REQUEST_CODE_MAP = 8;
+    private TextView tv_top_right;
+    private static OSSService ossService = OSSServiceProvider.getService();
+    private static OSSBucket bucket = ossService.getOssBucket("suiuu");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +77,17 @@ public class AskQuestionActivity extends Activity {
 
             }
         });
+        tv_top_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void initView() {
         listPicture = new ArrayList<>();
+        tv_top_right = (TextView) findViewById(R.id.tv_top_right);
         gv_show_picture = (GridView) findViewById(R.id.gv_show_picture);
         iv_top_back = (ImageView) findViewById(R.id.iv_top_back);
         et_search_question = (EditText) findViewById(R.id.search_question);
@@ -88,9 +102,6 @@ public class AskQuestionActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && resultCode == 9) {
             listPicture = data.getStringArrayListExtra("pictureMessage");
-            for (String string : listPicture) {
-                Log.i("suiuu", string);
-            }
             gv_show_picture.setAdapter(new ShowGVPictureAdapter(this, listPicture));
         }else if(data != null && requestCode == REQUEST_CODE_MAP) {
             double latitude = data.getDoubleExtra("latitude", 0);
