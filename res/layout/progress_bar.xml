@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<RelativeLayout
+    tools:context="${relativePackage}.${activityClass}"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.minglang.suiuu.view.progressbar.CircularProgress
+        android:layout_height="60dp"
+        android:layout_width="60dp"
+        android:layout_centerInParent="true"
+        app:borderWidth="6dp" />
+</RelativeLayout>

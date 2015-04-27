@@ -106,6 +106,9 @@
 
     <string name="load_wait">正在加载，请稍候&#8230;</string>
     <string name="login_wait">正在登陆，请稍候&#8230;</string>
+    <string name="choice_area">请选择地区</string>
+    <string name="choice_theme">请选择主题</string>
+
     <!--关于聊天-->
     <string name="show_comments">显示评论</string>
     <string name="article_temp">文章内容在此显示</string>

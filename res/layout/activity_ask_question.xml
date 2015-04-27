@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
      android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:id="@+id/root"
     >
     <include
         layout="@layout/common_top2_layout"/>
@@ -19,6 +20,34 @@
             android:layout_marginTop="@dimen/layout_10dp"
             android:background="@color/white"
             android:hint="@string/search_question"
+            android:layout_width="fill_parent"
+            android:padding="@dimen/layout_8dp"
+            android:textColorHighlight="@color/textColor"
+            android:gravity="left"
+            android:textSize="@dimen/layout_15sp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_16dp"
+            android:layout_marginRight="@dimen/layout_16dp"/>
+        <TextView
+            android:id="@+id/tv_theme_choice"
+            android:layout_marginTop="@dimen/layout_10dp"
+            android:background="@color/white"
+            android:hint="@string/choice_theme"
+            android:layout_width="fill_parent"
+            android:padding="@dimen/layout_8dp"
+            android:textColorHighlight="@color/textColor"
+            android:gravity="left"
+            android:textSize="@dimen/layout_15sp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_16dp"
+            android:layout_marginRight="@dimen/layout_16dp"/>
+        <TextView
+            android:id="@+id/tv_area_choice"
+            android:layout_marginTop="@dimen/layout_10dp"
+            android:background="@color/white"
+            android:hint="@string/choice_area"
             android:layout_width="fill_parent"
             android:padding="@dimen/layout_8dp"
             android:textColorHighlight="@color/textColor"
@@ -47,7 +76,14 @@
                 android:hint="@string/question_description"
                 android:textSize="@dimen/layout_15sp"
                 />
-
+            <com.minglang.suiuu.view.progressbar.CircularProgress
+                android:id="@+id/progress_bar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:borderWidth="6dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                />
             </RelativeLayout>
         <GridView
             android:padding="@dimen/layout_10dp"
@@ -76,5 +112,6 @@
             android:background="@color/white"
             android:textSize="@dimen/layout_15sp"/>
         </LinearLayout>
+
 
 </LinearLayout>

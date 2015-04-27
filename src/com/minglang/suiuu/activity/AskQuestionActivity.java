@@ -19,6 +19,7 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.ShowGVPictureAdapter;
 import com.minglang.suiuu.chat.activity.BaiduMapActivity;
 import com.minglang.suiuu.chat.activity.ShowBigImage;
+import com.minglang.suiuu.view.progressbar.CircularProgress;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class AskQuestionActivity extends Activity {
     private TextView tv_top_right;
     private static OSSService ossService = OSSServiceProvider.getService();
     private static OSSBucket bucket = ossService.getOssBucket("suiuu");
+    private CircularProgress progress_bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +82,14 @@ public class AskQuestionActivity extends Activity {
         tv_top_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                progress_bar.setVisibility(View.VISIBLE);
             }
         });
     }
 
     public void initView() {
         listPicture = new ArrayList<>();
+        progress_bar = (CircularProgress) findViewById(R.id.progress_bar);
         tv_top_right = (TextView) findViewById(R.id.tv_top_right);
         gv_show_picture = (GridView) findViewById(R.id.gv_show_picture);
         iv_top_back = (ImageView) findViewById(R.id.iv_top_back);
