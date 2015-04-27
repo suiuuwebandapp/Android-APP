@@ -11,6 +11,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatOptions;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.chat.controller.HXSDKHelper;
+
 /**
  * Created by Administrator on 2015/4/25.
  */
@@ -72,7 +73,9 @@ public class NormalSettingActivity extends Activity implements View.OnClickListe
 
 
     private EMChatOptions chatOptions;
-
+    private TextView tv_top_right;
+    private TextView tv_top_center;
+    private ImageView iv_top_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,12 @@ public class NormalSettingActivity extends Activity implements View.OnClickListe
     }
 
     private void initView() {
+        iv_top_back = (ImageView) findViewById(R.id.iv_top_back);
+        tv_top_right = (TextView) findViewById(R.id.tv_top_right);
+        tv_top_right.setVisibility(View.INVISIBLE);
+        tv_top_center = (TextView) findViewById(R.id.tv_top_center);
+        tv_top_center.setVisibility(View.VISIBLE);
+        tv_top_center.setText(R.string.normalSetting);
         rl_switch_notification = (RelativeLayout) findViewById(R.id.rl_switch_notification);
         rl_switch_sound = (RelativeLayout) findViewById(R.id.rl_switch_sound);
         rl_switch_vibrate = (RelativeLayout) findViewById(R.id.rl_switch_vibrate);
@@ -97,6 +106,7 @@ public class NormalSettingActivity extends Activity implements View.OnClickListe
         iv_switch_close_speaker = (ImageView) findViewById(R.id.iv_switch_close_speaker);
         textview1 = (TextView) findViewById(R.id.textview1);
         textview2 = (TextView) findViewById(R.id.textview2);
+        iv_top_back.setOnClickListener(this);
         rl_switch_notification.setOnClickListener(this);
         rl_switch_sound.setOnClickListener(this);
         rl_switch_vibrate.setOnClickListener(this);
@@ -203,6 +213,9 @@ public class NormalSettingActivity extends Activity implements View.OnClickListe
                     EMChatManager.getInstance().setChatOptions(chatOptions);
                     HXSDKHelper.getInstance().getModel().setSettingMsgVibrate(true);
                 }
+                break;
+            case R.id.iv_top_back:
+                finish();
                 break;
             default:
                 break;

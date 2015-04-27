@@ -1,17 +1,24 @@
 package com.minglang.suiuu.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.SettingAdapter;
+import com.minglang.suiuu.chat.chat.DemoApplication;
 import com.minglang.suiuu.utils.SystemBarTintManager;
 
 import java.util.ArrayList;
@@ -29,6 +36,12 @@ public class SettingActivity extends Activity {
     private ImageView settingBack;
 
     private ListView settingList;
+
+    private Button btn_logout;
+
+    private TextView tv_top_right;
+
+    private TextView tv_top_center;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +100,13 @@ public class SettingActivity extends Activity {
                 }
             }
         });
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            logout();
+
+            }
+        });
 
     }
 
@@ -94,7 +114,15 @@ public class SettingActivity extends Activity {
      * 初始化方法
      */
     private void initView() {
-
+        tv_top_center = (TextView) findViewById(R.id.tv_top_center);
+        tv_top_center.setVisibility(View.VISIBLE);
+        tv_top_center.setText(R.string.setting);
+        tv_top_right = (TextView) findViewById(R.id.tv_top_right);
+        tv_top_right.setVisibility(View.INVISIBLE);
+        btn_logout = (Button) findViewById(R.id.btn_logout);
+        if(!TextUtils.isEmpty(EMChatManager.getInstance().getCurrentUser())){
+            btn_logout.setText(getString(R.string.button_logout) + "(" + EMChatManager.getInstance().getCurrentUser() + ")");
+        }
         SystemBarTintManager mTintManager = new SystemBarTintManager(this);
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(false);
@@ -104,7 +132,7 @@ public class SettingActivity extends Activity {
 
         boolean isKITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         if (isKITKAT) {
-            RelativeLayout settingLayout = (RelativeLayout) findViewById(R.id.settingRootLayout);
+            LinearLayout settingLayout = (LinearLayout) findViewById(R.id.settingRootLayout);
             settingLayout.setPadding(0, statusBarHeight, 0, 0);
         }
 
@@ -121,6 +149,36 @@ public class SettingActivity extends Activity {
 
         settingList.setAdapter(adapter);
 
+    }
+    public void logout() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        String st = getResources().getString(R.string.Are_logged_out);
+        pd.setMessage(st);
+        pd.setCanceledOnTouchOutside(false);
+        pd.show();
+        DemoApplication.getInstance().logout(new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                SettingActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        pd.dismiss();
+                        // 重新显示登陆页面
+                        (SettingActivity.this).finish();
+                        startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+            }
+
+            @Override
+            public void onError(int code, String message) {
+            }
+        });
     }
 
 }

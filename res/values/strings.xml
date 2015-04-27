@@ -44,6 +44,8 @@
 
     <string name="personalSetting">个人设置</string>
 
+    <string name="normalSetting">通用设置</string>
+
     <string name="clickHead">点击修改头像</string>
 
     <string name="personalInfo">个人信息</string>

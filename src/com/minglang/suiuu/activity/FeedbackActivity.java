@@ -1,6 +1,7 @@
 package com.minglang.suiuu.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,18 +9,25 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.adapter.ShowGVPictureAdapter;
+import com.minglang.suiuu.chat.activity.ShowBigImage;
 import com.minglang.suiuu.utils.SystemBarTintManager;
+
+import java.util.ArrayList;
 
 /**
  * 反馈页面
  */
+
 public class FeedbackActivity extends Activity {
 
     private static final String TAG = FeedbackActivity.class.getSimpleName();
@@ -30,6 +38,10 @@ public class FeedbackActivity extends Activity {
 
     private EditText feedbackText;
 
+    private GridView gv_show_picture;
+
+    private ArrayList<String> listPicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +51,9 @@ public class FeedbackActivity extends Activity {
 
         ViewAction();
 
+
     }
+
 
     private void ViewAction() {
 
@@ -75,9 +89,9 @@ public class FeedbackActivity extends Activity {
                 Log.i(TAG, "before:" + String.valueOf(before));
                 Log.i(TAG, "count:" + String.valueOf(count));
 
-                if(!TextUtils.isEmpty(s)){
+                if (!TextUtils.isEmpty(s)) {
                     sendText.setTextColor(getResources().getColor(R.color.remindColor));
-                }else{
+                } else {
                     sendText.setTextColor(getResources().getColor(R.color.titleColor));
                 }
             }
@@ -87,15 +101,27 @@ public class FeedbackActivity extends Activity {
 
             }
         });
+        gv_show_picture.setAdapter(new ShowGVPictureAdapter(this, listPicture));
+        gv_show_picture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position == listPicture.size()) {
+                    Intent intent = new Intent(FeedbackActivity.this, SelectPictureActivity.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    Intent showPicture = new Intent(FeedbackActivity.this, ShowBigImage.class);
+                    showPicture.putExtra("path", listPicture.get(position));
+                    startActivity(showPicture);
+                }
+            }
+        });
     }
 
 
-    /**
-     * 初始化方法
-     */
-    private void initView() {
 
+    private void initView() {
+        listPicture = new ArrayList<>();
         SystemBarTintManager mTintManager = new SystemBarTintManager(this);
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(false);
@@ -109,11 +135,26 @@ public class FeedbackActivity extends Activity {
             RelativeLayout feedbackRootLayout = (RelativeLayout) findViewById(R.id.feedbackRootLayout);
             feedbackRootLayout.setPadding(0, statusHeight, 0, 0);
         }
-        back = (ImageView) findViewById(R.id.feedbackReturn);
+        back = (ImageView) findViewById(R.id.iv_top_back);
 
-        sendText = (TextView) findViewById(R.id.feedbackSend);
+        sendText = (TextView) findViewById(R.id.tv_top_right);
 
-        feedbackText = (EditText) findViewById(R.id.feedbackText);
+        feedbackText = (EditText) findViewById(R.id.et_question_description);
+
+        gv_show_picture = (GridView) findViewById(R.id.gv_show_picture);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == 9) {
+            listPicture = data.getStringArrayListExtra("pictureMessage");
+            for (String string : listPicture) {
+                Log.i("suiuu", string);
+            }
+            gv_show_picture.setAdapter(new ShowGVPictureAdapter(this, listPicture));
+        }
+    }
 }

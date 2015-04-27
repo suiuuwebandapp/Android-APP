@@ -29,7 +29,7 @@
             android:textSize="20sp"
             android:textColor="@color/white"
             android:text="dfdk"
-            android:visibility="gone"/>
+            android:visibility="invisible"/>
 
         <ImageView
             android:layout_width="wrap_content"
