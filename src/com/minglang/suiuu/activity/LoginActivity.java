@@ -197,7 +197,7 @@ public class LoginActivity extends Activity {
      */
     private String type;
 
-    private ProgressDialog progressDialog;
+    private ProgressDialog loginDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,7 +249,7 @@ public class LoginActivity extends Activity {
                 suiuuUserName = popupLoginUserName.getText().toString().trim();
                 suiuuPassword = popupLoginPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(huanXinUsername)) {
+                if (TextUtils.isEmpty(suiuuUserName)) {
                     Toast.makeText(LoginActivity.this,
                             getResources().getString(R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
                     return;
@@ -369,8 +369,12 @@ public class LoginActivity extends Activity {
      */
     private void suiuuLogin(String userName, String password) {
 
+        if (loginDialog != null) {
+            loginDialog.show();
+        }
+
         RequestParams params = new RequestParams();
-        params.addBodyParameter("username ", userName);
+        params.addBodyParameter("username", userName);
         params.addBodyParameter("password", password);
 
         SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
@@ -386,8 +390,14 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
+
+            if (loginDialog.isShowing()) {
+                loginDialog.dismiss();
+            }
+
             String str = responseInfo.result;
             UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+            Log.i(TAG, userBack.toString());
             if (userBack != null) {
                 if (userBack.getStatus().equals("1")) {
                     SuiuuInformation.WriteVerification(LoginActivity.this, userBack.getMessage());
@@ -402,6 +412,12 @@ public class LoginActivity extends Activity {
         @Override
         public void onFailure(HttpException error, String msg) {
             Log.e(TAG, msg);
+
+            if (loginDialog.isShowing()) {
+                loginDialog.dismiss();
+            }
+
+            Toast.makeText(LoginActivity.this, "登录失败，请稍候再试", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -624,11 +640,11 @@ public class LoginActivity extends Activity {
         Log.i(TAG, "像素比例:" + String.valueOf(density));
         Log.i(TAG, "每寸像素:" + String.valueOf(densityDPI));
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setCancelable(true);
-        progressDialog.setMessage(getResources().getString(R.string.login_wait));
+        loginDialog = new ProgressDialog(this);
+        loginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loginDialog.setCanceledOnTouchOutside(false);
+        loginDialog.setCancelable(true);
+        loginDialog.setMessage(getResources().getString(R.string.login_wait));
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         registerBtn = (Button) findViewById(R.id.registerBtn);
@@ -789,8 +805,8 @@ public class LoginActivity extends Activity {
     private void setWeiBoData2Service(com.sina.weibo.sdk.openapi.models.User user) {
         if (user != null) {
 
-            if (progressDialog != null) {
-                progressDialog.show();
+            if (loginDialog != null) {
+                loginDialog.show();
             }
 
             WeiBoUserID = user.id;
@@ -855,8 +871,8 @@ public class LoginActivity extends Activity {
     private void setQQData2Service() {
         if (qqInfo != null) {
 
-            if (progressDialog != null) {
-                progressDialog.show();
+            if (loginDialog != null) {
+                loginDialog.show();
             }
 
             String qqNickName = qqInfo.getNickName();
@@ -1050,8 +1066,8 @@ public class LoginActivity extends Activity {
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
 
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            if (loginDialog != null && loginDialog.isShowing()) {
+                loginDialog.dismiss();
             }
 
             String str = responseInfo.result;
@@ -1077,8 +1093,8 @@ public class LoginActivity extends Activity {
         public void onFailure(HttpException error, String msg) {
             Log.i(TAG, msg);
 
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            if (loginDialog != null && loginDialog.isShowing()) {
+                loginDialog.dismiss();
             }
 
             Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
@@ -1093,8 +1109,8 @@ public class LoginActivity extends Activity {
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
 
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            if (loginDialog != null && loginDialog.isShowing()) {
+                loginDialog.dismiss();
             }
 
             String str = responseInfo.result;
@@ -1118,8 +1134,8 @@ public class LoginActivity extends Activity {
         public void onFailure(HttpException error, String msg) {
             Log.i(TAG, msg);
 
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            if (loginDialog != null && loginDialog.isShowing()) {
+                loginDialog.dismiss();
             }
 
             Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();

@@ -26,7 +26,7 @@ public class HttpServicePath {
      * <p/>
      * 请求参数:用户名 username 、密码 password
      */
-    public static String SelfLoginPath = RootPath + "app-login/app-login";
+    public static String SelfLoginPath = RootPath + "/app-login/app-login";
 
     /**
      * 第三方登陆地址

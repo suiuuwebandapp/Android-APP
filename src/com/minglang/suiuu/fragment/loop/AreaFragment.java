@@ -41,11 +41,6 @@ public class AreaFragment extends Fragment {
 
     private static final String TAG = AreaFragment.class.getSimpleName();
 
-    /**
-     * 网络请求回调接口
-     */
-    private AreaRequestCallback areaRequestCallback = new AreaRequestCallback();
-
     private GridView areaGridView;
 
     /**

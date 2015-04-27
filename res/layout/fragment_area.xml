@@ -10,5 +10,6 @@
         android:layout_height="match_parent"
         android:id="@+id/areaGridView"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:numColumns="2"/>
 </RelativeLayout>

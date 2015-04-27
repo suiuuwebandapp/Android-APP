@@ -23,6 +23,7 @@ import com.minglang.suiuu.utils.HttpServicePath;
 import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.SuHttpRequest;
 import com.minglang.suiuu.utils.SuiuuInformation;
+import com.minglang.suiuu.utils.SystemBarTintManager;
 
 import java.util.List;
 
@@ -32,6 +33,18 @@ import java.util.List;
 public class LoopDetailsActivity extends Activity {
 
     private static final String TAG = LoopDetailsActivity.class.getSimpleName();
+
+    private SystemBarTintManager systemBarTintManager;
+
+    /**
+     * 状态栏高度
+     */
+    private int statusBarHeight;
+
+    /**
+     * 虚拟按键高度
+     */
+    private int navigationBarHeight;
 
     /**
      * 圈子ID
@@ -115,6 +128,16 @@ public class LoopDetailsActivity extends Activity {
      * 初始化方法
      */
     private void initView() {
+        systemBarTintManager = new SystemBarTintManager(this);
+        SystemBarTintManager.SystemBarConfig systemBarConfig = systemBarTintManager.getConfig();
+        statusBarHeight = systemBarConfig.getStatusBarHeight();
+        navigationBarHeight = systemBarConfig.getNavigationBarHeight();
+
+        /****************设置状态栏颜色*************/
+        systemBarTintManager.setStatusBarTintEnabled(true);
+        systemBarTintManager.setNavigationBarTintEnabled(false);
+        systemBarTintManager.setTintColor(getResources().getColor(R.color.tr_black));
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCanceledOnTouchOutside(false);
