@@ -373,7 +373,7 @@ public class LoginActivity extends Activity {
         params.addBodyParameter("username ", userName);
         params.addBodyParameter("password", password);
 
-        SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+        SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
                 HttpServicePath.SelfLoginPath, new LoginRequestCallBack());
         httpRequest.setParams(params);
         httpRequest.requestNetworkData();
@@ -798,7 +798,7 @@ public class LoginActivity extends Activity {
             WeiBoImagePath = user.avatar_large;
             WeiBoGender = user.gender;
 
-            SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+            SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
                     HttpServicePath.ThirdPartyPath, new WeiBoRequestCallBack());
 
             String code;
@@ -876,7 +876,7 @@ public class LoginActivity extends Activity {
                     break;
             }
 
-            SuHttpRequest http = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+            SuHttpRequest http = new SuHttpRequest(HttpRequest.HttpMethod.POST,
                     HttpServicePath.ThirdPartyPath, new QQRequestCallBack());
 
             RequestParams params = new RequestParams();
@@ -1055,6 +1055,7 @@ public class LoginActivity extends Activity {
             }
 
             String str = responseInfo.result;
+            Log.i(TAG, str);
             UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
 
             if (userBack != null) {

@@ -264,8 +264,8 @@ public class LoopArticleActivity extends Activity {
         params.addBodyParameter("articleId", articleId);
         params.addBodyParameter(HttpServicePath.key, Verification);
 
-        SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
-                HttpServicePath.DeleteAtriclePath, new DeleteArticleRequestCallBack());
+        SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
+                HttpServicePath.DeleteArticlePath, new DeleteArticleRequestCallBack());
         httpRequest.setParams(params);
         httpRequest.requestNetworkData();
     }
@@ -282,7 +282,7 @@ public class LoopArticleActivity extends Activity {
         params.addBodyParameter("articleId", articleId);
         params.addBodyParameter(HttpServicePath.key, Verification);
 
-        SuHttpRequest httpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+        SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
                 HttpServicePath.LoopArticlePath, new LoopArticleRequestCallBack());
         httpRequest.setParams(params);
         httpRequest.requestNetworkData();

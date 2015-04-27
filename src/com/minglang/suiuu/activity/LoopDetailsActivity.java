@@ -85,7 +85,7 @@ public class LoopDetailsActivity extends Activity {
         params.addBodyParameter(HttpServicePath.key, Verification);
         params.addBodyParameter("circleId", loopID);
 
-        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
+        SuHttpRequest suHttpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
                 HttpServicePath.LoopDetailsPath, loopDetailsRequestCallBack);
         suHttpRequest.setParams(params);
         suHttpRequest.requestNetworkData();
@@ -129,6 +129,7 @@ public class LoopDetailsActivity extends Activity {
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
             String str = responseInfo.result;
+            Log.i(TAG, str);
             LoopDetails loopDetails = JsonUtil.getInstance().fromJSON(LoopDetails.class, str);
             if (loopDetails != null) {
                 if (loopDetails.getStatus().equals("1")) {

@@ -46,7 +46,7 @@ public class HttpServicePath {
      * <p/>
      * 请求参数:type(1为主题页面，2为地区页面) 统一参数key{@link #key}
      */
-    public static String LoopDataPath = RootPath + "circle/get-circle";
+    public static String LoopDataPath = RootPath + "/circle/get-circle";
 
     /**
      * 圈子内容地址
@@ -55,14 +55,14 @@ public class HttpServicePath {
      * <p/>
      * 请求参数:圈子ID circleId、统一参数key{@link #key}
      */
-    public static String LoopDetailsPath = RootPath + "circle/get-article-by-circle-id";
+    public static String LoopDetailsPath = RootPath + "/circle/get-article-by-circle-id";
 
     /**
      * 圈子文章请求地址
      * 请求方式:POST
      * 请求参数: 文章id articleId、统一参数key{@link #key}
      */
-    public static String LoopArticlePath = RootPath + "circle/get-article-by-circle-id";
+    public static String LoopArticlePath = RootPath + "/circle/get-article-by-circle-id";
 
     /**
      * 删除文章网络接口
@@ -71,5 +71,5 @@ public class HttpServicePath {
      * <p/>
      * 请求参数:文章ID articleId、统一参数key{@link #key}
      */
-    public static String DeleteAtriclePath = RootPath + "circle/delete-article";
+    public static String DeleteArticlePath = RootPath + "/circle/delete-article";
 }

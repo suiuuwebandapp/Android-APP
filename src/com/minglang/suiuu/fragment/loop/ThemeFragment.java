@@ -41,11 +41,6 @@ public class ThemeFragment extends Fragment {
 
     private static final String TAG = ThemeFragment.class.getSimpleName();
 
-    /**
-     * 网络请求回调接口
-     */
-    private ThemeRequestCallback themeRequestCallback = new ThemeRequestCallback();
-
     private GridView themeGridView;
 
     /**
@@ -125,7 +120,7 @@ public class ThemeFragment extends Fragment {
      * 从网络获取数据
      */
     private void getInternetServiceData() {
-        if (progressDialog != null) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
             progressDialog.show();
         }
 
@@ -135,8 +130,8 @@ public class ThemeFragment extends Fragment {
         params.addBodyParameter(HttpServicePath.key, str);
         params.addBodyParameter("type", "1");
 
-        SuHttpRequest suHttpRequest = SuHttpRequest.newInstance(HttpRequest.HttpMethod.POST,
-                HttpServicePath.LoopDataPath, themeRequestCallback);
+        SuHttpRequest suHttpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
+                HttpServicePath.LoopDataPath, new ThemeRequestCallback());
         suHttpRequest.setParams(params);
         suHttpRequest.requestNetworkData();
     }
@@ -164,8 +159,15 @@ public class ThemeFragment extends Fragment {
 
         @Override
         public void onSuccess(ResponseInfo<String> responseInfo) {
+
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
             String str = responseInfo.result;
-            Loop loop = JsonUtil.getInstance().fromJSON(Loop.class, str);
+            Loop loop;
+            loop = JsonUtil.getInstance().fromJSON(Loop.class, str);
+            Log.i(TAG, loop.toString());
             if (loop != null) {
                 if (Integer.parseInt(loop.getStatus()) == 1) {
                     list = loop.getData();
@@ -175,24 +177,19 @@ public class ThemeFragment extends Fragment {
                     Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();
                 }
             }
-
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
-
         }
 
         @Override
         public void onFailure(HttpException error, String msg) {
 
-            Log.i(TAG, error.getMessage());
             Log.i(TAG, msg);
 
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+//            if (progressDialog.isShowing()) {
+            progressDialog.cancel();
+            Log.i(TAG, "progressDialog dismiss");
+//            }
 
-            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();
         }
     }
 

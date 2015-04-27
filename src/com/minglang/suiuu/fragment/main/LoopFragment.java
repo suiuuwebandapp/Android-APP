@@ -238,6 +238,7 @@ public class LoopFragment extends Fragment {
         sliderView.setLayoutParams(sliderParams);
 
         loopViewPager = (ViewPager) rootView.findViewById(R.id.loopViewPager);
+        loopViewPager.setOffscreenPageLimit(2);
 
         themeFragment = new ThemeFragment();
         areaFragment = new AreaFragment();

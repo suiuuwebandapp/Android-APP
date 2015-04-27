@@ -1,5 +1,7 @@
 package com.minglang.suiuu.utils;
 
+import android.util.Log;
+
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.HttpHandler;
 import com.lidroid.xutils.http.RequestParams;
@@ -14,12 +16,14 @@ import com.lidroid.xutils.http.client.HttpRequest;
  */
 public class SuHttpRequest {
 
+    private static final String TAG = SuHttpRequest.class.getSimpleName();
+
     private static SuHttpRequest suHttpRequest;
 
     /**
      * 网络请求核心类
      */
-    private HttpUtils httpUtils = new HttpUtils();
+    private HttpUtils httpUtils;
 
     /**
      * 网络请求类型
@@ -45,21 +49,13 @@ public class SuHttpRequest {
 
     private HttpHandler<String> httpHandler;
 
-    private SuHttpRequest(HttpRequest.HttpMethod httpMethod, String httpPath, RequestCallBack<String> requestCallBack) {
+    public SuHttpRequest(HttpRequest.HttpMethod httpMethod, String httpPath, RequestCallBack<String> requestCallBack) {
         this.httpMethod = httpMethod;
         this.httpPath = httpPath;
         this.requestCallBack = requestCallBack;
-    }
 
-    public static SuHttpRequest newInstance(HttpRequest.HttpMethod httpMethod, String httpPath, RequestCallBack<String> requestCallBack) {
-        if (suHttpRequest == null) {
-            synchronized (SuHttpRequest.class) {
-                if (suHttpRequest == null) {
-                    suHttpRequest = new SuHttpRequest(httpMethod, httpPath, requestCallBack);
-                }
-            }
-        }
-        return suHttpRequest;
+        httpUtils = new HttpUtils();
+        httpUtils.configRequestRetryCount(0);
     }
 
     public HttpRequest.HttpMethod getHttpMethod() {
@@ -101,8 +97,10 @@ public class SuHttpRequest {
 
         if (params == null) {
             httpHandler = httpUtils.send(httpMethod, httpPath, requestCallBack);
+            Log.i(TAG, "Loading No Params Intent Request");
         } else {
             httpHandler = httpUtils.send(httpMethod, httpPath, params, requestCallBack);
+            Log.i(TAG, "Loading Params Intent Request");
         }
     }
 

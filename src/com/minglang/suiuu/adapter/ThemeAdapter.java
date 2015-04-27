@@ -80,7 +80,11 @@ public class ThemeAdapter extends BaseAdapter {
 
         LoopData loopData = list.get(position);
 
-        imageLoader.displayImage(loopData.getCpic(), imageView, displayImageOptions);
+        imageLoader.displayImage("http://suiuu.oss-cn-hongkong.aliyuncs.com/suiuu_content/20150414141605_50758.png",
+                imageView, displayImageOptions);
+//        Bitmap bitmap = imageLoader.loadImageSync("http://suiuu.oss-cn-hongkong.aliyuncs.com/suiuu_content/20150414141605_50758.png"
+//                , displayImageOptions);
+//        imageView.setBackgroundDrawable(new BitmapDrawable(bitmap));
         title.setText(loopData.getcName());
 
         return holder.getConvertView();

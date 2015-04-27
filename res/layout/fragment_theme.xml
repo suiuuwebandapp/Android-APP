@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/themeGridView"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:numColumns="2"
-        android:choiceMode="none"/>
+        android:choiceMode="none"
+        android:layout_alignParentTop="true"/>
 </RelativeLayout>
