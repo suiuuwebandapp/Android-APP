@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -16,9 +17,9 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
-import com.minglang.suiuu.adapter.AttentionUserAdapter;
-import com.minglang.suiuu.entity.AttentionUser;
-import com.minglang.suiuu.entity.AttentionUserData;
+import com.minglang.suiuu.adapter.AttentionLoopAdapter;
+import com.minglang.suiuu.entity.AttentionLoop;
+import com.minglang.suiuu.entity.AttentionLoopData;
 import com.minglang.suiuu.utils.HttpServicePath;
 import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.SuHttpRequest;
@@ -26,11 +27,11 @@ import com.minglang.suiuu.utils.SuHttpRequest;
 import java.util.List;
 
 /**
- * 关注用户
+ * 关注主题
  */
-public class AttentionUserFragment extends Fragment {
+public class AttentionLoopFragment extends Fragment {
 
-    private static final String TAG = AttentionUserFragment.class.getSimpleName();
+    private static final String TAG = AttentionLoopFragment.class.getSimpleName();
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,11 +40,11 @@ public class AttentionUserFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ListView listView;
+    private GridView attentionThemeGridView;
 
     private int page = 1;
 
-    private List<AttentionUserData> list;
+    private List<AttentionLoopData> list;
 
     /**
      * Use this factory method to create a new instance of
@@ -51,10 +52,10 @@ public class AttentionUserFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AttentionUserFragment.
+     * @return A new instance of fragment AttentionThemeFragment.
      */
-    public static AttentionUserFragment newInstance(String param1, String param2) {
-        AttentionUserFragment fragment = new AttentionUserFragment();
+    public static AttentionLoopFragment newInstance(String param1, String param2) {
+        AttentionLoopFragment fragment = new AttentionLoopFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,8 +63,8 @@ public class AttentionUserFragment extends Fragment {
         return fragment;
     }
 
-    public AttentionUserFragment() {
-
+    public AttentionLoopFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -78,36 +79,38 @@ public class AttentionUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_attention_user, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_attention_theme, container, false);
+
         initView(rootView);
-
         getAttentionData4Service();
-
         ViewAction();
 
         return rootView;
     }
 
     private void ViewAction() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        attentionThemeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                AttentionLoopData attentionLoopData = list.get(position);
+                String cID = attentionLoopData.getcId();
             }
         });
     }
 
     /**
-     * 从服务获取关注用户的数据
+     * 从服务器获取数据
      */
     private void getAttentionData4Service() {
+
         RequestParams params = new RequestParams();
         params.addBodyParameter("page", String.valueOf(page));
 
         SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
-                HttpServicePath.AttentionUserPath, new AttentionUserRequestCallback());
+                HttpServicePath.AttentionLoopPath, new AttentionThemeRequestCallback());
         httpRequest.setParams(params);
         httpRequest.requestNetworkData();
+
     }
 
     /**
@@ -116,7 +119,7 @@ public class AttentionUserFragment extends Fragment {
      * @param rootView Fragment根View
      */
     private void initView(View rootView) {
-        listView = (ListView) rootView.findViewById(R.id.attention_user_ListView);
+        attentionThemeGridView = (GridView) rootView.findViewById(R.id.attentionThemeGridView);
     }
 
     @Override
@@ -131,30 +134,37 @@ public class AttentionUserFragment extends Fragment {
     }
 
     /**
-     * 网络请求回调接口
+     * 关注的圈子网络请求回调接口
      */
-    private class AttentionUserRequestCallback extends RequestCallBack<String> {
+    private class AttentionThemeRequestCallback extends RequestCallBack<String> {
 
         @Override
         public void onSuccess(ResponseInfo<String> stringResponseInfo) {
             String str = stringResponseInfo.result;
+
             try {
-                AttentionUser attentionUser = JsonUtil.getInstance().fromJSON(AttentionUser.class, str);
-                if (attentionUser.getStatus().equals("1")) {
-                    list = attentionUser.getData();
+                AttentionLoop attentionLoop = JsonUtil.getInstance().fromJSON(AttentionLoop.class, str);
+                if (attentionLoop.getStatus().equals("1")) {
 
-                    AttentionUserAdapter attentionUserAdapter = new AttentionUserAdapter(getActivity(), attentionUser, list);
-                    listView.setAdapter(attentionUserAdapter);
+                    list = attentionLoop.getData();
 
+                    AttentionLoopAdapter attentionLoopAdapter = new AttentionLoopAdapter(getActivity(),
+                            attentionLoop, list);
+                    attentionThemeGridView.setAdapter(attentionLoopAdapter);
+
+                } else {
+                    Toast.makeText(getActivity(), "数据获取失败，请稍候再试！", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
+                Toast.makeText(getActivity(), "数据获取异常，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         public void onFailure(HttpException e, String s) {
             Log.e(TAG, s);
+            Toast.makeText(getActivity(), "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
         }
     }
 

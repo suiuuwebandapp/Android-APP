@@ -72,4 +72,22 @@ public class HttpServicePath {
      * 请求参数:文章ID articleId、统一参数key{@link #key}
      */
     public static String DeleteArticlePath = RootPath + "/circle/delete-article";
+
+    /**
+     * 获取关注的圈子
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:页码 page(0 得到全部、1—— +∞ 对应页码数)
+     */
+    public static String AttentionLoopPath = RootPath + "/attention/get-attention-circle";
+
+    /**
+     * 获取关注的用户
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:页码 page(0 得到全部、1—— +∞ 对应页码数)
+     */
+    public static String AttentionUserPath = RootPath + "attention/get-attention-user";
 }

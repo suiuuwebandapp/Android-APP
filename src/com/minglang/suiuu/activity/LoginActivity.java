@@ -25,7 +25,6 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.easemob.EMCallBack;
-import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContactManager;
 import com.easemob.chat.EMGroupManager;
@@ -126,14 +125,24 @@ public class LoginActivity extends Activity {
      */
 
     /**
-     * 用户名
+     * 登陆用户名
      */
-    private String suiuuUserName;
+    private String suiuuLoginUserName;
 
     /**
-     * 密码
+     * 登陆密码
      */
-    private String suiuuPassword;
+    private String suiuuLoginPassword;
+
+    /**
+     * 注册用户名
+     */
+    private String suiuuRegisterUserName;
+
+    /**
+     * 注册密码
+     */
+    private String suiuuRegisterPassword;
 
     //判断是否登录
     private boolean autoLogin = false;
@@ -246,21 +255,21 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                suiuuUserName = popupLoginUserName.getText().toString().trim();
-                suiuuPassword = popupLoginPassword.getText().toString().trim();
+                suiuuLoginUserName = popupLoginUserName.getText().toString().trim();
+                suiuuLoginPassword = popupLoginPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(suiuuUserName)) {
+                if (TextUtils.isEmpty(suiuuLoginUserName)) {
                     Toast.makeText(LoginActivity.this,
                             getResources().getString(R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(suiuuPassword)) {
+                if (TextUtils.isEmpty(suiuuLoginPassword)) {
                     Toast.makeText(LoginActivity.this,
                             getResources().getString(R.string.Password_cannot_be_empty), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                suiuuLogin(suiuuUserName, suiuuPassword);
+                suiuuLogin(suiuuLoginUserName, suiuuLoginPassword);
             }
         });
 
@@ -268,69 +277,25 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                String st1 = getResources().getString(R.string.User_name_cannot_be_empty);
-                String st2 = getResources().getString(R.string.Password_cannot_be_empty);
-                String st3 = getResources().getString(R.string.Confirm_password_cannot_be_empty);
-                String st4 = getResources().getString(R.string.Two_input_password);
-                String st5 = getResources().getString(R.string.Is_the_registered);
-                final String st6 = getResources().getString(R.string.Registered_successfully);
-                final String username = popupRegisterUserName.getText().toString().trim();
-                final String pwd = popupRegisterPassword1.getText().toString().trim();
-                if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(LoginActivity.this, st1, Toast.LENGTH_SHORT).show();
-                    popupRegisterUserName.requestFocus();
-                    return;
-                } else if (TextUtils.isEmpty(pwd)) {
-                    Toast.makeText(LoginActivity.this, st2, Toast.LENGTH_SHORT).show();
-                    popupRegisterPassword1.requestFocus();
+                if (!CommonUtils.isNetWorkConnected(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pwd)) {
-                    final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
-                    pd.setMessage(st5);
-                    pd.show();
-                    final String st7 = getResources().getString(R.string.network_anomalies);
-                    final String st8 = getResources().getString(R.string.User_already_exists);
-                    final String st9 = getResources().getString(R.string.registration_failed_without_permission);
-                    final String st10 = getResources().getString(R.string.Registration_failed);
-                    new Thread(new Runnable() {
-                        public void run() {
-                            try {
-                                // 调用sdk注册方法
-                                EMChatManager.getInstance().createAccountOnServer(username, pwd);
-                                runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        // 保存用户名
-                                        pd.dismiss();
-                                        DemoApplication.getInstance().setUserName(username);
-                                        Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
-                                        popupWindowRegister.dismiss();
-                                    }
-                                });
-                            } catch (final EaseMobException e) {
-                                runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        if (!LoginActivity.this.isFinishing())
-                                            pd.dismiss();
-                                        int errorCode = e.getErrorCode();
-                                        if (errorCode == EMError.NONETWORK_ERROR) {
-                                            Toast.makeText(getApplicationContext(), st7, Toast.LENGTH_SHORT).show();
-                                        } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
-                                            Toast.makeText(getApplicationContext(), st8, Toast.LENGTH_SHORT).show();
-                                        } else if (errorCode == EMError.UNAUTHORIZED) {
-                                            Toast.makeText(getApplicationContext(), st9, Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), st10 + e.getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }).start();
+                suiuuRegisterUserName = popupRegisterUserName.getText().toString().trim();
+                suiuuRegisterPassword = popupRegisterPassword1.getText().toString().trim();
 
+                if (TextUtils.isEmpty(suiuuRegisterUserName)) {
+                    Toast.makeText(LoginActivity.this,
+                            getResources().getString(R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                if (TextUtils.isEmpty(suiuuRegisterPassword)) {
+                    Toast.makeText(LoginActivity.this,
+                            getResources().getString(R.string.Password_cannot_be_empty), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                register4Suiuu();
             }
         });
 
@@ -359,6 +324,37 @@ public class LoginActivity extends Activity {
             }
         });
 
+    }
+
+    //TODO 注册还未完成
+
+    /**
+     * 注册方法
+     */
+    private void register4Suiuu() {
+
+        RequestParams params = new RequestParams();
+
+
+        SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST, "", new RegisterRequestCallback());
+        httpRequest.setParams(params);
+        httpRequest.requestNetworkData();
+    }
+
+    /**
+     * 注册回调接口
+     */
+    private class RegisterRequestCallback extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> stringResponseInfo) {
+
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+
+        }
     }
 
     /**
@@ -396,16 +392,22 @@ public class LoginActivity extends Activity {
             }
 
             String str = responseInfo.result;
-            UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
-            Log.i(TAG, userBack.toString());
-            if (userBack != null) {
-                if (userBack.getStatus().equals("1")) {
-                    SuiuuInformation.WriteVerification(LoginActivity.this, userBack.getMessage());
-                    huanXinUsername = userBack.getData().getUserSign();
-                    huanXinLogin();
-                } else {
-                    Toast.makeText(LoginActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, str);
+            try {
+                UserBack userBack = JsonUtil.getInstance().fromJSON(UserBack.class, str);
+                Log.i(TAG, userBack.toString());
+                if (userBack != null) {
+                    if (userBack.getStatus().equals("1")) {
+                        SuiuuInformation.WriteVerification(LoginActivity.this, userBack.getMessage());
+                        huanXinUsername = userBack.getData().getUserSign();
+                        huanXinLogin();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+                Toast.makeText(LoginActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -421,7 +423,9 @@ public class LoginActivity extends Activity {
         }
     }
 
-    //环信登录方法
+    /**
+     * 环信登录方法
+     */
     public void huanXinLogin() {
         progressShow = true;
         final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
@@ -1084,7 +1088,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "数据获取失败，请稍候再试！", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "网络错误，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -1126,7 +1130,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "数据获取失败，请稍候再试！", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(LoginActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "网络错误，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
         }
 

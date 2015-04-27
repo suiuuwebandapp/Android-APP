@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.AttentionPagerAdapter;
-import com.minglang.suiuu.fragment.attention.AttentionThemeFragment;
+import com.minglang.suiuu.fragment.attention.AttentionLoopFragment;
 import com.minglang.suiuu.fragment.attention.AttentionUserFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
 import com.minglang.suiuu.utils.Utils;
@@ -87,6 +87,7 @@ public class AttentionActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
+                attentionSliderView.setPadding(0, 0, 0, 0);
 
                 switch (i) {
                     case 0:
@@ -153,22 +154,23 @@ public class AttentionActivity extends FragmentActivity {
         List<Fragment> fragmentList = new ArrayList<>();
 
         FragmentManager fm = getSupportFragmentManager();
+
         /**
-         关注主题页面
+         关注圈子页面
          */
-        AttentionThemeFragment attentionThemeFragment = AttentionThemeFragment.newInstance("a", "b");
+        AttentionLoopFragment attentionThemeFragment = AttentionLoopFragment.newInstance("a", "b");
 
         /**
          关注用户页面
          */
         AttentionUserFragment attentionUserFragment = AttentionUserFragment.newInstance("c", "d");
+
         fragmentList.add(attentionThemeFragment);
         fragmentList.add(attentionUserFragment);
 
         AttentionPagerAdapter attentionPagerAdapter = new AttentionPagerAdapter(fm, fragmentList);
 
         attentionPager.setAdapter(attentionPagerAdapter);
-
 
         initImageView();
     }
@@ -189,6 +191,8 @@ public class AttentionActivity extends FragmentActivity {
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
+        attentionSliderView.setPadding(offsetX, 0, 0, 0);
+
     }
 
     class AttentionClick implements View.OnClickListener {
