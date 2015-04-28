@@ -36,6 +36,7 @@
     <dimen name="layout_10sp">10sp</dimen>
     <dimen name="layout_15sp">15sp</dimen>
     <dimen name="layout_50sp">50sp</dimen>
+    <dimen name="layout_20sp">20sp</dimen>
 
 
 

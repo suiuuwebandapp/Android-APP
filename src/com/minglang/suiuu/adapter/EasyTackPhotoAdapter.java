@@ -26,12 +26,16 @@ public class EasyTackPhotoAdapter extends BaseAdapter {
     private EditText et_pic_description;
     private Activity activity;
 
+
+
     public EasyTackPhotoAdapter(Context context, List<String> list) {
         super();
         this.context = context;
         this.list = list;
         activity = (Activity) context;
     }
+
+
 
     @Override
     public int getCount() {
@@ -49,6 +53,7 @@ public class EasyTackPhotoAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         return position;
     }
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -76,7 +81,13 @@ public class EasyTackPhotoAdapter extends BaseAdapter {
                     }
                 }
             });
+
+
+
         return view;
     }
 
+
+
 }
+

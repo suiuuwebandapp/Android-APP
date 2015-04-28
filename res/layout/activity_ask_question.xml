@@ -79,15 +79,6 @@
                 android:hint="@string/question_description"
                 android:textSize="@dimen/layout_15sp"
                 />
-            <com.minglang.suiuu.view.progressbar.CircularProgress
-                android:id="@+id/progress_bar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:borderWidth="6dp"
-                android:layout_centerInParent="true"
-                android:visibility="gone"
-                />
-
             </RelativeLayout>
         <com.minglang.suiuu.view.MyGridView
             android:padding="@dimen/layout_10dp"
@@ -104,6 +95,7 @@
             android:background="@color/white"
             android:layout_alignBottom="@id/et_question_description"/>
         <TextView
+            android:drawableLeft="@drawable/show_your_location"
             android:id="@+id/tv_show_your_location"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -115,14 +107,10 @@
             android:padding="@dimen/layout_8dp"
             android:background="@color/white"
             android:textSize="@dimen/layout_15sp"
-            android:layout_marginBottom="@dimen/layout_30dp"/>
+            android:gravity="center_vertical"
+            />
         </LinearLayout>
 </ScrollView>
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-
-        </FrameLayout>
 
 </LinearLayout>

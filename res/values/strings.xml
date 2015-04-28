@@ -108,6 +108,15 @@
     <string name="login_wait">正在登陆，请稍候&#8230;</string>
     <string name="choice_area">请选择地区</string>
     <string name="choice_theme">请选择主题</string>
+    <string name="theme_is_empty">主题不能为空</string>
+    <string name="area_is_empty">地区不能为空</string>
+    <string name="ask_description_is_empty">问题描述不能为空</string>
+    <string name="activity_description_is_empty">活动描述不能为空</string>
+    <string name="your_ask_is_empty">你的问题不能为空</string>
+    <string name="title_is_empty">你的标题不能为空</string>
+    <string name="article_publish_success">文章发布成功</string>
+    <string name="article_publish_failure">文章发布失败</string>
+
 
     <!--关于聊天-->
     <string name="show_comments">显示评论</string>
