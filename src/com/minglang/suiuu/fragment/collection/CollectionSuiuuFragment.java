@@ -14,16 +14,14 @@ import com.minglang.suiuu.R;
  * 收藏的路线
  *
  * A simple {@link Fragment} subclass.
- * Use the {@link CollectionRouteFragment#newInstance} factory method to
+ * Use the {@link CollectionSuiuuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CollectionRouteFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+public class CollectionSuiuuFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -36,9 +34,8 @@ public class CollectionRouteFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment CollectionRouteFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static CollectionRouteFragment newInstance(String param1, String param2) {
-        CollectionRouteFragment fragment = new CollectionRouteFragment();
+    public static CollectionSuiuuFragment newInstance(String param1, String param2) {
+        CollectionSuiuuFragment fragment = new CollectionSuiuuFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -46,7 +43,7 @@ public class CollectionRouteFragment extends Fragment {
         return fragment;
     }
 
-    public CollectionRouteFragment() {
+    public CollectionSuiuuFragment() {
         // Required empty public constructor
     }
 

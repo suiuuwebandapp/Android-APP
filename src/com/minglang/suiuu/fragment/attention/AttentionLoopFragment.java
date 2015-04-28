@@ -104,6 +104,8 @@ public class AttentionLoopFragment extends Fragment {
     private void getAttentionData4Service() {
 
         RequestParams params = new RequestParams();
+//        TODO 忽略身份验证KEY
+//        params.addBodyParameter(HttpServicePath.key, SuiuuInformation.ReadVerification(getActivity()));
         params.addBodyParameter("page", String.valueOf(page));
 
         SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,

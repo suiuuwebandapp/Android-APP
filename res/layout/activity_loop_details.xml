@@ -10,8 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loopDetailsGridView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:numColumns="2"
-        android:choiceMode="none"/>
+        android:choiceMode="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

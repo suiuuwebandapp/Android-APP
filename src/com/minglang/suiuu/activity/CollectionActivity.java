@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.CollectionAdapter;
 import com.minglang.suiuu.fragment.collection.CollectionLoopFragment;
-import com.minglang.suiuu.fragment.collection.CollectionRouteFragment;
+import com.minglang.suiuu.fragment.collection.CollectionSuiuuFragment;
 import com.minglang.suiuu.utils.SystemBarTintManager;
 
 import java.util.ArrayList;
@@ -73,6 +73,9 @@ public class CollectionActivity extends FragmentActivity {
 
     }
 
+    /**
+     * 控件动作
+     */
     private void ViewAction() {
 
         collectionBack.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,7 @@ public class CollectionActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
+                collectionSlider.setPadding(0, 0, 0, 0);
 
                 switch (i) {
                     case 0:
@@ -160,10 +164,10 @@ public class CollectionActivity extends FragmentActivity {
         List<Fragment> collectionList = new ArrayList<>();
 
         CollectionLoopFragment collectionLoopFragment = CollectionLoopFragment.newInstance("a", "b");
-        CollectionRouteFragment collectionRouteFragment = CollectionRouteFragment.newInstance("c", "d");
+        CollectionSuiuuFragment collectionSuiuuFragment = CollectionSuiuuFragment.newInstance("c", "d");
 
         collectionList.add(collectionLoopFragment);
-        collectionList.add(collectionRouteFragment);
+        collectionList.add(collectionSuiuuFragment);
 
         FragmentManager fm = getSupportFragmentManager();
 
@@ -173,6 +177,9 @@ public class CollectionActivity extends FragmentActivity {
         initImageView();
     }
 
+    /**
+     * 初始化相关图片
+     */
     private void initImageView() {
         int sliderViewWidth = BitmapFactory.decodeResource(getResources(), R.drawable.slider).getWidth();
         DisplayMetrics dm = new DisplayMetrics();
@@ -185,6 +192,7 @@ public class CollectionActivity extends FragmentActivity {
         }
 
         offsetX = (tabWidth - sliderViewWidth) / 2;
+        collectionSlider.setPadding(offsetX, 0, 0, 0);
     }
 
     @Override
