@@ -53,4 +53,6 @@ public class ShowGVPictureAdapter extends BaseAdapter {
         }
         return view;
     }
+
+
 }
