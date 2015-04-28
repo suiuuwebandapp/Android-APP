@@ -3,17 +3,17 @@ package com.minglang.suiuu.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.customview.CircleImageView;
-import com.minglang.suiuu.entity.LoopDetails;
-import com.minglang.suiuu.entity.LoopDetailsData;
+import com.minglang.suiuu.entity.LoopDetailsDataList;
 import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,19 +29,20 @@ import java.util.List;
  */
 public class LoopDetailsAdapter extends BaseAdapter {
 
+    private static final String TAG = LoopDetailsAdapter.class.getSimpleName();
+
     private Context context;
 
-    private LoopDetails loopDetails;
-
-    private List<LoopDetailsData> list;
+    private List<LoopDetailsDataList> list;
 
     private ImageLoader loader;
 
     private DisplayImageOptions displayImageOptions1, displayImageOptions2;
 
-    public LoopDetailsAdapter(Context context, LoopDetails loopDetails, List<LoopDetailsData> loopDetailsDataList) {
+    private String url = "http://suiuu.oss-cn-hongkong.aliyuncs.com/suiuu_content/20150414141605_50758.png";
+
+    public LoopDetailsAdapter(Context context, List<LoopDetailsDataList> loopDetailsDataList) {
         this.context = context;
-        this.loopDetails = loopDetails;
         this.list = loopDetailsDataList;
 
         loader = ImageLoader.getInstance();
@@ -50,10 +51,10 @@ public class LoopDetailsAdapter extends BaseAdapter {
         displayImageOptions1 = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_other_user_loop_image)
                 .showImageForEmptyUri(R.drawable.default_other_user_loop_image).showImageOnFail(R.drawable.default_other_user_loop_image)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).build();
+                .imageScaleType(ImageScaleType.EXACTLY).bitmapConfig(Bitmap.Config.RGB_565).build();
 
-        displayImageOptions2 = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.user_head_image_bg)
-                .showImageForEmptyUri(R.drawable.user_head_image_bg).showImageOnFail(R.drawable.user_head_image_bg)
+        displayImageOptions2 = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_head_image2)
+                .showImageForEmptyUri(R.drawable.default_head_image2).showImageOnFail(R.drawable.default_head_image2)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).build();
     }
@@ -84,13 +85,13 @@ public class LoopDetailsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LoopDetailsData loopDetailsData = list.get(position);
+        LoopDetailsDataList loopDetailsDataList = list.get(position);
 
         ViewHolder holder = ViewHolder.get(context, convertView, parent, R.layout.item_loop_details, position);
 
         ImageView mainImageView = holder.getView(R.id.item_loop_details_image);
         CircleImageView headImage = holder.getView(R.id.item_loop_details_head_image);
-        int height = BitmapFactory.decodeResource(context.getResources(), R.drawable.user_head_image_bg).getHeight();
+        int height = BitmapFactory.decodeResource(context.getResources(), R.drawable.default_head_image2).getHeight();
 
         TextView userName = holder.getView(R.id.item_loop_details_user_name);
 
@@ -101,30 +102,44 @@ public class LoopDetailsAdapter extends BaseAdapter {
 //        Bitmap bitmap = loader.loadImageSync(loopDetailsData.getaImg(), displayImageOptions1);
 //        mainImageView.setBackgroundDrawable(new BitmapDrawable(bitmap));
         //加载主图片
-        loader.displayImage(loopDetailsData.getaImg(), mainImageView, displayImageOptions1);
-
-        RelativeLayout.LayoutParams mainParams = new RelativeLayout.LayoutParams(mainImageView.getLayoutParams());
-        mainParams.setMargins(0, 0, 0, height / 2);
-        mainImageView.setLayoutParams(mainParams);
+        String imagePath = loopDetailsDataList.getaImg();
+        Log.i(TAG, "imagePath:" + imagePath);
+        if (!TextUtils.isEmpty(imagePath)) {
+            loader.displayImage(url.trim(), mainImageView, displayImageOptions1);
+        } else {
+            loader.displayImage(url.trim(), mainImageView, displayImageOptions1);
+        }
 
         //加载头像
-        loader.displayImage(loopDetailsData.getHeadImg(), headImage, displayImageOptions2);
+//        loader.displayImage(url.trim(), headImage, displayImageOptions2);
 
         //加载用户名
-        String str_userName = loopDetailsData.getNickname();
-        userName.setText(str_userName);
+        String str_userName = loopDetailsDataList.getNickname();
+        if (TextUtils.isEmpty(str_userName)) {
+            userName.setText("匿名");
+        } else {
+            userName.setText(str_userName);
+        }
 
         //加载标题
-        String str_title = loopDetailsData.getaTitle();
+        String str_title = loopDetailsDataList.getaTitle();
         title.setText(str_title);
 
         //加载评论数
-        String comments_str = loopDetailsData.getaCmtCount();
-        comments.setText(comments_str);
+        String comments_str = loopDetailsDataList.getaCmtCount();
+        if (TextUtils.isEmpty(comments_str)) {
+            comments.setText("0");
+        } else {
+            comments.setText(comments_str);
+        }
 
         //加载被赞数
-        String praise_str = loopDetailsData.getaSupportCount();
-        praise.setText(praise_str);
+        String praise_str = loopDetailsDataList.getaSupportCount();
+        if (TextUtils.isEmpty(praise_str)) {
+            praise.setText("0");
+        } else {
+            praise.setText(praise_str);
+        }
 
         return holder.getConvertView();
     }

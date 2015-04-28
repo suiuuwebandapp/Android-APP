@@ -2,7 +2,6 @@ package com.minglang.suiuu.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.LoopDetailsAdapter;
 import com.minglang.suiuu.entity.LoopDetails;
 import com.minglang.suiuu.entity.LoopDetailsData;
+import com.minglang.suiuu.entity.LoopDetailsDataList;
 import com.minglang.suiuu.utils.HttpServicePath;
 import com.minglang.suiuu.utils.JsonUtil;
 import com.minglang.suiuu.utils.SuHttpRequest;
@@ -61,15 +61,14 @@ public class LoopDetailsActivity extends Activity {
      */
     private GridView loopDetailsGridView;
 
+    private LoopDetailsData loopDetailsData;
+
+    private List<LoopDetailsDataList> list;
+
     /**
      * 网络请求回调接口
      */
     private LoopDetailsRequestCallBack loopDetailsRequestCallBack = new LoopDetailsRequestCallBack();
-
-    /**
-     * 内部数据集合
-     */
-    private List<LoopDetailsData> list;
 
     private ProgressDialog progressDialog;
 
@@ -95,6 +94,7 @@ public class LoopDetailsActivity extends Activity {
         }
 
         RequestParams params = new RequestParams();
+        //TODO 忽略身份验证KEY
         params.addBodyParameter(HttpServicePath.key, Verification);
         params.addBodyParameter("circleId", loopID);
 
@@ -103,6 +103,8 @@ public class LoopDetailsActivity extends Activity {
         suHttpRequest.setParams(params);
         suHttpRequest.requestNetworkData();
 
+        Log.i(TAG, Verification);
+        Log.i(TAG, loopID);
     }
 
     /**
@@ -112,12 +114,6 @@ public class LoopDetailsActivity extends Activity {
         loopDetailsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String articleId = list.get(position).getArticleId();
-
-                Intent intent = new Intent(LoopDetailsActivity.this, LoopArticleActivity.class);
-                intent.putExtra("articleId", articleId);
-                startActivity(intent);
 
             }
         });
@@ -153,16 +149,20 @@ public class LoopDetailsActivity extends Activity {
         public void onSuccess(ResponseInfo<String> responseInfo) {
             String str = responseInfo.result;
             Log.i(TAG, str);
-            LoopDetails loopDetails = JsonUtil.getInstance().fromJSON(LoopDetails.class, str);
-            if (loopDetails != null) {
-                if (loopDetails.getStatus().equals("1")) {
-                    list = loopDetails.getData();
-                    LoopDetailsAdapter loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, loopDetails, list);
-                    loopDetailsGridView.setAdapter(loopDetailsAdapter);
-                } else {
-                    Toast.makeText(LoopDetailsActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+            try {
+                LoopDetails loopDetails = JsonUtil.getInstance().fromJSON(LoopDetails.class, str);
+                loopDetailsData = loopDetails.getData();
+                if (loopDetailsData != null) {
+                    list = loopDetailsData.getData();
+                    if (list != null) {
+                        LoopDetailsAdapter loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, list);
+                        loopDetailsGridView.setAdapter(loopDetailsAdapter);
+                    } else {
+                        Toast.makeText(LoopDetailsActivity.this, "暂无数据！", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } else {
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
                 Toast.makeText(LoopDetailsActivity.this, "获取数据失败，请稍候再试！", Toast.LENGTH_SHORT).show();
             }
 
@@ -181,7 +181,7 @@ public class LoopDetailsActivity extends Activity {
                 progressDialog.dismiss();
             }
 
-            Toast.makeText(LoopDetailsActivity.this, "获取数据失败！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoopDetailsActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
         }
     }
 

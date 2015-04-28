@@ -127,7 +127,8 @@ public class ThemeFragment extends Fragment {
         String str = SuiuuInformation.ReadVerification(getActivity());
 
         RequestParams params = new RequestParams();
-        params.addBodyParameter(HttpServicePath.key, str);
+        //TODO 忽略身份验证KEY
+//        params.addBodyParameter(HttpServicePath.key, str);
         params.addBodyParameter("type", "1");
 
         SuHttpRequest suHttpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,

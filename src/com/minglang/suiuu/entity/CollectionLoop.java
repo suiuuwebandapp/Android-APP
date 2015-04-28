@@ -1,21 +1,21 @@
 package com.minglang.suiuu.entity;
 
+import java.util.List;
+
 /**
- * 圈子详情数据实体类
+ * 收藏的圈子数据实体类
  * <p/>
- * Created by Administrator on 2015/4/22.
+ * Created by Administrator on 2015/4/28.
  */
-public class LoopDetails {
+public class CollectionLoop {
 
     public String status;
 
-    public LoopDetailsData data;
+    public List<CollectionLoopData> data;
 
     public String message;
 
-    public String page_list;
-
-    public String pa;
+    public String token;
 
     public String getStatus() {
         return status;
@@ -25,11 +25,11 @@ public class LoopDetails {
         this.status = status;
     }
 
-    public LoopDetailsData getData() {
+    public List<CollectionLoopData> getData() {
         return data;
     }
 
-    public void setData(LoopDetailsData data) {
+    public void setData(List<CollectionLoopData> data) {
         this.data = data;
     }
 
@@ -41,30 +41,21 @@ public class LoopDetails {
         this.message = message;
     }
 
-    public String getPage_list() {
-        return page_list;
+    public String getToken() {
+        return token;
     }
 
-    public void setPage_list(String page_list) {
-        this.page_list = page_list;
-    }
-
-    public String getPa() {
-        return pa;
-    }
-
-    public void setPa(String pa) {
-        this.pa = pa;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
     public String toString() {
-        return "LoopDetails{" +
+        return "CollectionLoop{" +
                 "status='" + status + '\'' +
                 ", data=" + data +
                 ", message='" + message + '\'' +
-                ", page_list='" + page_list + '\'' +
-                ", pa='" + pa + '\'' +
+                ", token='" + token + '\'' +
                 '}';
     }
 }

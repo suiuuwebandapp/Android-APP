@@ -2,15 +2,30 @@ package com.minglang.suiuu.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.minglang.suiuu.R;
+import com.minglang.suiuu.utils.HttpServicePath;
+import com.minglang.suiuu.utils.SuHttpRequest;
 
+/**
+ * 其他用户的个人主页
+ * <p/>
+ * 尚未完成
+ */
 public class OtherUserActivity extends Activity {
+
+    private static final String TAG = OtherUserActivity.class.getSimpleName();
 
     /**
      * 返回键
@@ -44,6 +59,8 @@ public class OtherUserActivity extends Activity {
 
     private GridView otherUserLoop;
 
+    private OtherUserClick otherUserClick = new OtherUserClick();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,20 +73,27 @@ public class OtherUserActivity extends Activity {
     }
 
     /**
+     * 添加关注
+     */
+    private void AddAttentionRequest4Service() {
+        RequestParams params = new RequestParams();
+
+        SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
+                HttpServicePath.AddAttentionUserPath, new AddAttentionRequestCallBack());
+        httpRequest.setParams(params);
+        httpRequest.requestNetworkData();
+    }
+
+    /**
      * 控件动作
      */
     private void ViewAction() {
-        otherUserBack.setOnClickListener(new OtherUserClick());
-
-        collection.setOnClickListener(new OtherUserClick());
-
-        headImage.setOnClickListener(new OtherUserClick());
-
-        footprint.setOnClickListener(new OtherUserClick());
-
-        attention.setOnClickListener(new OtherUserClick());
-
-        conversation.setOnClickListener(new OtherUserClick());
+        otherUserBack.setOnClickListener(otherUserClick);
+        collection.setOnClickListener(otherUserClick);
+        headImage.setOnClickListener(otherUserClick);
+        footprint.setOnClickListener(otherUserClick);
+        attention.setOnClickListener(otherUserClick);
+        conversation.setOnClickListener(otherUserClick);
 
         otherUserLoop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,23 +108,18 @@ public class OtherUserActivity extends Activity {
      * 初始化方法
      */
     private void initView() {
-
         otherUserBack = (ImageView) findViewById(R.id.OtherUserBack);
-
         collection = (TextView) findViewById(R.id.otherUserCollection);
-
         headImage = (ImageView) findViewById(R.id.otherUserHeadImage);
-
         footprint = (TextView) findViewById(R.id.otherUserFootprint);
-
         attention = (TextView) findViewById(R.id.otherUserAttention);
-
         conversation = (TextView) findViewById(R.id.otherUserConversation);
-
         otherUserLoop = (GridView) findViewById(R.id.otherUserLoop);
-
     }
 
+    /**
+     * 控件点击事件
+     */
     class OtherUserClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -121,6 +140,7 @@ public class OtherUserActivity extends Activity {
                     break;
 
                 case R.id.otherUserAttention:
+                    //AddAttentionRequest4Service();
                     break;
 
                 case R.id.otherUserConversation:
@@ -128,6 +148,22 @@ public class OtherUserActivity extends Activity {
 
             }
 
+        }
+    }
+
+    /**
+     * 添加关注回调接口
+     */
+    private class AddAttentionRequestCallBack extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> stringResponseInfo) {
+
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+            Log.e(TAG, s);
         }
     }
 

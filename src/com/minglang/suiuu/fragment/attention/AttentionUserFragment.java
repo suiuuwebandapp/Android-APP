@@ -103,6 +103,8 @@ public class AttentionUserFragment extends Fragment {
     private void getAttentionData4Service() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("page", String.valueOf(page));
+//        TODO 忽略身份验证KEY
+//        params.addBodyParameter(HttpServicePath.key, SuiuuInformation.ReadVerification(getActivity()));
 
         SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
                 HttpServicePath.AttentionUserPath, new AttentionUserRequestCallback());

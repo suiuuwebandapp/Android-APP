@@ -22,6 +22,7 @@ import com.minglang.suiuu.R;
 import com.minglang.suiuu.adapter.LoopArticleImageAdapter;
 import com.minglang.suiuu.customview.CircleImageView;
 import com.minglang.suiuu.customview.NoScrollBarGridView;
+import com.minglang.suiuu.entity.BaseCollection;
 import com.minglang.suiuu.entity.DeleteArticle;
 import com.minglang.suiuu.entity.LoopArticle;
 import com.minglang.suiuu.entity.LoopArticleCommentList;
@@ -200,7 +201,7 @@ public class LoopArticleActivity extends Activity {
         collection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                collectionArticle();
             }
         });
 
@@ -225,7 +226,7 @@ public class LoopArticleActivity extends Activity {
                         .setPositiveButton(getResources().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                Toast.makeText(LoopArticleActivity.this, "已取消删除", Toast.LENGTH_SHORT).show();
                             }
                         }).create().show();
             }
@@ -259,6 +260,23 @@ public class LoopArticleActivity extends Activity {
         });
     }
 
+    /**
+     * 收藏文章
+     */
+    private void collectionArticle() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("articleId", articleId);
+
+        SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
+                HttpServicePath.CollectionLoopPath, new CollectionArticleRequestCallback());
+
+        httpRequest.setParams(params);
+        httpRequest.requestNetworkData();
+    }
+
+    /**
+     * 删除文章
+     */
     private void deleteArticle() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("articleId", articleId);
@@ -387,6 +405,9 @@ public class LoopArticleActivity extends Activity {
         }
     }
 
+    /**
+     * 删除文章网络请求回调接口
+     */
     class DeleteArticleRequestCallBack extends RequestCallBack<String> {
 
         @Override
@@ -408,4 +429,33 @@ public class LoopArticleActivity extends Activity {
             Toast.makeText(LoopArticleActivity.this, "删除失败，请稍候再试", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     * 收藏文章回调接口
+     */
+    class CollectionArticleRequestCallback extends RequestCallBack<String> {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> stringResponseInfo) {
+            String str = stringResponseInfo.result;
+
+            try {
+                BaseCollection baseCollection = JsonUtil.getInstance().fromJSON(BaseCollection.class, str);
+                if (baseCollection.getStatus().equals("1")) {
+                    Toast.makeText(LoopArticleActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(LoopArticleActivity.this, "收藏失败，请稍候再试！", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, e.getMessage());
+            }
+
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+            Log.e(TAG, s);
+            Toast.makeText(LoopArticleActivity.this, "网络异常，请稍候再试！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
