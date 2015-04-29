@@ -268,7 +268,7 @@ public class LoopArticleActivity extends Activity {
         params.addBodyParameter("articleId", articleId);
 
         SuHttpRequest httpRequest = new SuHttpRequest(HttpRequest.HttpMethod.POST,
-                HttpServicePath.CollectionLoopPath, new CollectionArticleRequestCallback());
+                HttpServicePath.CollectionArticlePath, new CollectionArticleRequestCallback());
 
         httpRequest.setParams(params);
         httpRequest.requestNetworkData();

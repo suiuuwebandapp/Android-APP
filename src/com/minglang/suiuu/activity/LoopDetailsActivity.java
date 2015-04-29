@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.exception.HttpException;
@@ -21,6 +23,7 @@ import com.minglang.suiuu.entity.LoopDetailsData;
 import com.minglang.suiuu.entity.LoopDetailsDataList;
 import com.minglang.suiuu.utils.HttpServicePath;
 import com.minglang.suiuu.utils.JsonUtil;
+import com.minglang.suiuu.utils.ScreenUtils;
 import com.minglang.suiuu.utils.SuHttpRequest;
 import com.minglang.suiuu.utils.SuiuuInformation;
 import com.minglang.suiuu.utils.SystemBarTintManager;
@@ -57,6 +60,21 @@ public class LoopDetailsActivity extends Activity {
     private String Verification;
 
     /**
+     * 返回键
+     */
+    private ImageView back;
+
+    /**
+     * 标题
+     */
+    private TextView title;
+
+    /**
+     * 添加关注
+     */
+    private TextView addAttention;
+
+    /**
      * 数据显示控件
      */
     private GridView loopDetailsGridView;
@@ -71,6 +89,16 @@ public class LoopDetailsActivity extends Activity {
     private LoopDetailsRequestCallBack loopDetailsRequestCallBack = new LoopDetailsRequestCallBack();
 
     private ProgressDialog progressDialog;
+
+    /**
+     * 屏幕宽度
+     */
+    private int screenWidth;
+
+    /**
+     * 屏幕高度
+     */
+    private int screenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,14 +131,27 @@ public class LoopDetailsActivity extends Activity {
         suHttpRequest.setParams(params);
         suHttpRequest.requestNetworkData();
 
-        Log.i(TAG, Verification);
-        Log.i(TAG, loopID);
     }
 
     /**
      * 控件动作
      */
     private void ViewAction() {
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        addAttention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         loopDetailsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -140,7 +181,15 @@ public class LoopDetailsActivity extends Activity {
         progressDialog.setCancelable(true);
         progressDialog.setMessage(getResources().getString(R.string.load_wait));
 
+        back = (ImageView) findViewById(R.id.loop_details_back);
+        title = (TextView) findViewById(R.id.loop_details_title);
+        addAttention = (TextView) findViewById(R.id.loop_details_add_attention);
+
         loopDetailsGridView = (GridView) findViewById(R.id.loopDetailsGridView);
+
+        ScreenUtils screenUtils = new ScreenUtils(this);
+        screenWidth = screenUtils.getScreenWidth();
+        screenHeight = screenUtils.getScreenHeight();
     }
 
     class LoopDetailsRequestCallBack extends RequestCallBack<String> {
@@ -156,6 +205,7 @@ public class LoopDetailsActivity extends Activity {
                     list = loopDetailsData.getData();
                     if (list != null) {
                         LoopDetailsAdapter loopDetailsAdapter = new LoopDetailsAdapter(LoopDetailsActivity.this, list);
+                        loopDetailsAdapter.setScreenParams(screenWidth, screenHeight);
                         loopDetailsGridView.setAdapter(loopDetailsAdapter);
                     } else {
                         Toast.makeText(LoopDetailsActivity.this, "暂无数据！", Toast.LENGTH_SHORT).show();

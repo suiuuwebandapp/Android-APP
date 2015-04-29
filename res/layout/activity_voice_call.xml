@@ -22,7 +22,7 @@
             android:id="@+id/tv_call_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/voip_interface_text_color"
+            android:textColor="@color/void_interface_text_color"
             android:textSize="22sp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
@@ -40,7 +40,7 @@
             android:id="@+id/tv_calling_duration"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:textColor="@color/voip_interface_text_color"
+            android:textColor="@color/void_interface_text_color"
             android:textSize="15sp"
             android:visibility="visible" />
     </LinearLayout>

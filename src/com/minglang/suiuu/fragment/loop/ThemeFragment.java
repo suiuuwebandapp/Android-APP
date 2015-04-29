@@ -25,6 +25,7 @@ import com.minglang.suiuu.entity.Loop;
 import com.minglang.suiuu.entity.LoopData;
 import com.minglang.suiuu.utils.HttpServicePath;
 import com.minglang.suiuu.utils.JsonUtil;
+import com.minglang.suiuu.utils.ScreenUtils;
 import com.minglang.suiuu.utils.SuHttpRequest;
 import com.minglang.suiuu.utils.SuiuuInformation;
 
@@ -57,6 +58,15 @@ public class ThemeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    /**
+     * 屏幕宽度
+     */
+    private int screenWidth;
+
+    /**
+     * 屏幕高度
+     */
+    private int screenHeight;
 
     /**
      * Use this factory method to create a new instance of
@@ -93,6 +103,10 @@ public class ThemeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_theme, null);
+
+        ScreenUtils screenUtils = new ScreenUtils(getActivity());
+        screenWidth = screenUtils.getScreenWidth();
+        screenHeight = screenUtils.getScreenHeight();
 
         initView(rootView);
         ViewAction();
@@ -173,6 +187,7 @@ public class ThemeFragment extends Fragment {
                 if (Integer.parseInt(loop.getStatus()) == 1) {
                     list = loop.getData();
                     ThemeAdapter themeAdapter = new ThemeAdapter(getActivity(), loop, list);
+                    themeAdapter.setScreenParams(screenWidth, screenHeight);
                     themeGridView.setAdapter(themeAdapter);
                 } else {
                     Toast.makeText(getActivity(), "数据获取失败，请重试！", Toast.LENGTH_SHORT).show();

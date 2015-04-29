@@ -117,6 +117,8 @@
     <string name="article_publish_success">文章发布成功</string>
     <string name="article_publish_failure">文章发布失败</string>
 
+    <string name="UnknownArea">未知地区</string>
+    <string name="title">标题</string>
 
     <!--关于聊天-->
     <string name="show_comments">显示评论</string>

@@ -95,4 +95,32 @@ public class HttpServicePath {
      * 发布圈子文章
      */
     public static String createLoop = RootPath + "/circle/create-article";
+
+
+    /**
+     * 获取收藏的圈子
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:页码 page(0 得到全部、1—— +∞ 对应页码数)
+     */
+    public static String CollectionLoopPath = RootPath + "/attention/get-collection-article";
+
+    /**
+     * 添加关注(用户)
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:需要关注用户标示 userSign
+     */
+    public static String AddAttentionUserPath = RootPath + "/attention/add-attention-user";
+
+    /**
+     * 收藏文章
+     * <p/>
+     * 请求方式:POST
+     * <p/>
+     * 请求参数:需要收藏文章的id:articleId
+     */
+    public static String CollectionArticlePath = RootPath + "/attention/add-collection-article";
 }

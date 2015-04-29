@@ -2,11 +2,11 @@ package com.minglang.suiuu.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.customview.CircleImageView;
 import com.minglang.suiuu.entity.LoopDetailsDataList;
+import com.minglang.suiuu.utils.Utils;
 import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -41,6 +42,8 @@ public class LoopDetailsAdapter extends BaseAdapter {
 
     private String url = "http://suiuu.oss-cn-hongkong.aliyuncs.com/suiuu_content/20150414141605_50758.png";
 
+    private int screenWidth, screenHeight;
+
     public LoopDetailsAdapter(Context context, List<LoopDetailsDataList> loopDetailsDataList) {
         this.context = context;
         this.list = loopDetailsDataList;
@@ -57,6 +60,11 @@ public class LoopDetailsAdapter extends BaseAdapter {
                 .showImageForEmptyUri(R.drawable.default_head_image2).showImageOnFail(R.drawable.default_head_image2)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).build();
+    }
+
+    public void setScreenParams(int screenWidth, int screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
     }
 
     @Override
@@ -91,7 +99,6 @@ public class LoopDetailsAdapter extends BaseAdapter {
 
         ImageView mainImageView = holder.getView(R.id.item_loop_details_image);
         CircleImageView headImage = holder.getView(R.id.item_loop_details_head_image);
-        int height = BitmapFactory.decodeResource(context.getResources(), R.drawable.default_head_image2).getHeight();
 
         TextView userName = holder.getView(R.id.item_loop_details_user_name);
 
@@ -141,6 +148,14 @@ public class LoopDetailsAdapter extends BaseAdapter {
             praise.setText(praise_str);
         }
 
-        return holder.getConvertView();
+        int itemParams = screenWidth / 2 - Utils.newInstance(context).dip2px(10);
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(itemParams, itemParams);
+
+        Log.i(TAG, "*********************" + itemParams);
+
+        convertView = holder.getConvertView();
+        convertView.setLayoutParams(params);
+
+        return convertView;
     }
 }

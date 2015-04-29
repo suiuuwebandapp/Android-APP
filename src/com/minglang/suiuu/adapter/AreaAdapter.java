@@ -2,8 +2,10 @@ package com.minglang.suiuu.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.minglang.suiuu.R;
 import com.minglang.suiuu.entity.Loop;
 import com.minglang.suiuu.entity.LoopData;
+import com.minglang.suiuu.utils.Utils;
 import com.minglang.suiuu.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,6 +29,8 @@ import java.util.List;
  */
 public class AreaAdapter extends BaseAdapter {
 
+    private static final String TAG = AreaAdapter.class.getSimpleName();
+
     private Context context;
 
     private Loop loopInfo;
@@ -35,6 +40,10 @@ public class AreaAdapter extends BaseAdapter {
     private ImageLoader imageLoader;
 
     private DisplayImageOptions displayImageOptions;
+
+    private String url = "http://suiuu.oss-cn-hongkong.aliyuncs.com/suiuu_content/20150414141605_50758.png";
+
+    private int screenWidth, screenHeight;
 
     public AreaAdapter(Context context, Loop loopInfo, List<LoopData> list) {
         this.context = context;
@@ -47,6 +56,11 @@ public class AreaAdapter extends BaseAdapter {
                 .showImageForEmptyUri(R.drawable.scroll1).showImageOnFail(R.drawable.scroll1)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).build();
+    }
+
+    public void setScreenParams(int screenWidth, int screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
     }
 
     @Override
@@ -80,9 +94,17 @@ public class AreaAdapter extends BaseAdapter {
 
         LoopData loopData = list.get(position);
 
-        imageLoader.displayImage(loopData.getCpic(), imageView, displayImageOptions);
+        imageLoader.displayImage(url, imageView, displayImageOptions);
         title.setText(loopData.getcName());
 
-        return holder.getConvertView();
+        int itemParams = screenWidth / 2 - Utils.newInstance(context).dip2px(10);
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(itemParams, itemParams);
+
+        convertView = holder.getConvertView();
+        convertView.setLayoutParams(params);
+
+        Log.i(TAG, "itemParams:" + itemParams);
+
+        return convertView;
     }
 }

@@ -216,18 +216,19 @@ public class MainActivity extends FragmentActivity {
         }
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         setContentView(R.layout.activity_main);
         initView();
+
         if (isNavigationBar) {
             if (isKITKAT) {
                 ConstantUtil.topHeight = titleLayout.getLayoutParams().height + statusBarHeight;
-                Log.i("suiuu", "有按键,4.4");
 
             }
         } else {
             ConstantUtil.topHeight = titleLayout.getLayoutParams().height;
-            Log.i("suiuu", "无按键,4.4");
         }
+
         initRegisterAllBroadcastReceiver();
     }
 
